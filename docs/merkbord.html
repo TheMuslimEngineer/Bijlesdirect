@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bijlesdirect — Merkbord</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#FBFAF6; --sand:#F3EFE6; --sand2:#ECE6D8;
+    --ink:#1B1A16; --ink-soft:#403D35; --muted:#6F6A5E;
+    --green:#0E6B4F; --green-deep:#0A5340; --green-soft:#E4F0EA;
+    --gold:#BF7D2C; --line:#E6E0D4; --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em;line-height:1.08}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+  section{padding:34px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:none}
+  .sec-title{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:22px;display:flex;align-items:center;gap:12px}
+  .sec-title::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  /* header */
+  header{padding:56px 0 40px;border-bottom:1px solid var(--line)}
+  .head-grid{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .logo-lockup{display:flex;align-items:center;gap:14px}
+  .logo-lockup img{height:52px;width:auto}
+  .logo-lockup .name{font-family:'Fraunces',serif;font-size:34px;font-weight:600;letter-spacing:-.02em}
+  header .tagline{margin-top:10px;color:var(--ink-soft);font-size:16px}
+  .meta{text-align:right;font-size:13px;color:var(--muted)}
+  @media(max-width:640px){.meta{text-align:left}}
+
+  /* essentie */
+  .essence{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+  .essence h1{font-size:clamp(28px,4vw,44px)}
+  .essence h1 em{font-style:italic;color:var(--green)}
+  .essence p{margin-top:14px;color:var(--ink-soft)}
+  .kern{display:grid;gap:10px}
+  .kern .chip{display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:14.5px;font-weight:500}
+  .kern .dot{width:9px;height:9px;border-radius:50%;background:var(--green);flex:none}
+  @media(max-width:760px){.essence{grid-template-columns:1fr}}
+
+  /* logo */
+  .logo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .logo-card{border:1px solid var(--line);border-radius:16px;display:grid;place-items:center;min-height:170px;padding:24px;position:relative}
+  .logo-card .lbl{position:absolute;bottom:10px;left:14px;font-size:11.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+  .lc-light{background:var(--white)}
+  .lc-sand{background:var(--sand)}
+  .lc-dark{background:var(--ink)}
+  .lc-dark .lbl{color:rgba(255,255,255,.55)}
+  .mini-lockup{display:flex;align-items:center;gap:10px}
+  .mini-lockup img{height:38px}
+  .mini-lockup span{font-family:'Fraunces',serif;font-size:24px;font-weight:600;letter-spacing:-.02em}
+  .lc-dark .mini-lockup span{color:var(--cream)}
+  .lc-dark img{filter:brightness(0) invert(.94)}
+  .logo-note{margin-top:14px;font-size:13.5px;color:var(--muted)}
+  @media(max-width:760px){.logo-grid{grid-template-columns:1fr}}
+
+  /* kleuren */
+  .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .swatch{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--white)}
+  .swatch .color{height:74px}
+  .swatch .info{padding:10px 13px}
+  .swatch .nm{font-weight:600;font-size:13.5px}
+  .swatch .hex{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .swatch .use{font-size:12px;color:var(--ink-soft);margin-top:3px}
+  @media(max-width:760px){.swatches{grid-template-columns:repeat(2,1fr)}}
+
+  /* typografie */
+  .type-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .type-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .type-card .fam{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .type-card .specimen{margin-top:10px}
+  .spec-fraunces{font-family:'Fraunces',serif;font-size:38px;font-weight:500;letter-spacing:-.01em;line-height:1.15}
+  .spec-fraunces em{font-style:italic;color:var(--green)}
+  .spec-inter{font-size:16px;color:var(--ink-soft)}
+  .type-card .rollen{margin-top:14px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+  @media(max-width:760px){.type-grid{grid-template-columns:1fr}}
+
+  /* UI elementen */
+  .ui-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:13px 24px;border-radius:999px;font-family:'Inter'}
+  .btn-primary{background:var(--green);color:#fff;box-shadow:0 10px 24px -10px rgba(14,107,79,.6)}
+  .btn-ghost{border:1.5px solid var(--line);color:var(--ink);background:transparent}
+  .pill{display:inline-flex;align-items:center;gap:6px;background:var(--green-soft);color:var(--green-deep);font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px}
+  .badge-gold{display:inline-flex;background:var(--gold);color:#fff;font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px}
+  .stars{color:var(--gold);letter-spacing:2px;font-size:17px}
+  .chip-vak{background:var(--white);border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px;font-weight:500;color:var(--ink-soft)}
+  .ui-note{margin-top:12px;font-size:13px;color:var(--muted)}
+
+  /* tone of voice */
+  .tone-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .tone-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .tone-card h3{font-size:16px;margin-bottom:10px}
+  .tone-card.wel h3{color:var(--green-deep)}
+  .tone-card.niet h3{color:#a3271f}
+  .tone-card ul{list-style:none;display:grid;gap:8px}
+  .tone-card li{font-size:14px;color:var(--ink-soft);padding-left:20px;position:relative}
+  .tone-card.wel li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
+  .tone-card.niet li::before{content:"✗";position:absolute;left:0;color:#a3271f;font-weight:700}
+  .voorbeeld{margin-top:16px;background:var(--sand);border-radius:14px;padding:18px 20px}
+  .voorbeeld .q{font-family:'Fraunces',serif;font-size:19px;font-style:italic}
+  .voorbeeld .s{font-size:12.5px;color:var(--muted);margin-top:6px}
+  @media(max-width:760px){.tone-grid{grid-template-columns:1fr}}
+
+  /* cijfers + foto */
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .fact{background:var(--green);color:#fff;border-radius:16px;padding:22px 18px;text-align:center}
+  .fact .big{font-family:'Fraunces',serif;font-size:30px;font-weight:600;line-height:1}
+  .fact .lbl{font-size:12.5px;color:rgba(255,255,255,.82);margin-top:6px}
+  @media(max-width:760px){.facts{grid-template-columns:repeat(2,1fr)}}
+  .foto-regels{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center}
+  .foto-regels ul{list-style:none;display:grid;gap:8px}
+  .foto-regels li{font-size:14px;color:var(--ink-soft);padding-left:20px;position:relative}
+  .foto-regels li::before{content:"—";position:absolute;left:0;color:var(--green)}
+  @media(max-width:760px){.foto-regels{grid-template-columns:1fr}}
+
+  footer{padding:30px 0 50px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  @media print{
+    body{background:#fff}
+    section{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap head-grid">
+    <div>
+      <div class="logo-lockup">
+        <img src="brand-icon.png" alt="Bijlesdirect icoon" />
+        <span class="name">Bijlesdirect</span>
+      </div>
+      <p class="tagline">Persoonlijke 1-op-1 online bijles · basisschool &amp; voortgezet onderwijs</p>
+    </div>
+    <div class="meta">
+      <strong style="color:var(--ink)">Merkbord</strong><br />
+      Versie 1.0 · juli 2026<br />
+      bijlesdirect.nl
+    </div>
+  </div>
+</header>
+
+<!-- ESSENTIE -->
+<section>
+  <div class="wrap">
+    <div class="sec-title">Merkessentie</div>
+    <div class="essence">
+      <div>
+        <h1>Betere cijfers en <em>meer zelfvertrouwen</em> voor uw kind.</h1>
+        <p>Bijlesdirect is de persoonlijke tegenhanger van het anonieme bijlesinstituut: één vaste docent, volledige begeleiding standaard inbegrepen, en risicoloos starten — geen inschrijfkosten, maandelijks opzegbaar.</p>
+      </div>
+      <div class="kern">
+        <div class="chip"><span class="dot"></span>Persoonlijk — echte mensen, echte resultaten</div>
+        <div class="chip"><span class="dot"></span>Risicoloos — geen drempels, geen kleine lettertjes</div>
+        <div class="chip"><span class="dot"></span>Premium maar warm — kwaliteit zonder afstandelijkheid</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO -->
+<section>
+  <div class="wrap">
+    <div class="sec-title">Logo</div>
+    <div class="logo-grid">
+      <div class="logo-card lc-light">
+        <div class="mini-lockup"><img src="brand-icon.png" alt="" /><span>Bijlesdirect</span></div>
+        <span class="lbl">Primair · op wit</span>
+      </div>
+      <div class="logo-card lc-sand">
+        <img src="brand-icon.png" alt="" style="height:64px" />
+        <span class="lbl">Alleen icoon · op zand</span>
+      </div>
+      <div class="logo-card lc-dark">
+        <div class="mini-lockup"><img src="brand-icon.png" alt="" /><span>Bijlesdirect</span></div>
+        <span class="lbl">Diapositief · op inkt</span>
+      </div>
+    </div>
+    <p class="logo-note">Het icoon (klaslokaal met docent en drie leerlingen) altijd in merkgroen op lichte ondergrond, of crème op donkere ondergrond. Woordmerk altijd in Fraunces SemiBold. Ruimte rondom: minimaal de hoogte van één leerling-figuurtje. Niet uitrekken, hellen of hercombineren met andere kleuren.</p>
+  </div>
+</section>
+
+<!-- KLEUREN -->
+<section>
+  <div class="wrap">
+    <div class="sec-title">Kleuren</div>
+    <div class="swatches">
+      <div class="swatch"><div class="color" style="background:#0E6B4F"></div><div class="info"><div class="nm">Groen</div><div class="hex">#0E6B4F</div><div class="use">Primair · knoppen · logo</div></div></div>
+      <div class="swatch"><div class="color" style="background:#0A5340"></div><div class="info"><div class="nm">Diep groen</div><div class="hex">#0A5340</div><div class="use">Hover · nadruk</div></div></div>
+      <div class="swatch"><div class="color" style="background:#E4F0EA"></div><div class="info"><div class="nm">Zacht groen</div><div class="hex">#E4F0EA</div><div class="use">Accentvlakken · pills</div></div></div>
+      <div class="swatch"><div class="color" style="background:#BF7D2C"></div><div class="info"><div class="nm">Goud</div><div class="hex">#BF7D2C</div><div class="use">Sterren · badges · spaarzaam</div></div></div>
+      <div class="swatch"><div class="color" style="background:#FBFAF6;border-bottom:1px solid var(--line)"></div><div class="info"><div class="nm">Crème</div><div class="hex">#FBFAF6</div><div class="use">Achtergrond</div></div></div>
+      <div class="swatch"><div class="color" style="background:#F3EFE6"></div><div class="info"><div class="nm">Zand</div><div class="hex">#F3EFE6</div><div class="use">Secties · banden</div></div></div>
+      <div class="swatch"><div class="color" style="background:#1B1A16"></div><div class="info"><div class="nm">Inkt</div><div class="hex">#1B1A16</div><div class="use">Koppen · tekst · donkere vlakken</div></div></div>
+      <div class="swatch"><div class="color" style="background:#E6E0D4"></div><div class="info"><div class="nm">Lijn</div><div class="hex">#E6E0D4</div><div class="use">Randen · scheidingen</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPOGRAFIE -->
+<section>
+  <div class="wrap">
+    <div class="sec-title">Typografie</div>
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="fam">Koppen — Fraunces</div>
+        <div class="specimen spec-fraunces">Excelleren begint met <em>aandacht</em>.</div>
+        <div class="rollen">Gewichten 400–600 · cursief voor nadruk in merkgroen · strakke regelafstand (1.05–1.1)</div>
+      </div>
+      <div class="type-card">
+        <div class="fam">Lopende tekst — Inter</div>
+        <div class="specimen spec-inter">Persoonlijke online bijles van bevlogen docenten. Vandaag een gratis intake, deze week al de eerste les. Wij geloven in echte aandacht: één vaste docent die uw kind écht leert kennen.</div>
+        <div class="rollen">Regular 400 voor tekst · Medium 500 voor labels · SemiBold 600 voor knoppen · regelafstand 1.6</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UI ELEMENTEN -->
+<section>
+  <div class="wrap">
+    <div class="sec-title">Vaste elementen</div>
+    <div class="ui-row">
+      <span class="btn btn-primary">Vraag een gratis intake aan →</span>
+      <span class="btn btn-ghost">Hoe het werkt</span>
+      <span class="pill">✓ Geen inschrijfkosten</span>
+      <span class="badge-gold">Meest gekozen</span>
+      <span class="stars">★★★★★</span>
+      <span class="chip-vak">Wiskunde</span>
+    </div>
+    <p class="ui-note">Knoppen altijd afgerond (pill-vorm) · één primaire (groene) knop per sectie · goud alleen voor sterren en "Meest gekozen" · kaarten met 16–28px afronding en subtiele lijnrand, nooit harde schaduwen.</p>
+  </div>
+</section>
+
+<!-- TONE OF VOICE -->
+<section>
+  <div class="wrap">
+    <div class="sec-title">Tone of voice</div>
+    <div class="tone-grid">
+      <div class="tone-card wel">
+        <h3>Wél zo</h3>
+        <ul>
+          <li>Warm en persoonlijk — "u" tegen ouders, "je" tegen leerlingen</li>
+          <li>Concreet en eerlijk: echte cijfers, echte namen, echte resultaten</li>
+          <li>Geruststellend: benoem altijd wat er níét aan vastzit</li>
+          <li>Zelfverzekerd zonder schreeuwen — de resultaten spreken</li>
+        </ul>
+      </div>
+      <div class="tone-card niet">
+        <h3>Niet zo</h3>
+        <ul>
+          <li>Schoolse afstandelijkheid of instituut-taal ("onderwijsinstelling")</li>
+          <li>Overdreven claims ("gegarandeerd een 8!") of uitroeptekens stapelen</li>
+          <li>Angst aanjagen over achterstanden of blijven zitten</li>
+          <li>Jargon, Engels of afkortingen waar ouders niets mee kunnen</li>
+        </ul>
+      </div>
+    </div>
+    <div class="voorbeeld">
+      <div class="q">"Vandaag een gratis intake, deze week al de eerste les."</div>
+      <div class="s">Voorbeeldzin: concreet, laagdrempelig, actiegericht — zo klinkt Bijlesdirect.</div>
+    </div>
+  </div>
+</section>
+
+<!-- KERNCIJFERS + FOTOGRAFIE -->
+<section>
+  <div class="wrap">
+    <div class="sec-title">Kerncijfers &amp; fotografie</div>
+    <div class="facts">
+      <div class="fact"><div class="big">4,9★</div><div class="lbl">gemiddelde beoordeling</div></div>
+      <div class="fact"><div class="big">500+</div><div class="lbl">gezinnen geholpen</div></div>
+      <div class="fact"><div class="big">100+</div><div class="lbl">reviews van ouders</div></div>
+      <div class="fact"><div class="big">98%</div><div class="lbl">betere cijfers in 2025</div></div>
+    </div>
+    <div class="foto-regels" style="margin-top:22px">
+      <ul>
+        <li>Alleen échte foto's: het team, echte lessen, echte werkplekken</li>
+        <li>Warm, natuurlijk licht · rustige achtergronden</li>
+        <li>Geen stockfoto's, geen cartoon-illustraties, geen AI-mensen</li>
+        <li>Cijfers elk kwartaal actualiseren — nooit afronden naar boven</li>
+      </ul>
+      <ul>
+        <li>WhatsApp-groen (#25D366) alléén voor de WhatsApp-knop</li>
+        <li>Reviews altijd letterlijk citeren, met naam en datum</li>
+        <li>Trustpilot/Google alleen noemen als verwijzing, niet als bron van alle reviews</li>
+        <li>Icoonstijl: lijn-iconen (2px), afgerond, in inkt of groen</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:0">
+    <span>© 2026 Bijlesdirect · KVK 94485038 · info@bijlesdirect.nl</span>
+    <span>Merkbord v1.0 — vragen over gebruik: Adam</span>
+  </div>
+</footer>
+
+</body>
+</html>

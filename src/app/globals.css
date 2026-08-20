@@ -1,0 +1,259 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ─────────────────────────────────────────────
+   Bijlesdirect — Design system (Richting A · Helder & Warm)
+   ───────────────────────────────────────────── */
+@theme {
+  --color-cream: #fbfaf6;
+  --color-sand: #f3efe6;
+  --color-sand-2: #ece6d8;
+  --color-paper: #ffffff;
+
+  --color-ink: #1b1a16;
+  --color-ink-soft: #403d35;
+  --color-muted: #6f6a5e;
+
+  --color-green: #0e6b4f;
+  --color-green-deep: #0a5340;
+  --color-green-soft: #e4f0ea;
+
+  --color-gold: #bf7d2c;
+  --color-line: #e6e0d4;
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+
+  --radius-xl2: 1.25rem;
+}
+
+:root {
+  --background: var(--color-cream);
+  --foreground: var(--color-ink);
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ─────────────────────────────────────────────
+   Koppen — de optische snede van Fraunces
+
+   `opsz` bepaalt hóé de letter is getekend, niet hoe groot hij is. Een
+   displaykop wil een hoge waarde (fijne haarlijnen, veel contrast), een klein
+   kopje juist een lage — anders wordt het spichtig en slecht leesbaar.
+   Sturen kan per element via --kop-opsz en --kop-soft.
+   ───────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 500;
+  line-height: 1.06;
+  font-variation-settings:
+    "opsz" var(--kop-opsz, 48),
+    "SOFT" var(--kop-soft, 30);
+  /* Verdeelt de regels gelijkmatig in plaats van één los woord onderaan. */
+  text-wrap: balance;
+}
+
+/* Voorkomt een enkel woord op de laatste regel van een alinea. */
+p {
+  text-wrap: pretty;
+}
+
+h1 {
+  --kop-opsz: 144;
+  --kop-soft: 40;
+  letter-spacing: -0.022em;
+}
+
+h2 {
+  --kop-opsz: 96;
+  --kop-soft: 35;
+  letter-spacing: -0.018em;
+}
+
+h3, h4 {
+  --kop-opsz: 28;
+  --kop-soft: 25;
+  letter-spacing: -0.01em;
+}
+
+/* Voor een kop die klein gezet is maar wel h1/h2 is in de documentstructuur. */
+.kop-tekst {
+  --kop-opsz: 28;
+  --kop-soft: 25;
+  letter-spacing: -0.01em;
+}
+
+/* Het accentwoord in de hero. WONK zet de eigenzinnige alternatieven aan —
+   spaarzaam gebruiken, dit is het handschrift van het merk. */
+.kop-wonk {
+  font-variation-settings:
+    "opsz" 144,
+    "SOFT" 40,
+    "WONK" 1;
+}
+
+/* Selection */
+::selection {
+  background: var(--color-green-soft);
+  color: var(--color-green-deep);
+}
+
+/* Focus visibility for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+/* Prose tuning for the blog */
+.prose {
+  --tw-prose-body: var(--color-ink-soft);
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-links: var(--color-green-deep);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-quotes: var(--color-ink-soft);
+  --tw-prose-quote-borders: var(--color-green);
+  --tw-prose-bullets: var(--color-green);
+  --tw-prose-counters: var(--color-muted);
+  --tw-prose-hr: var(--color-line);
+}
+
+/* TutorBird widget: responsive + veilige minimumhoogte als auto-resize traag is */
+.tutorbird-widget iframe {
+  width: 100% !important;
+  max-width: 100%;
+  min-height: 460px;
+  border: 0;
+  color-scheme: light;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Muisgloed
+
+   Een zacht licht dat de aanwijzer volgt. Alleen op vlakken met genoeg tonale
+   ruimte: het donkere CTA-blok en de witte kaarten. Op crème zou het modderen.
+
+   De positie komt uit `Gloed` in muis-gloed.tsx als --muis-x / --muis-y.
+   ───────────────────────────────────────────── */
+.gloed {
+  position: relative;
+  isolation: isolate;
+}
+
+.gloed::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms ease;
+  background: radial-gradient(
+    var(--gloed-straal, 420px) circle at var(--muis-x, 50%) var(--muis-y, 50%),
+    var(--gloed-kleur, rgb(255 255 255 / 0.09)),
+    transparent 68%
+  );
+}
+
+/* Alleen bij een echte muisaanwijzer — niet op touch. */
+@media (hover: hover) and (pointer: fine) {
+  .gloed:hover::after {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gloed::after {
+    display: none;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Waardestapel — de prijs is waar het om draait
+
+   Bij het aanwijzen komt de kaart iets op en springt het bedrag van grijs naar
+   merkgroen. Zo leest de bezoeker de losse waarde van elk onderdeel.
+   ───────────────────────────────────────────── */
+.stapel-kaart {
+  transition:
+    border-color 250ms ease,
+    transform 250ms ease,
+    background-color 250ms ease;
+}
+
+.stapel-prijs {
+  display: inline-block;
+  transition:
+    color 250ms ease,
+    transform 250ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stapel-kaart:hover {
+    border-color: rgb(14 107 79 / 0.3);
+    transform: translateY(-4px);
+  }
+
+  .stapel-kaart:hover .stapel-prijs {
+    color: var(--color-green-deep);
+    transform: scale(1.14);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stapel-kaart:hover,
+  .stapel-kaart:hover .stapel-prijs {
+    transform: none;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Slagingscheck — zachte overgang tussen de schermen
+   ───────────────────────────────────────────── */
+@keyframes stap-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-stap {
+  animation: stap-in 200ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-stap {
+    animation: none;
+  }
+}
+
+
+
+
+

@@ -1,0 +1,13 @@
+# Regeleindes normaliseren naar LF in de repo. Zonder dit ziet een Linux-server
+# (of een collega op een Mac) elk bestand als gewijzigd zodra Windows het aanraakt.
+* text=auto eol=lf
+
+# Binaire bestanden nooit converteren.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.webp binary
+*.ico  binary
+*.woff binary
+*.woff2 binary
+*.pdf  binary
