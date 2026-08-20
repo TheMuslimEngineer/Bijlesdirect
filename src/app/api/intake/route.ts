@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { escapeHtml, mailAdres, verstuur } from "@/lib/mail";
+import { bewaarBericht } from "@/lib/supabase/opslag";
 
 /**
  * Losse berichten: het contactformulier en de docent-aanmelding.
@@ -56,6 +57,17 @@ export async function POST(req: Request) {
 
   // Honeypot: bot vulde het verborgen veld in → doe alsof het lukte, doe niets.
   if (data.website) return NextResponse.json({ ok: true });
+
+  // Ook bewaren in de database. Niet blokkerend: mislukt het, dan gaat het
+  // bericht gewoon via de mail door.
+  await bewaarBericht({
+    soort: data.type,
+    naam: data.naam,
+    email: data.email,
+    telefoon: data.telefoon || null,
+    vakken: data.vakken || null,
+    bericht: data.bericht || null,
+  });
 
   const regels: [string, string][] = [
     ["Type", data.type],

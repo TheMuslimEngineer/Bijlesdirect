@@ -9,6 +9,7 @@ import {
 import type { Antwoorden } from "@/components/slagingscheck/types";
 import { assemble, delen, type Gids } from "@/content/oudergids";
 import { escapeHtml, mailAdres, omlijst, verstuur } from "@/lib/mail";
+import { bewaarAanvraag } from "@/lib/supabase/opslag";
 import { programma } from "@/config/programma";
 import { site } from "@/lib/site";
 
@@ -270,6 +271,10 @@ export async function POST(req: Request) {
   const { naarBijlesdirect } = mailAdres();
   const melding = notificatie(a);
 
+  // Wegschrijven naar de database. Bewust vóór de mail, maar niet blokkerend:
+  // mislukt het, dan gaat de aanvraag gewoon door via de mail.
+  const bewaard = await bewaarAanvraag(a);
+
   // 1) Melding naar Bijlesdirect — dit mag niet misgaan.
   let bezorgd = false;
   try {
@@ -306,5 +311,5 @@ export async function POST(req: Request) {
     console.error("[slagingscheck] bevestigingsmail mislukt:", err);
   }
 
-  return NextResponse.json({ ok: true, delivered: bezorgd });
+  return NextResponse.json({ ok: true, delivered: bezorgd, stored: bewaard });
 }
