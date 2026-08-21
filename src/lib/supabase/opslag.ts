@@ -48,7 +48,13 @@ function naarRij(a: Antwoorden): AanvraagInsert {
 
 /** Bewaart een Slagingscheck-aanvraag. Geeft terug of het gelukt is. */
 export async function bewaarAanvraag(a: Antwoorden): Promise<boolean> {
-  if (!supabaseBeschikbaar()) return false;
+  if (!supabaseBeschikbaar()) {
+    console.warn(
+      "[opslag] Supabase niet ingesteld — aanvraag NIET bewaard. " +
+        "Ontbrekend: NEXT_PUBLIC_SUPABASE_URL en/of NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY.",
+    );
+    return false;
+  }
   try {
     const supabase = await maakServerClient();
     const { error } = await supabase.from("slagingscheck_aanvragen").insert(naarRij(a));
@@ -65,7 +71,10 @@ export async function bewaarAanvraag(a: Antwoorden): Promise<boolean> {
 
 /** Bewaart een contactbericht of docent-aanmelding. */
 export async function bewaarBericht(bericht: BerichtInsert): Promise<boolean> {
-  if (!supabaseBeschikbaar()) return false;
+  if (!supabaseBeschikbaar()) {
+    console.warn("[opslag] Supabase niet ingesteld — bericht NIET bewaard.");
+    return false;
+  }
   try {
     const supabase = await maakServerClient();
     const { error } = await supabase.from("berichten").insert(bericht);
