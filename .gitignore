@@ -30,9 +30,17 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files — nooit meecommitten, behalve het voorbeeld
+# env files — nooit meecommitten, behalve deze twee.
+#
+# .env.example    documenteert welke variabelen nodig zijn (geen waarden)
+# .env.production bevat UITSLUITEND publieke waarden, zodat de hostingomgeving
+#                 ze automatisch oppikt bij het bouwen.
+#
+# Alles wat geheim is — RESEND_API_KEY, de Supabase service role key,
+# wachtwoorden — hoort NOOIT in een van deze bestanden, want de repo is publiek.
 .env*
 !.env.example
+!.env.production
 
 # vercel
 .vercel
