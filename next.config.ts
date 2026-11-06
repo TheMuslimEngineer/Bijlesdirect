@@ -1,6 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /*
+   * Hostinger (gedeelde hosting) beperkt hoeveel processen een build mag
+   * starten. Turbopack crashte daar ("child process exited before
+   * connecting"), daarom bouwt `npm run build` met webpack (zie package.json),
+   * en houden we het aantal hulpprocessen bij het bouwen klein.
+   */
+  experimental: {
+    cpus: 2,
+  },
+
   async redirects() {
     return [
       // Oude tarievenpagina → nieuwe prijs- en garantiepagina
