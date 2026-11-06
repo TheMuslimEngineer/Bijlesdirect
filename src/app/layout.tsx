@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { site } from "@/lib/site";
+
+/*
+ * De lettertypes staan in src/app/fonts en worden niet meer tijdens de build
+ * bij Google opgehaald. Op Hostinger brak de build daarop: Turbopack kon het
+ * antwoord van Google niet verwerken ("next/font/google queries have exactly
+ * one entry"). Het zijn de Latijnse variabele bestanden van Google Fonts
+ * (SIL Open Font License), dezelfde die de site eerder via Google kreeg.
+ * Alle tekst op de site valt binnen de Latijnse tekenset.
+ */
 
 /**
  * Fraunces als variabele font, mét zijn drie extra assen:
@@ -15,18 +24,20 @@ import { site } from "@/lib/site";
  *
  * De waarden staan in globals.css, zodat de typografie op één plek te sturen is.
  */
-const fraunces = Fraunces({
+const fraunces = localFont({
   variable: "--font-fraunces",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["SOFT", "WONK", "opsz"],
+  src: [
+    { path: "./fonts/fraunces-latin.woff2", weight: "100 900", style: "normal" },
+    { path: "./fonts/fraunces-latin-italic.woff2", weight: "100 900", style: "italic" },
+  ],
   display: "swap",
+  // Fraunces is een schreefletter: de tijdelijke vervanger moet dat ook zijn.
+  adjustFontFallback: "Times New Roman",
 });
 
-const inter = Inter({
+const inter = localFont({
   variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  src: [{ path: "./fonts/inter-latin.woff2", weight: "100 900", style: "normal" }],
   display: "swap",
 });
 
