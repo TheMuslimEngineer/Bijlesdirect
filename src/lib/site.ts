@@ -1,43 +1,84 @@
 /**
- * Bijlesdirect — algemene site-inhoud.
+ * ExamenDocent — algemene site-inhoud.
  *
  * ▸ Programma-inhoud (prijs, plekken, waardestapel, garantie) staat in
  *   `src/config/programma.ts`. Hier staan bedrijfsgegevens, reviews en FAQ.
+ *
+ * ▸ Herdoopt van Bijlesdirect naar ExamenDocent op 2026-09-29. `trustpilotUrl`
+ *   en `googleUrl` wijzen bewust nog naar de bestaande listings onder de oude
+ *   naam — die platforms zelf moeten eerst omgezet worden voordat deze links
+ *   correct zijn. Zie het renamerapport voor de volledige lijst.
  */
 
 import { prijzen, euro, garantie, programma } from "@/config/programma";
 
 export const site = {
-  name: "Bijlesdirect",
-  domain: "https://bijlesdirect.nl",
-  tagline: "Examentraining wiskunde — HAVO & VWO",
+  name: "ExamenDocent",
+  domain: "https://examendocent.nl",
+  tagline: "Examentraining wiskunde voor HAVO en VWO",
+  /* Site-brede omschrijving: er is één aanbod, dus die gaat daarover. */
   description:
-    "Slagen voor het eindexamen wiskunde, gegarandeerd. 12 weken examentraining voor HAVO en VWO, met een vaste docent en een diagnose vooraf. Slaagt uw kind niet, dan trainen we gratis door tot de herkansing — en lukt het dan nog niet, dan krijgt u uw geld terug.",
+    "Examentraining wiskunde voor HAVO en VWO, met slagingsgarantie. Eén programma, een vaste docent en een plan op basis van een diagnose. Het plannen en controleren nemen wij over.",
   phone: "+31 6 42942121",
   phoneHref: "tel:+31642942121",
   phoneDisplay: "06 4294 2121",
-  email: "info@bijlesdirect.nl",
+  email: "info@examendocent.nl",
   whatsapp: "https://wa.me/31642942121",
   hours: "ma–vr 9:00–21:00",
   kvk: "94485038",
+  /**
+   * Het jaar waarin het bedrijf (destijds als Bijlesdirect) officieel van
+   * start ging. Vóór 2024 werd er niet geteld, dus alle aantallen op de site
+   * lopen vanaf dit jaar.
+   */
+  opgericht: 2024,
+  // TODO: nog niet omgezet — vraagt actie op het platform zelf, niet in code.
   trustpilotUrl: "https://www.trustpilot.com/review/bijlesdirect.nl",
   googleUrl: "https://www.google.com/search?q=Bijlesdirect+Reviews",
+  /** Het moederbedrijf: 1-op-1 bijles voor wie niet in het examenjaar zit. Link onderin de footer. */
+  bijlesdirectUrl: "https://bijlesdirect.nl",
 };
 
-/** Klantenportaal voor bestaande leerlingen — staat alleen in de footer. */
+/**
+ * Klantenportaal (TutorBird) voor bestaande leerlingen en ouders.
+ *
+ * Bewust géén onderdeel van de conversieactie: de inlogknop is klein en rustig,
+ * zodat de gratis Slagingscheck de enige echte knop op de site blijft.
+ */
 export const portaal = {
   loginUrl: "https://app.tutorbird.com/",
   loginWidgetSrc:
     "https://app.tutorbird.com/Widget/v4/Widget.ashx?settings=eyJTY2hvb2xJRCI6InNjaF9GMVFKWCIsIldlYnNpdGVJRCI6Indic196UHNKeCIsIldlYnNpdGVCbG9ja0lEIjoid2JiX2hESk5KeiJ9",
 };
 
-/** Kerncijfers — werk deze bij zodra de aantallen veranderen. */
+/**
+ * Kerncijfers.
+ *
+ * Het slagings-/cijferpercentage wordt één keer per jaar gemeten, aan het
+ * eind van het schooljaar — niet tussentijds. Dat het jaartal achterloopt op
+ * de kalender is dus juist: het is het laatste volledig afgeronde meetjaar,
+ * niet een verouderd cijfer. Pas het pas aan als het schooljaar is afgelopen
+ * en Adam de nieuwe meting heeft gedaan.
+ *
+ * Het aantal gezinnen en reviews loopt wél door en mag tussentijds bij.
+ * Nooit naar boven afronden — zie merkbord.
+ */
+/** Exact aantal geholpen gezinnen — geteld vanaf de officiële start. */
+export const gezinnen = 547;
+
 export const stats = [
   { value: "4,9★", label: "gemiddelde beoordeling" },
-  { value: "500+", label: "gezinnen geholpen" },
+  { value: String(gezinnen), label: `gezinnen geholpen sinds ${site.opgericht}` },
   { value: "100+", label: "reviews van ouders en leerlingen" },
   { value: "98%", label: "betere cijfers in 2025" },
 ] as const;
+
+/**
+ * Gemiddelde stijging van het cijfer bij leerlingen die bij ons les hadden.
+ * Bron: Adam, 6-11-2026. Staat in de grafiek van de Slagingscheck. Leg vast op
+ * welke meting dit rust (schooljaar, aantal leerlingen) voordat je het elders gebruikt.
+ */
+export const gemiddeldePuntenErbij = 2;
 
 export const rating = { score: "4,9", outOf: "5", count: 100 };
 
@@ -197,27 +238,6 @@ export const reviews: Review[] = [
     date: "22 mei 2026",
   },
   {
-    name: "Ouder van Arsheea",
-    stars: 5,
-    title: "Goed voorbereid op de doorstroomtoetsen",
-    body: "Als eerste wil ik zeggen dat ik heel blij ben met de bijles — Maham is een toppertje. Arsheea is door Maham goed voorbereid op de doorstroomtoetsen. Voor extra steun richting de middelbare school gaan we door met de lessen. Nogmaals bedankt voor alles!",
-    date: "24 januari 2026",
-  },
-  {
-    name: "Lianna Maasland",
-    stars: 5,
-    title: "Paar weken bijles gehad",
-    body: "Onze zoon heeft een paar weken bijles gehad als voorbereiding op zijn Cito-toetsen. Het intakegesprek hebben we als prettig ervaren en gedurende het hele proces werd steeds met ons meegedacht. We konden altijd goed terecht met vragen en daar werd de tijd voor genomen. We zijn er heel blij mee geweest.",
-    date: "1 december 2024",
-  },
-  {
-    name: "Hasan Huseyin Barhan",
-    stars: 4,
-    title: "Ze hebben mij goed geholpen",
-    body: "Ze hebben mij goed geholpen met mijn huiswerk en toetsen, en mijn niveau is omhooggegaan. In groep 8 ben ik in anderhalve maand van basis naar tl/havo gegaan, en nu doe ik kader/tl. Zo goed hebben zij mij op school geholpen.",
-    date: "1 maart 2025",
-  },
-  {
     name: "Selma Halici - Barhan",
     stars: 4,
     title: "Mijn zoon is zeer tevreden",
@@ -302,42 +322,57 @@ const voorwaardenInZin = garantie.voorwaarden
 export const faqs: Faq[] = [
   {
     q: "We hebben al bijles gehad, dat hielp niet.",
-    a: "Dat horen we vaak — en meestal om dezelfde reden. Losse bijlesuren behandelen de stof van deze week, terwijl het probleem drie jaar geleden is ontstaan. Wij beginnen daarom met een diagnostische toets die precies laat zien wélke basis ontbreekt, en bouwen het programma daaromheen. Geen bijles per week, maar een plan tot aan het examen.",
+    a: "Dat horen we vaak, en meestal om dezelfde reden. Losse bijlesuren behandelen de stof van deze week, terwijl het probleem drie jaar geleden is ontstaan. Wij beginnen daarom met een diagnostische toets die precies laat zien welke basis ontbreekt, en bouwen het programma daaromheen. Zo krijgt uw kind een plan tot aan het examen in plaats van een uur bijles per week.",
   },
   {
     q: "Mijn kind heeft het al zo druk.",
-    a: "Daarom knippen we alles op in kleine, behapbare stappen: niet 'oefen hoofdstuk 7', maar 'maak deze vijf opgaven'. Twee vaste momenten per week, alles online, geen reistijd. En het plannen, herinneren en controleren doen wij — dat scheelt uw kind (en u) juist tijd en energie.",
+    a: "Daarom knippen we alles op in kleine, behapbare stappen: niet 'oefen hoofdstuk 7', maar 'maak deze vijf opgaven'. Twee vaste momenten per week, alles online, geen reistijd. En het plannen, herinneren en controleren doen wij. Dat scheelt uw kind, en u, juist tijd en energie.",
   },
   {
     q: "Werkt online wel?",
-    a: "Ja, en beter dan veel ouders verwachten. Onze lessen zijn interactief en persoonlijk, met een vaste docent die uw kind écht leert kennen. Alle lessen worden opgenomen, dus terugkijken kan altijd. Geen reistijd betekent bovendien dat uw kind de energie in de stof steekt in plaats van in het heen en weer reizen.",
+    a: "Ja, en beter dan veel ouders verwachten. Onze lessen zijn interactief en persoonlijk, met een vaste docent die uw kind echt leert kennen. Alle lessen worden opgenomen, dus terugkijken kan altijd. Geen reistijd betekent bovendien dat uw kind de energie in de stof steekt in plaats van in het heen en weer reizen.",
   },
   {
     q: `Is ${euro(prijzen.programma)} niet veel geld?`,
-    a: `Dat is een reële vraag. Een afgestudeerde bèta-professional inhuren voor 48 lesuren kost losstaand al ${euro(prijzen.lesurenLosseWaarde)}. Dan heeft u nog geen diagnose, geen studieplan, geen coach, geen wekelijks ouderrapport — en geen garantie. Wij bieden het complete pakket voor minder dan de losse lesuren, en nemen het risico op ons.`,
+    a: `Dat is een reële vraag. Een afgestudeerde bèta-professional inhuren voor 48 lesuren kost losstaand al ${euro(prijzen.lesurenLosseWaarde)}. Dan heeft u nog geen diagnose, geen studieplan, geen coach, geen wekelijks ouderrapport en geen garantie. Wij bieden het complete pakket voor minder dan de losse lesuren, en nemen het risico op ons.`,
+  },
+  {
+    q: "We willen eerst het volgende rapport afwachten.",
+    a: [
+      "Begrijpelijk. Soms is dat ook verstandig. Maar houd één ding in de gaten: de examendatum verschuift niet mee.",
+      `Wie vóór ${programma.inschrijvingSluit} instapt, heeft ${programma.duurWeken} volle weken. Daarna is de groep begonnen en komt er dit schooljaar geen tweede start, omdat ${programma.duurWeken} weken maar één keer vóór het examen passen.`,
+      "En als het rapport meevalt? Dan bent u een gratis gesprek van dertig minuten verder en weet u zeker dat u niets hoeft te doen. Blijkt uit de Slagingscheck dat afwachten prima kan, dan zeggen we dat gewoon.",
+    ],
   },
   {
     q: "Hoe werkt de slagingsgarantie precies?",
     a: [
-      `In twee stappen. Slaagt uw kind niet voor wiskunde, dan trainen we gratis door tot de herkansing in ${programma.herkansingMaand} — geen nieuwe factuur, geen nieuw gesprek. Zakt uw kind bij die herkansing alsnog, dan krijgt u het volledige bedrag terug.`,
+      `In twee stappen. Slaagt uw kind niet voor wiskunde, dan trainen we gratis door tot de herkansing in ${programma.herkansingMaand}. Geen nieuwe factuur, geen nieuw gesprek. Zakt uw kind bij die herkansing alsnog, dan krijgt u het volledige bedrag terug.`,
       `Er zijn ${garantie.voorwaarden.length} voorwaarden, en die noemen we liever nu dan achteraf: ${voorwaardenInZin}.`,
-      "Waarom die voorwaarden? Omdat wij verantwoordelijk zijn voor de begeleiding en uw kind voor het meedoen. Zonder die afspraak kunnen we een garantie niet waarmaken; mét die afspraak durven we het risico wél te dragen.",
+      "Waarom die voorwaarden? Omdat wij verantwoordelijk zijn voor de begeleiding en uw kind voor het meedoen. Zonder die afspraak kunnen we een garantie niet waarmaken; met die afspraak durven we het risico wel te dragen.",
       "Het is ook de reden dat we de Slagingscheck doen. Denken we dat slagen niet haalbaar is, dan zeggen we dat vooraf in plaats van u een garantie te verkopen waar we zelf niet in geloven.",
     ],
   },
   {
     q: "Wat als mijn kind afhaakt?",
-    a: "Daar is het programma op gebouwd. De success coach spreekt uw kind elke twee weken één-op-één, is dagelijks bereikbaar via WhatsApp, en u ziet in het weekrapport meteen wanneer iets stokt. Bovendien werkt de garantievoorwaarde van 90% aanwezigheid twee kanten op: ze houdt ons scherp én geeft uw kind een reden om door te gaan.",
+    a: "Daar is het programma op gebouwd. De success coach spreekt uw kind elke week één-op-één, is dagelijks bereikbaar via WhatsApp, en u ziet in het weekrapport meteen wanneer iets stokt. Bovendien werkt de garantievoorwaarde van 90% aanwezigheid twee kanten op: ze houdt ons scherp en geeft uw kind een reden om door te gaan.",
   },
   {
     q: "Voor welke niveaus en vakken is dit programma?",
-    a: "Voor examenkandidaten wiskunde op HAVO en VWO — wiskunde A, B en C. Zit uw kind nog niet in het examenjaar, of is er hulp nodig richting één toetsweek? Dan is een van onze kortere programma's wellicht passender; die vindt u op de pagina Alle programma's.",
+    a: "Voor examenkandidaten wiskunde op HAVO en VWO: wiskunde A, B en C. Zit uw kind nog niet in het examenjaar? Dan is dit programma nog niet aan de orde. Laat het ons gerust weten via de Slagingscheck, dan denken we vrijblijvend met u mee.",
+  },
+  {
+    q: "Waarom bieden jullie maar één programma aan?",
+    a: [
+      "Omdat we eerst bijna alles hebben gedaan: elk vak, elk niveau. Daarbij zagen we waar we het meeste verschil maakten, en dat was bij examenkandidaten die vastlopen op wiskunde. Dus doen we nu alleen dat nog.",
+      "Voor u betekent het dat u niets hoeft uit te zoeken of te vergelijken. De enige vraag is of het bij uw kind past, en die beantwoorden we in de Slagingscheck. Past het niet, dan zeggen we dat ook.",
+    ],
   },
   {
     q: "Wie staat er voor de klas?",
     a: [
       "Een afgestudeerde bèta-professional. Geen student met een bijbaantje.",
-      "Concreet betekent dat: een universitaire graad in wiskunde, natuurkunde of een technische studie, en daarnaast werkzaam in het eigen vakgebied. Uw kind krijgt dus iemand die de stof niet alleen beheerst, maar ook weet waar die in de praktijk voor dient.",
+      "Concreet betekent dat: een universitaire graad in wiskunde, natuurkunde of een technische studie, en daarnaast werkzaam in het eigen vakgebied. Uw kind krijgt dus iemand die de stof beheerst en weet waar die in de praktijk voor dient.",
       "Het verschil zit vooral in de didactiek. Iemand die zelf goed is in wiskunde kan het daarom nog niet uitleggen aan een zeventienjarige die is vastgelopen. Onze docenten hebben leservaring voor een groep: ze zien aan een gezicht of het is geland, ze weten welke fout tien leerlingen op dezelfde manier maken, en ze kunnen dezelfde uitleg op drie manieren geven.",
       "Elke docent doorloopt onze eigen selectie en wordt getraind op de examenmethode. En het is de hele twaalf weken dezelfde docent, zodat uw kind niet elke maand opnieuw hoeft uit te leggen waar het vastloopt.",
     ],
@@ -345,8 +380,8 @@ export const faqs: Faq[] = [
   {
     q: "Hoe groot zijn de groepjes?",
     a: [
-      "Maximaal vijf leerlingen, en — belangrijker nog — allemaal op hetzelfde niveau. Die indeling maken we op basis van de diagnostische toets.",
-      "Dat aantal is een bewuste keuze, en wel om deze reden: juist doordat we niet één-op-één werken, kunnen we een afgestudeerde docent inhuren én zijn tarief betalen. Bij aanbieders die per uur goedkoper zijn, zit er meestal een student voor de klas — iemand die het vak misschien wel begrijpt, maar de didactische ervaring mist om het over te brengen.",
+      "Maximaal vijf leerlingen, en allemaal op hetzelfde niveau. Die indeling maken we op basis van de diagnostische toets.",
+      "Dat aantal is een bewuste keuze, en wel om deze reden: juist doordat we niet één-op-één werken, kunnen we een afgestudeerde docent inhuren en zijn tarief betalen. Bij aanbieders die per uur goedkoper zijn, zit er meestal een student voor de klas: iemand die het vak misschien wel begrijpt, maar de ervaring mist om het uit te leggen.",
       "Tegelijk is vijf klein genoeg dat uw kind individuele aandacht houdt; de docent weet precies waar ieder van de vijf staat. En vijf leerlingen met dezelfde gaten werkt beter dan drie met verschillende: de docent lost één probleem vijf keer tegelijk op, in plaats van vijf losse problemen.",
     ],
   },

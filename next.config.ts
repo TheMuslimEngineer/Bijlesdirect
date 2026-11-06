@@ -15,7 +15,14 @@ const nextConfig: NextConfig = {
       // schermvullende route
       { source: "/aanmelden", destination: "/slagingscheck", permanent: true },
       { source: "/inschrijven", destination: "/slagingscheck", permanent: true },
-      { source: "/inloggen", destination: "/", permanent: true },
+
+      // Eén aanbod: de losse programma's zijn weg, alles wijst naar Examenklaar
+      { source: "/programmas", destination: "/slagingsprogramma", permanent: true },
+      { source: "/toetsweek-sprint", destination: "/slagingsprogramma", permanent: true },
+      { source: "/maatwerk", destination: "/slagingsprogramma", permanent: true },
+      { source: "/herkansingssprint", destination: "/slagingsprogramma", permanent: true },
+      { source: "/zomer-opfris", destination: "/slagingsprogramma", permanent: true },
+      { source: "/examenjaar-fundament", destination: "/slagingsprogramma", permanent: true },
 
       // Docentwerving is hernoemd
       { source: "/tutor-worden", destination: "/docent-worden", permanent: true },

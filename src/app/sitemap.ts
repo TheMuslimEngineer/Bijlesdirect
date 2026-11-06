@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "", priority: 1 },
     { path: "/slagingsprogramma", priority: 0.9 },
     { path: "/prijs-en-garantie", priority: 0.9 },
-    { path: "/programmas", priority: 0.8 },
     { path: "/hoe-het-werkt", priority: 0.8 },
     { path: "/premium", priority: 0.7 },
     { path: "/reviews", priority: 0.7 },

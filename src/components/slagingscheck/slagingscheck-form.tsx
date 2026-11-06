@@ -8,10 +8,11 @@
  * aanpassen, hoeft hier niets te veranderen.
  */
 
-import { useCallback, useEffect, useReducer, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState } from "react";
 import Link from "next/link";
 import { BrandLogo } from "@/components/logo";
-import { site } from "@/lib/site";
+import { Stars } from "@/components/ui";
+import { site, reviews, rating } from "@/lib/site";
 import { ArrowRight } from "@/components/icons";
 import { track } from "@/lib/analytics";
 import {
@@ -25,8 +26,10 @@ import {
 } from "./questions";
 import { bewaar, herstel, wis } from "./opslag";
 import {
-  AfsluitingScherm,
   BerichtScherm,
+  GrafiekScherm,
+  GeruststellingScherm,
+  StatistiekScherm,
   ContactScherm,
   KeuzeScherm,
   MeerkeuzeScherm,
@@ -112,11 +115,60 @@ function reducer(t: Toestand, actie: Actie): Toestand {
   }
 }
 
+/* ── Reviewbalk ────────────────────────────────────────────
+   Op smalle schermen is er geen ruimte en dus geen afleiding. Op brede
+   schermen staat naast het formulier anders alleen leegte — daar zetten
+   we de review die het dichtst bij het onderwerp van dit formulier ligt. */
+const besteReview = reviews.find((r) => r.name === "Moeder van Emine")!;
+
+/** Meet vóór het tekenen, zodat de review niet eerst verkeerd staat en dan verspringt. */
+const useVoorTekenen = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+/** Afstand van `el` tot de bovenkant van `kolom`, zonder de inschuif-animatie mee te tellen. */
+function afstandTot(el: HTMLElement, kolom: HTMLElement): number | null {
+  let top = 0;
+  let huidig: HTMLElement | null = el;
+  while (huidig && huidig !== kolom) {
+    top += huidig.offsetTop;
+    huidig = huidig.offsetParent as HTMLElement | null;
+  }
+  return huidig === kolom ? top : null;
+}
+
+/**
+ * De review staat op dezelfde hoogte als de inhoud van het scherm (antwoorden,
+ * grafiek of invulvelden), niet naast de kop. `boven` is die afstand in pixels.
+ */
+function ReviewZijbalk({ boven }: { boven: number }) {
+  return (
+    <aside
+      className="hidden shrink-0 transition-[margin-top] duration-300 ease-out motion-reduce:transition-none lg:sticky lg:top-28 lg:block lg:w-[300px] lg:self-start"
+      style={{ marginTop: boven }}
+    >
+      <figure className="rounded-2xl border border-line bg-white p-6 shadow-[0_8px_24px_-18px_rgba(27,26,22,0.3)]">
+        <Stars count={besteReview.stars} className="mb-2.5" />
+        <p className="font-display text-[1.05rem] font-semibold text-ink">{besteReview.title}</p>
+        <blockquote className="mt-2 text-[14.5px] leading-relaxed text-ink-soft">
+          {besteReview.body}
+        </blockquote>
+        <figcaption className="mt-4 text-[13px] text-muted">
+          {besteReview.name} · {besteReview.date}
+        </figcaption>
+      </figure>
+      <p className="mt-3.5 text-center text-[13px] text-muted">
+        <b className="text-ink">{rating.score}/5</b> gemiddeld · {rating.count}+ reviews
+      </p>
+    </aside>
+  );
+}
+
 /* ── Component ─────────────────────────────────────────── */
 
 export function SlagingscheckForm() {
   const [t, dispatch] = useReducer(reducer, begin);
   const kopRef = useFocusOpKop(t.stap);
+  const kolomRef = useRef<HTMLDivElement>(null);
+  const [reviewBoven, setReviewBoven] = useState(0);
   const vertraging = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const stap = stappen[t.stap];
@@ -194,6 +246,23 @@ export function SlagingscheckForm() {
     [],
   );
 
+  /* De review uitlijnen met het begin van de inhoud. Opnieuw meten als de kolom
+     van grootte verandert: een kop die over twee regels gaat, een lettertype
+     dat later laadt, of een ander venster. */
+  useVoorTekenen(() => {
+    const kolom = kolomRef.current;
+    if (!kolom) return;
+    const meet = () => {
+      const kop = kolom.querySelector<HTMLElement>("[data-vraagkop]");
+      const inhoud = kop?.nextElementSibling as HTMLElement | null;
+      setReviewBoven(inhoud ? (afstandTot(inhoud, kolom) ?? 0) : 0);
+    };
+    meet();
+    const waarnemer = new ResizeObserver(meet);
+    waarnemer.observe(kolom);
+    return () => waarnemer.disconnect();
+  }, [t.stap, t.status]);
+
   /* Toetsenbord: cijfers kiezen, Enter verder, Backspace terug. */
   useEffect(() => {
     if (t.status === "verzonden") return;
@@ -226,8 +295,7 @@ export function SlagingscheckForm() {
       if (!optie) return;
       e.preventDefault();
       if (stap.soort === "meerkeuze") dispatch({ type: "wissel", veld: stap.veld, waarde: optie.waarde });
-      else if (stap.soort === "keuze") kiesEnDoor(stap.veld, optie.waarde);
-      else dispatch({ type: "zet", veld: stap.veld, waarde: optie.waarde });
+      else kiesEnDoor(stap.veld, optie.waarde);
     }
 
     window.addEventListener("keydown", opToets);
@@ -248,7 +316,7 @@ export function SlagingscheckForm() {
             href="/"
             className="rounded-full px-2 py-1 text-[13px] font-medium text-muted transition-colors hover:text-ink"
           >
-            Later verder
+            Later verder gaan
           </Link>
         </div>
         <div className="mx-auto w-full max-w-[600px] px-6 pb-3">
@@ -256,99 +324,104 @@ export function SlagingscheckForm() {
         </div>
       </header>
 
-      <div className="mx-auto flex w-full max-w-[600px] flex-1 flex-col px-6 pb-16 pt-10 sm:pt-14">
-        {/* De key zorgt voor een zachte overgang bij elke stapwissel. */}
-        <div key={t.stap} className="animate-stap" aria-live="polite">
-          {stap.soort === "keuze" && (
-            <KeuzeScherm
-              stap={stap}
-              antwoorden={t.antwoorden}
-              kopRef={kopRef}
-              onKies={(waarde) => kiesEnDoor(stap.veld, waarde)}
-            />
+      <div className="mx-auto flex w-full max-w-[600px] flex-1 flex-col px-6 pb-16 pt-10 sm:pt-14 lg:max-w-none lg:flex-row lg:justify-center lg:gap-16 lg:px-10">
+        <div ref={kolomRef} className="relative flex w-full flex-1 flex-col lg:max-w-[600px]">
+          {/* De key zorgt voor een zachte overgang bij elke stapwissel. */}
+          <div key={t.stap} className="animate-stap" aria-live="polite">
+            {stap.soort === "keuze" && (
+              <KeuzeScherm
+                stap={stap}
+                antwoorden={t.antwoorden}
+                kopRef={kopRef}
+                onKies={(waarde) => kiesEnDoor(stap.veld, waarde)}
+              />
+            )}
+
+            {stap.soort === "meerkeuze" && (
+              <MeerkeuzeScherm
+                stap={stap}
+                antwoorden={t.antwoorden}
+                kopRef={kopRef}
+                onWissel={(waarde) => dispatch({ type: "wissel", veld: stap.veld, waarde })}
+                onAnders={(waarde) =>
+                  stap.andersVeld && dispatch({ type: "zet", veld: stap.andersVeld, waarde })
+                }
+                onVerder={verder}
+              />
+            )}
+
+            {stap.soort === "statistiek" && (
+              <StatistiekScherm stap={stap} antwoorden={t.antwoorden} kopRef={kopRef} onVerder={verder} />
+            )}
+
+            {stap.soort === "geruststelling" && (
+              <GeruststellingScherm stap={stap} antwoorden={t.antwoorden} kopRef={kopRef} onVerder={verder} />
+            )}
+
+            {stap.soort === "grafiek" && (
+              <GrafiekScherm stap={stap} antwoorden={t.antwoorden} kopRef={kopRef} onVerder={verder} />
+            )}
+
+            {stap.soort === "bericht" && (
+              <BerichtScherm stap={stap} antwoorden={t.antwoorden} kopRef={kopRef} onVerder={verder} />
+            )}
+
+            {stap.soort === "contact" && (
+              <ContactScherm
+                stap={stap}
+                antwoorden={t.antwoorden}
+                kopRef={kopRef}
+                bezig={bezig}
+                onVeld={(veld, waarde) => dispatch({ type: "zet", veld, waarde })}
+                onVerder={verder}
+              />
+            )}
+
+          </div>
+
+          {t.status === "fout" && (
+            <p role="alert" className="mt-6 rounded-xl bg-[#fdecec] px-4 py-3 text-[15px] text-[#a3271f]">
+              {t.fout} Uw antwoorden zijn niet weg. Probeer het nog een keer, of{" "}
+              <a href={site.whatsapp} className="font-semibold underline">
+                stuur ons een WhatsApp
+              </a>
+              .
+            </p>
           )}
 
-          {stap.soort === "meerkeuze" && (
-            <MeerkeuzeScherm
-              stap={stap}
-              antwoorden={t.antwoorden}
-              kopRef={kopRef}
-              onWissel={(waarde) => dispatch({ type: "wissel", veld: stap.veld, waarde })}
-              onAnders={(waarde) =>
-                stap.andersVeld && dispatch({ type: "zet", veld: stap.andersVeld, waarde })
-              }
-              onVerder={verder}
-            />
-          )}
+          {/* Honeypot — bots vullen dit, mensen zien het niet. */}
+          <input
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            className="hidden"
+            onChange={(e) => dispatch({ type: "zet", veld: "website", waarde: e.target.value })}
+          />
 
-          {stap.soort === "bericht" && (
-            <BerichtScherm stap={stap} antwoorden={t.antwoorden} kopRef={kopRef} onVerder={verder} />
-          )}
-
-          {stap.soort === "contact" && (
-            <ContactScherm
-              stap={stap}
-              antwoorden={t.antwoorden}
-              kopRef={kopRef}
-              bezig={bezig}
-              onVeld={(veld, waarde) => dispatch({ type: "zet", veld, waarde })}
-              onVerder={verder}
-            />
-          )}
-
-          {stap.soort === "afsluiting" && (
-            <AfsluitingScherm
-              stap={stap}
-              antwoorden={t.antwoorden}
-              kopRef={kopRef}
-              bezig={bezig}
-              onKies={(waarde) => dispatch({ type: "zet", veld: stap.veld, waarde })}
-              onOpmerking={(waarde) => dispatch({ type: "zet", veld: "opmerking", waarde })}
-              onVerder={verder}
-            />
-          )}
+          <div className="mt-auto pt-10">
+            {!eersteStap && (
+              <button
+                type="button"
+                onClick={() => dispatch({ type: "terug" })}
+                className="inline-flex items-center gap-1.5 text-[14px] font-medium text-muted transition-colors hover:text-ink"
+              >
+                <ArrowRight className="h-4 w-4 rotate-180" />
+                Terug
+              </button>
+            )}
+            <p className="mt-4 text-[12.5px] leading-relaxed text-muted">
+              Gratis. U zit nergens aan vast. We gebruiken uw antwoorden alleen voor het gesprek
+              met Adam. Lees meer in ons{" "}
+              <Link href="/privacy" className="underline hover:text-ink">
+                privacybeleid
+              </Link>
+              .
+            </p>
+          </div>
         </div>
 
-        {t.status === "fout" && (
-          <p role="alert" className="mt-6 rounded-xl bg-[#fdecec] px-4 py-3 text-[15px] text-[#a3271f]">
-            {t.fout} Uw antwoorden staan er nog — probeer het opnieuw, of{" "}
-            <a href={site.whatsapp} className="font-semibold underline">
-              stuur ons een WhatsApp
-            </a>
-            .
-          </p>
-        )}
-
-        {/* Honeypot — bots vullen dit, mensen zien het niet. */}
-        <input
-          type="text"
-          name="website"
-          tabIndex={-1}
-          autoComplete="off"
-          className="hidden"
-          onChange={(e) => dispatch({ type: "zet", veld: "website", waarde: e.target.value })}
-        />
-
-        <div className="mt-auto pt-10">
-          {!eersteStap && (
-            <button
-              type="button"
-              onClick={() => dispatch({ type: "terug" })}
-              className="inline-flex items-center gap-1.5 text-[14px] font-medium text-muted transition-colors hover:text-ink"
-            >
-              <ArrowRight className="h-4 w-4 rotate-180" />
-              Terug
-            </button>
-          )}
-          <p className="mt-4 text-[12.5px] leading-relaxed text-muted">
-            Gratis en vrijblijvend. Uw antwoorden gebruiken we alleen om het gesprek voor te
-            bereiden — zie ons{" "}
-            <Link href="/privacy" className="underline hover:text-ink">
-              privacybeleid
-            </Link>
-            .
-          </p>
-        </div>
+        <ReviewZijbalk boven={reviewBoven} />
       </div>
     </div>
   );

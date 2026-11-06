@@ -1,6 +1,6 @@
-# Bijlesdirect — website
+# ExamenDocent — website
 
-Premium website voor Bijlesdirect, gebouwd met **Next.js 16**, **TypeScript** en **Tailwind CSS v4**.
+Premium website voor ExamenDocent, gebouwd met **Next.js 16**, **TypeScript** en **Tailwind CSS v4**.
 Ontwerprichting: *Helder & Warm* (crème, ink, groen — Fraunces + Inter).
 
 ## Lokaal draaien
@@ -41,7 +41,7 @@ Maak een nieuw bestand aan in `content/blog/`, bijvoorbeeld `mijn-artikel.md`:
 title: "Titel van het artikel"
 description: "Korte samenvatting voor Google en social media."
 date: "2026-07-01"
-author: "Bijlesdirect"
+author: "ExamenDocent"
 category: "Studietips"
 ---
 
@@ -66,7 +66,7 @@ Inzendingen worden per e-mail verstuurd via [Resend](https://resend.com).
 
 1. Maak een gratis Resend-account en API-key aan.
 2. Kopieer `.env.example` naar `.env.local` en vul `RESEND_API_KEY` in.
-3. Verifieer het domein `bijlesdirect.nl` in Resend en zet `INTAKE_FROM` op een eigen adres.
+3. Verifieer het domein `examendocent.nl` in Resend en zet `INTAKE_FROM` op een eigen adres.
 
 Zonder API-key blijft het formulier werken: aanvragen worden dan gelogd in plaats van gemaild.
 

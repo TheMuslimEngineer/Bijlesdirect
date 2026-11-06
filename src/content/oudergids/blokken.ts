@@ -1,60 +1,58 @@
 /**
  * De losse contentblokken van de oudergids.
  *
- * Teksten letterlijk uit `docs/oudergids-gepersonaliseerd.md`. Variabelen
- * ({leerling}, {cijfer}, {vak}, {niveau}) worden ingevuld door `assemble()`.
+ * Geschreven in eenvoudig Nederlands (taalniveau B1), omdat veel ouders zelf
+ * moeite hebben met de taal: korte zinnen, gewone woorden, geen beeldspraak.
+ * De inhoud volgt `docs/oudergids-gepersonaliseerd.md`. Variabelen ({leerling},
+ * {cijfer}, {niveau}, {onvoldoende}, {jaar}) worden ingevuld door `assemble()`.
  */
 
 import type { Blok } from "./types";
+
+const naarDeTips = {
+  soort: "alinea",
+  tekst: "Hieronder vindt u alvast een paar tips voor thuis. Ze gaan niet over wiskunde. Ze gaan over de gesprekken thuis.",
+} as const;
 
 /* ── Opening — één van de drie, op basis van het cijfer ── */
 
 export const openingen: Record<"laag" | "midden" | "hoog", Blok> = {
   laag: {
     id: "opening-laag",
-    kop: "Dank u wel — we bellen u binnen één werkdag.",
+    kop: "Dank u wel. Adam belt u binnen 1 werkdag.",
     regels: [
       {
         soort: "alinea",
         tekst:
-          "U gaf aan dat {leerling} op dit moment {cijfer} staat voor {vak}. Ter context: ongeveer een kwart van alle {niveau}-kandidaten haalt een onvoldoende voor dit vak. Dit is dus verre van uitzonderlijk — maar het betekent wel dat er werk aan de winkel is, en dat gerichte hulp op dit moment meer verschil maakt dan later.",
+          "U schreef dat {leerling} nu {cijfer} staat voor wiskunde. Dat komt vaak voor. Bij het examen van {jaar} haalden {onvoldoende} van de 100 {niveau}-leerlingen een onvoldoende voor wiskunde. Toch is het goed om nu iets te doen. Hulp werkt nu beter dan later.",
       },
-      {
-        soort: "alinea",
-        tekst:
-          "Tot we elkaar spreken, hierbij alvast iets waar u vanavond al iets aan heeft. Het gaat niet over wiskunde. Het gaat over de gesprekken thuis.",
-      },
+      naarDeTips,
     ],
   },
   midden: {
     id: "opening-midden",
-    kop: "Dank u wel — we bellen u binnen één werkdag.",
+    kop: "Dank u wel. Adam belt u binnen 1 werkdag.",
     regels: [
       {
         soort: "alinea",
         tekst:
-          "U gaf aan dat {leerling} {cijfer} staat voor {vak}. Dat is een lastige plek: dicht genoeg bij de streep om te denken dat het vanzelf goed komt, en ver genoeg ervandaan om het niet zeker te weten. In de praktijk gaat het bij dit soort cijfers vaak om een beperkt aantal onderwerpen waar structureel punten verloren gaan — en dat is goed op te lossen.",
+          "U schreef dat {leerling} nu {cijfer} staat voor wiskunde. Dat is dicht bij een voldoende. Daarom lijkt het of het vanzelf goed komt. Maar zeker is dat niet. Vaak gaat het mis bij een paar onderwerpen. Dat is goed op te lossen.",
       },
-      {
-        soort: "alinea",
-        tekst:
-          "Tot we elkaar spreken, hierbij alvast iets waar u vanavond al iets aan heeft. Het gaat niet over wiskunde. Het gaat over de gesprekken thuis.",
-      },
+      naarDeTips,
     ],
   },
   hoog: {
     id: "opening-hoog",
-    kop: "Dank u wel — we bellen u binnen één werkdag.",
+    kop: "Dank u wel. Adam belt u binnen 1 werkdag.",
     regels: [
       {
         soort: "alinea",
         tekst:
-          "U gaf aan dat {leerling} het op zich redt voor {vak}, maar dat het cijfer omhoog moet voor de vervolgstudie. Dat is een ander vraagstuk dan een onvoldoende wegwerken: het gaat niet om gaten dichten, maar om de laatste punten pakken die het verschil maken tussen een zes en een acht. Daar is een andere aanpak voor nodig, en die bespreken we in het gesprek.",
+          "U schreef dat {leerling} voldoende staat voor wiskunde. Maar {leerling} heeft een hoger cijfer nodig voor een studie. Dan gaat het niet om slagen. Het gaat om de laatste punten: van een 6 naar een 8. Daar is een andere aanpak voor nodig. Dat bespreken we in het gesprek.",
       },
       {
         soort: "alinea",
-        tekst:
-          "Tot die tijd: hieronder een paar dingen die thuis vaak het verschil maken — juist bij leerlingen die het eigenlijk wél kunnen.",
+        tekst: "Hieronder vindt u alvast een paar tips voor thuis. Ze helpen juist bij leerlingen die het eigenlijk wel kunnen.",
       },
     ],
   },
@@ -65,63 +63,61 @@ export const openingen: Record<"laag" | "midden" | "hoog", Blok> = {
 export const tips: Blok[] = [
   {
     id: "tip-1",
-    kop: "1. Vervang de dagelijkse vraag door één vast moment",
+    kop: "1. Vraag niet elke dag naar het huiswerk",
     regels: [
       {
         soort: "alinea",
         tekst:
-          "“Heb je je huiswerk al gemaakt?” is de meest gestelde vraag in Nederlandse huiskamers, en de minst effectieve. Niet omdat het een slechte vraag is, maar omdat de dagelijkse herhaling het gesprek verandert in controle — en controle roept weerstand op.",
+          "Veel ouders vragen elke dag: ‘Heb je je huiswerk al gemaakt?’ Dat is logisch. Maar elke dag dezelfde vraag voelt voor uw kind als controle. Dan gaat uw kind zich verzetten.",
       },
       {
         soort: "alinea",
         tekst:
-          "Spreek in plaats daarvan één vast moment per week af waarop u samen kijkt hoe het staat. Zondagavond, tien minuten. De rest van de week vraagt u niets.",
+          "Kies liever één vast moment in de week. Bijvoorbeeld zondagavond, tien minuten. Dan kijkt u samen hoe het gaat. De rest van de week vraagt u niets.",
       },
       {
         soort: "alinea",
-        tekst:
-          "Dat voelt eerst ongemakkelijk. Maar u ruilt zeven korte confrontaties in voor één rustig gesprek — en dat gesprek levert doorgaans meer op dan die zeven bij elkaar.",
+        tekst: "Dat voelt eerst raar. Maar één rustig gesprek helpt meer dan zeven keer vragen.",
       },
     ],
   },
   {
     id: "tip-2",
-    kop: "2. Vraag naar de eerste stap, niet naar het eindresultaat",
+    kop: "2. Vraag naar de eerste stap",
     regels: [
       {
         soort: "alinea",
         tekst:
-          "“Je moet echt harder gaan werken” is waar, en tegelijk volstrekt nutteloos. Het benoemt een probleem waar uw kind zelf ook al van weet, zonder een aanknopingspunt te geven.",
+          "‘Je moet harder werken’ is waar. Maar het helpt niet. Uw kind weet dat zelf ook al. Het weet alleen niet waar het moet beginnen.",
       },
-      { soort: "alinea", tekst: "Vraag in plaats daarvan:" },
-      { soort: "citaat", tekst: "Wat is het eerste wat je zou moeten doen?" },
+      { soort: "alinea", tekst: "Vraag daarom:" },
+      { soort: "citaat", tekst: "Wat is het eerste dat je gaat doen?" },
       {
         soort: "alinea",
         tekst:
-          "Die vraag doet twee dingen tegelijk. Ze maakt een berg werk terug tot één handeling — en uitstelgedrag zit bijna altijd in het begínnen, niet in het doen. En ze legt de regie bij uw kind, waardoor het geen opdracht is die u geeft maar een plan dat het zelf maakt.",
+          "Zo wordt een grote berg werk één kleine stap. Beginnen is vaak het moeilijkste. En uw kind bedenkt het plan zelf. Dan is het geen opdracht van u.",
       },
     ],
   },
   {
     id: "tip-3",
-    kop: "3. Reageer op een cijfer met nieuwsgierigheid, niet met een oordeel",
+    kop: "3. Wees nieuwsgierig bij een slecht cijfer",
     regels: [
       {
         soort: "alinea",
-        tekst:
-          "Er komt weer een onvoldoende binnen. De natuurlijke reactie is teleurstelling, en die is volkomen begrijpelijk.",
+        tekst: "Er komt weer een onvoldoende. U bent teleurgesteld. Dat is normaal.",
       },
       {
         soort: "alinea",
         tekst:
-          "Maar teleurstelling sluit het gesprek. Uw kind gaat zich verdedigen of trekt zich terug, en u komt niet te weten wat er werkelijk misging.",
+          "Maar als u boos of teleurgesteld reageert, stopt het gesprek. Uw kind gaat zich verdedigen of zegt niets meer. Dan weet u nog steeds niet wat er misging.",
       },
-      { soort: "alinea", tekst: "Probeer:" },
-      { soort: "citaat", tekst: "Welke vragen gingen er mis? Was het de stof, of de tijd?" },
+      { soort: "alinea", tekst: "Vraag liever:" },
+      { soort: "citaat", tekst: "Welke vragen gingen fout? Snapte je het niet, of had je te weinig tijd?" },
       {
         soort: "alinea",
         tekst:
-          "Dat is geen softe reactie — u neemt het cijfer volkomen serieus. Alleen richt u de aandacht op het probleem in plaats van op de persoon. En u komt iets te weten waar u iets mee kunt.",
+          "Zo neemt u het cijfer serieus. Maar u praat over het probleem, niet over uw kind. En u hoort iets waar u mee verder kunt.",
       },
     ],
   },
@@ -132,120 +128,114 @@ export const tips: Blok[] = [
 export const modules: Record<string, Blok> = {
   pushen: {
     id: "module-pushen",
-    kop: "Waarom pushen op den duur averechts werkt",
+    kop: "Waarom steeds pushen niet werkt",
     regels: [
       {
         soort: "alinea",
         tekst:
-          "Als u de motor bent, hoeft uw kind dat niet te zijn. Hoe meer u duwt, hoe minder eigen verantwoordelijkheid er nodig is — en hoe harder u moet blijven duwen. Dat is geen onwil van uw kind; het is hoe het werkt.",
+          "Als u steeds duwt, hoeft uw kind dat zelf niet te doen. Hoe meer u duwt, hoe minder uw kind zelf doet. En hoe meer u moet blijven duwen. Dat is geen onwil. Zo werkt het gewoon.",
       },
       {
         soort: "alinea",
         tekst:
-          "De uitweg is niet loslaten (dat voelt als opgeven en werkt meestal ook niet), maar **het duwen verplaatsen naar iemand anders**. Iemand buiten het gezin die het huiswerk bewaakt, herinnert en erop terugkomt.",
+          "Helemaal stoppen met duwen helpt meestal ook niet. Beter is: **laat iemand anders het duwen doen.** Iemand buiten het gezin. Die let op het huiswerk en herinnert uw kind eraan.",
       },
       {
         soort: "alinea",
         tekst:
-          "Zolang u degene bent die aanspoort, is elk gesprek over school ook een gesprek over gehoorzaamheid. Zodra iemand anders die rol overneemt, kunt u weer gewoon ouder zijn — en dat is precies de rol waarin u het meeste voor uw kind betekent.",
+          "Dan hoeft u niet meer de strenge ouder te zijn. U kunt weer gewoon ouder zijn. En daar heeft uw kind u het meest nodig.",
       },
       {
         soort: "noot",
-        tekst:
-          "Dit is trouwens ook wat wij standaard overnemen: het herinneren en controleren loopt bij ons via de docent naar de leerling, niet via u.",
+        tekst: "Dit nemen wij altijd van u over. Wij herinneren en controleren uw kind. Dat hoeft u niet meer te doen.",
       },
     ],
   },
   stof: {
     id: "module-stof",
-    kop: "Hoe u helpt zonder de stof te kennen",
+    kop: "Zo helpt u, ook als u de wiskunde niet snapt",
     regels: [
       {
         soort: "alinea",
         tekst:
-          "Veel ouders voelen zich machteloos zodra de wiskunde voorbij hun eigen niveau gaat. Begrijpelijk — maar inhoudelijke hulp is niet waar u het verschil maakt.",
+          "Veel ouders voelen zich machteloos als ze de wiskunde zelf niet snappen. Dat is begrijpelijk. Maar u hoeft de wiskunde niet uit te leggen. U kunt op een andere manier helpen.",
       },
+      { soort: "alinea", tekst: "Drie dingen die echt helpen:" },
       {
         soort: "alinea",
-        tekst: "Drie dingen die niets met wiskunde te maken hebben en toch aantoonbaar helpen:",
+        tekst:
+          "**Laat uw kind het aan u uitleggen.** Zeg: ‘Leg eens uit wat je nu doet.’ U hoeft het niet te snappen. Door uit te leggen ziet uw kind zelf wat het nog niet begrijpt.",
       },
       {
         soort: "alinea",
         tekst:
-          "**Vraag uw kind het u uit te leggen.** “Leg me eens uit wat je nu aan het doen bent.” U hoeft het niet te begrijpen. Uitleggen dwingt uw kind om te ordenen wat het weet, en juist daar wordt zichtbaar wat nog niet zit. Dat u het zelf niet snapt, maakt niet uit — het effect zit in het vertellen.",
+          "**Zorg voor een vaste plek en een vaste tijd.** Een rustige plek om te leren. Elke dag op hetzelfde moment. De telefoon in een andere kamer. Dat helpt meer dan u denkt.",
       },
       {
         soort: "alinea",
         tekst:
-          "**Bewaak de omstandigheden, niet de inhoud.** Een vaste plek, een vast tijdstip, telefoon in een andere kamer. Dat is uw terrein, en het scheelt meer dan mensen denken.",
-      },
-      {
-        soort: "alinea",
-        tekst:
-          "**Zorg dat er iemand is die het wél kan.** Uw taak is niet om de docent te zijn, maar om ervoor te zorgen dat er een goede docent is.",
+          "**Zorg dat er iemand is die de wiskunde wel kan uitleggen.** U hoeft niet de docent te zijn. U zorgt dat er een goede docent is.",
       },
     ],
   },
   wakker: {
     id: "module-wakker",
-    kop: "Waar u wél invloed op heeft",
+    kop: "Waar u wel iets aan kunt doen",
     regels: [
       {
         soort: "alinea",
         tekst:
-          "De onzekerheid is het zwaarste deel. Niet het cijfer zelf, maar het niet weten of het nog goed komt — en het gevoel dat u er weinig aan kunt doen.",
+          "Het zwaarste is niet het cijfer. Het zwaarste is dat u niet weet of het goed komt. En dat u denkt dat u niets kunt doen.",
+      },
+      {
+        soort: "alinea",
+        tekst: "Het examen in mei kunt u niet veranderen. Maar u kunt wel kijken of het beter gaat dan vorige maand.",
       },
       {
         soort: "alinea",
         tekst:
-          "Wat helpt, is de aandacht verplaatsen van iets wat u niet kunt beïnvloeden (het examen in mei) naar iets wat wel meetbaar is (of het beter gaat dan vorige maand).",
+          "**Kijk of het beter gaat.** Eén cijfer zegt weinig. Drie cijfers na elkaar zeggen veel. Gaan de cijfers omhoog? Dan hoeft u niet in paniek te raken. Ook niet als het nog een onvoldoende is.",
       },
       {
         soort: "alinea",
         tekst:
-          "**Kijk naar de richting, niet naar het niveau.** Eén cijfer zegt weinig. Drie cijfers achter elkaar zeggen alles. Zolang de lijn omhoog loopt, is er geen reden tot paniek — ook niet als het cijfer nog onvoldoende is.",
+          "**Spreek met uzelf af wanneer u zich zorgen gaat maken.** Bijvoorbeeld: als twee toetsen na elkaar niet beter gaan. Tot dat moment hoeft u niets te doen. Dan kan uw hoofd rusten.",
       },
       {
         soort: "alinea",
         tekst:
-          "**Spreek af wanneer u zich zorgen máákt.** Klinkt vreemd, maar het werkt: bepaal vooraf welk signaal betekent dat er iets moet veranderen (bijvoorbeeld: twee toetsen op rij geen verbetering). Tot dat moment hoeft u niets te doen. Dat geeft uw hoofd toestemming om te rusten.",
-      },
-      {
-        soort: "alinea",
-        tekst:
-          "**Zorg dat iemand anders het overzicht bewaakt.** Wat de meeste onrust wegneemt, is niet zelf beter opletten — maar weten dat er iemand is die het bijhoudt en aan de bel trekt als het nodig is.",
+          "**Laat iemand anders opletten.** Dit geeft de meeste rust: weten dat iemand alles bijhoudt. En dat die persoon u waarschuwt als het nodig is.",
       },
     ],
   },
   geen_zicht: {
     id: "module-geen-zicht",
-    kop: "Drie vragen die wél iets opleveren",
+    kop: "Drie vragen die wel een antwoord geven",
     regels: [
       {
         soort: "alinea",
         tekst:
-          "“Hoe ging het?” levert “goed” op. “Hoe gaat wiskunde?” levert “wel oké” op. Dat is geen onwil — het zijn te grote vragen om zinnig te beantwoorden.",
+          "U vraagt: ‘Hoe ging het?’ Uw kind zegt: ‘Goed.’ U vraagt: ‘Hoe gaat wiskunde?’ Uw kind zegt: ‘Wel oké.’ Dat is geen onwil. Deze vragen zijn te groot om goed te beantwoorden.",
       },
-      { soort: "alinea", tekst: "Deze drie werken beter:" },
+      { soort: "alinea", tekst: "Deze drie vragen werken beter:" },
       {
         soort: "alinea",
         tekst:
-          "**“Welk onderwerp doen jullie nu?”** Concreet en feitelijk, dus makkelijk te beantwoorden. En u weet meteen waar het over gaat.",
-      },
-      {
-        soort: "alinea",
-        tekst:
-          "**“Wat ging er mis bij de vragen die je fout had?”** Dit onderscheidt de vier oorzaken die er werkelijk toe doen: de stof niet snappen, de vraag niet begrijpen, tijdgebrek, of slordigheid. Die vragen om totaal verschillende oplossingen — en zonder dat onderscheid weet niemand wat er moet gebeuren.",
+          "**‘Welk onderwerp hebben jullie nu?’** Deze vraag is makkelijk te beantwoorden. En u weet meteen waar het over gaat.",
       },
       {
         soort: "alinea",
         tekst:
-          "**“Wat zou je nodig hebben om dit wél te kunnen?”** Vaak komt hier een verrassend helder antwoord uit. Kinderen weten meestal beter dan ze laten merken wat er ontbreekt.",
+          "**‘Wat ging er mis bij de vragen die je fout had?’** Er zijn vier mogelijke oorzaken. Uw kind snapt de stof niet. Of snapt de vraag niet. Of had te weinig tijd. Of was slordig. Elke oorzaak heeft een andere oplossing nodig.",
+      },
+      {
+        soort: "alinea",
+        tekst:
+          "**‘Wat heb je nodig om dit wel te kunnen?’** Vaak krijgt u hier een duidelijk antwoord op. Kinderen weten vaak goed wat ze missen.",
       },
       {
         soort: "noot",
-        tekst:
-          "In ons gesprek stellen we in feite een uitgebreide versie van deze vragen — en de diagnostische toets maakt zichtbaar wat er zonder toets nooit boven tafel komt.",
+        tekst: "In ons gesprek stellen we deze vragen ook, maar uitgebreider. En de toets aan het begin laat zien wat er echt misgaat.",
       },
     ],
   },
@@ -255,38 +245,35 @@ export const modules: Record<string, Blok> = {
 
 export const faalangst: Blok = {
   id: "module-faalangst",
-  kop: "Als uw kind dichtklapt bij toetsen",
+  kop: "Als uw kind in paniek raakt bij toetsen",
   regels: [
     {
       soort: "alinea",
-      tekst:
-        "Dat een kind de stof kent en het bij de toets tóch niet laat zien, is frustrerend voor iedereen — en het is veel gewoner dan het voelt.",
+      tekst: "Uw kind kent de stof. Maar bij de toets lukt het niet. Dat is heel vervelend. En het komt veel vaker voor dan u denkt.",
     },
-    { soort: "alinea", tekst: "Drie dingen die in de praktijk verschil maken:" },
+    { soort: "alinea", tekst: "Drie dingen die helpen:" },
     {
       soort: "alinea",
       tekst:
-        "**Zorg dat “geoefend” ook echt oefenen ónder tijdsdruk betekent.** Wie thuis rustig sommen maakt maar nooit met een klok, oefent iets anders dan wat er in de examenzaal gebeurt. Toetsen onder tijd maken is een vaardigheid op zich, en die is te trainen.",
-    },
-    {
-      soort: "alinea",
-      tekst:
-        "**Bouw een vast rijtje voor het begin van elke toets.** Eerst alles doorlezen, dan beginnen met de makkelijkste vraag. Één succesvolle vraag aan het begin verandert de rest van het uur.",
+        "**Laat uw kind oefenen met een klok erbij.** Thuis rustig sommen maken is anders dan een toets met weinig tijd. Werken met weinig tijd kun je leren.",
     },
     {
       soort: "alinea",
       tekst:
-        "**Verlaag de inzet in uw eigen woorden.** Als uw kind al gespannen is, voegt “dit is heel belangrijk” niets toe behalve druk. Het weet dat het belangrijk is.",
+        "**Maak een vast begin voor elke toets.** Eerst alles lezen. Dan beginnen met de makkelijkste vraag. Lukt de eerste vraag? Dan gaat de rest ook beter.",
+    },
+    {
+      soort: "alinea",
+      tekst: "**Zeg niet dat het heel belangrijk is.** Uw kind weet dat al. Het geeft alleen meer spanning.",
     },
     {
       soort: "alinea",
       tekst:
-        "Zit het dieper — echt dichtklappen, blackout, hevige spanning dagen van tevoren — bespreek dat dan met de mentor of de huisarts. Dat is geen studieprobleem meer, en dan is de juiste hulp een andere dan bijles.",
+        "Is de angst heel groot? Is uw kind dagen van tevoren al heel gespannen? Of weet het bij de toets helemaal niets meer? Praat dan met de mentor of de huisarts. Dan is er andere hulp nodig dan bijles.",
     },
     {
       soort: "noot",
-      tekst:
-        "In ons programma zit een korte training rond examenstress, plus een persoonlijk belmoment vlak vóór het examen.",
+      tekst: "In ons programma zit een korte training tegen examenstress. Vlak voor het examen belt de coach uw kind ook nog persoonlijk.",
     },
   ],
 };
@@ -295,18 +282,22 @@ export const faalangst: Blok = {
 
 export const afsluiting: Blok = {
   id: "afsluiting",
-  kop: "En dan nu even niets.",
+  kop: "Nu hoeft u even niets te doen.",
   regels: [
     {
       soort: "alinea",
-      tekst:
-        "U heeft het formulier ingevuld en daarmee het belangrijkste gedaan. Wij bellen u binnen één werkdag voor de Slagingscheck: dertig minuten waarin we in kaart brengen waar {leerling} staat, en waarin u een eerlijk antwoord krijgt op de vraag of slagen in twaalf weken haalbaar is.",
+      tekst: "U heeft de vragen ingevuld. Daarmee heeft u het belangrijkste gedaan.",
     },
     {
       soort: "alinea",
-      tekst: "Is het niet haalbaar, dan zeggen we dat ook. Dat is de reden dat we deze gesprekken voeren.",
+      tekst:
+        "Adam belt u binnen 1 werkdag. Het gesprek duurt 30 minuten. Samen kijkt u waar {leerling} nu staat. En u krijgt een eerlijk antwoord: kan {leerling} slagen in 12 weken?",
     },
-    { soort: "alinea", tekst: "Tot snel,\n**Adam** — Bijlesdirect" },
+    {
+      soort: "alinea",
+      tekst: "Kan het niet? Dan zeggen we dat ook eerlijk. Daarom voeren we deze gesprekken.",
+    },
+    { soort: "alinea", tekst: "Tot snel,\n**Adam**, ExamenDocent" },
   ],
 };
 
@@ -315,67 +306,65 @@ export const afsluiting: Blok = {
 export const leerlingGids: Blok[] = [
   {
     id: "leerling-opening",
-    kop: "Dankjewel — we bellen je binnen één werkdag.",
+    kop: "Dankjewel. Adam belt je binnen 1 werkdag.",
     regels: [
       {
         soort: "alinea",
-        tekst:
-          "Dat je dit zelf regelt zegt meer dan je denkt. De meeste aanvragen komen van ouders; jij bent er zelf achteraan gegaan.",
+        tekst: "Je regelt dit zelf. Dat is knap. Meestal doen ouders dit. Jij doet het zelf.",
       },
       {
         soort: "alinea",
-        tekst:
-          "Tot we elkaar spreken: drie dingen die je deze week al kunt doen. Ze kosten je bij elkaar geen half uur.",
+        tekst: "Hieronder staan drie tips voor deze week. Samen kosten ze minder dan een half uur.",
       },
     ],
   },
   {
     id: "leerling-tip-1",
-    kop: "1. Begin bij de makkelijkste som, niet bij de eerste",
+    kop: "1. Begin met de makkelijkste som",
     regels: [
       {
         soort: "alinea",
         tekst:
-          "Uitstellen zit bijna nooit in het werk zelf, maar in het beginnen. Zoek daarom eerst een opgave waarvan je zeker weet dat je hem kunt. Eén som die lukt, verandert het uur dat erop volgt.",
+          "Beginnen is vaak het moeilijkste. Zoek daarom eerst een som die je zeker kunt. Lukt die? Dan gaat de rest ook makkelijker.",
       },
     ],
   },
   {
     id: "leerling-tip-2",
-    kop: "2. Kijk je fouten na op oorzaak, niet op antwoord",
+    kop: "2. Kijk waarom je iets fout had",
     regels: [
       {
         soort: "alinea",
         tekst:
-          "Zet achter elke fout één woord: **stof** (ik snapte het niet), **vraag** (ik las hem verkeerd), **tijd** of **slordig**. Na tien opgaven zie je je eigen patroon — en dat patroon bepaalt wat je moet oefenen.",
+          "Schrijf achter elke fout één woord: **stof** (ik snapte het niet), **vraag** (ik las de vraag verkeerd), **tijd** (ik had te weinig tijd) of **slordig**. Na tien sommen zie je wat vaak misgaat. Dat ga je oefenen.",
       },
       {
         soort: "noot",
-        tekst: "Neem dat lijstje mee naar het gesprek. Dan hebben we meteen iets om op te bouwen.",
+        tekst: "Neem dit lijstje mee naar het gesprek. Dan kunnen we meteen beginnen.",
       },
     ],
   },
   {
     id: "leerling-tip-3",
-    kop: "3. Oefen één keer per week met de klok erbij",
+    kop: "3. Oefen 1 keer per week met een klok",
     regels: [
       {
         soort: "alinea",
         tekst:
-          "Rustig sommen maken en een examen maken zijn twee verschillende vaardigheden. Zet één keer per week een wekker op de tijd die je op het examen krijgt. Dat went sneller dan je denkt.",
+          "Rustig sommen maken is anders dan een examen maken. Zet 1 keer per week een wekker. Neem net zoveel tijd als op het examen. Je went er snel aan.",
       },
     ],
   },
   {
     id: "leerling-afsluiting",
-    kop: "En dan nu even niets.",
+    kop: "Nu hoef je even niets te doen.",
     regels: [
       {
         soort: "alinea",
         tekst:
-          "We bellen je binnen één werkdag. In dat gesprek van dertig minuten kijken we waar je staat en krijg je een eerlijk antwoord op de vraag of slagen in twaalf weken haalbaar is. Is het niet haalbaar, dan zeggen we dat ook.",
+          "Adam belt je binnen 1 werkdag. Het gesprek duurt 30 minuten. We kijken waar je nu staat. En je krijgt een eerlijk antwoord: kun je slagen in 12 weken? Kan het niet? Dan zeggen we dat ook.",
       },
-      { soort: "alinea", tekst: "Tot snel,\n**Adam** — Bijlesdirect" },
+      { soort: "alinea", tekst: "Tot snel,\n**Adam**, ExamenDocent" },
     ],
   },
 ];

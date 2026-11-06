@@ -30,7 +30,7 @@ export function ReviewsGrid({ reviews }: { reviews: Review[] }) {
           <button
             type="button"
             onClick={() => setVisible((v) => Math.min(v + STEP, reviews.length))}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line bg-transparent px-6 py-3.5 text-base font-semibold text-ink transition-all duration-150 hover:-translate-y-0.5 hover:border-ink"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line bg-transparent px-6 py-3.5 text-base font-semibold text-ink transition-colors duration-150 hover:border-ink"
           >
             Toon meer reviews
             <span className="text-muted">({remaining})</span>

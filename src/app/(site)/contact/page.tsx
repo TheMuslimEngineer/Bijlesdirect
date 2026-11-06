@@ -6,9 +6,9 @@ import { Phone, Mail, WhatsApp, Clock } from "@/components/icons";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact — neem contact op met Bijlesdirect",
+  title: "Contact",
   description:
-    "Vragen over de examentraining wiskunde of het Slagingsprogramma? Bel, mail of WhatsApp Bijlesdirect, of stuur een bericht via het contactformulier.",
+    "Vragen over de examentraining wiskunde of Examenklaar? Bel, mail of WhatsApp ExamenDocent, of stuur een bericht via het contactformulier.",
   alternates: { canonical: "/contact" },
 };
 
@@ -23,8 +23,8 @@ export default function ContactPage() {
     <>
       <PageHeader
         eyebrow="Contact"
-        title="We helpen u graag verder."
-        intro="Liever even persoonlijk overleggen? Bel of WhatsApp ons direct, of laat een bericht achter. We reageren snel — meestal binnen één werkdag."
+        title="Bel, app of mail ons"
+        intro="U kunt ons bellen, appen of hieronder een bericht sturen. We reageren meestal binnen één werkdag."
       />
 
       <section className="py-20">
@@ -36,7 +36,7 @@ export default function ContactPage() {
                   <a
                     key={c.label}
                     href={c.href}
-                    className="flex items-center gap-4 rounded-2xl border border-line bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-green"
+                    className="flex items-center gap-4 rounded-2xl border border-line bg-white p-5 transition-colors hover:border-green"
                   >
                     <span className="grid h-12 w-12 flex-none place-items-center rounded-xl bg-green-soft text-green-deep">
                       <c.icon className="h-[22px] w-[22px]" />

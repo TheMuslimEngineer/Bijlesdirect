@@ -7,19 +7,13 @@
  * je-vorm, gericht op wat de leerling deze week zelf kan doen.
  */
 
-import type { Antwoorden } from "@/components/slagingscheck/types";
+import { voornaamKind, type Antwoorden } from "@/components/slagingscheck/types";
+import { wiskundeOnvoldoende } from "@/config/examencijfers";
 import { afsluiting, faalangst, leerlingGids, modules, openingen, tips } from "./blokken";
 import type { Blok, Gids } from "./types";
 
 export type { Blok, Gids, Regel } from "./types";
 export { delen } from "./types";
-
-const vakNamen: Record<string, string> = {
-  wiskunde_a: "wiskunde A",
-  wiskunde_b: "wiskunde B",
-  wiskunde_c: "wiskunde C",
-  wiskunde_d: "wiskunde D",
-};
 
 // We vragen een bandbreedte, geen exact cijfer — dus noemen we ook een
 // bandbreedte terug. Een verzonnen "5,2" zou de ouder meteen opvallen.
@@ -36,18 +30,26 @@ const niveauNamen: Record<string, string> = {
   examen_vwo: "VWO",
 };
 
+/** "bijna 28" of "ruim 20" van de 100, voor het niveau van het kind. Zelfde bron als de Slagingscheck. */
+function onvoldoendeTekst(a: Antwoorden): string {
+  const procent = a.klas === "examen_vwo" ? wiskundeOnvoldoende.vwo : wiskundeOnvoldoende.havo;
+  const heel = Math.round(procent);
+  const woord = heel - procent > 0.05 ? "bijna " : procent - heel > 0.05 ? "ruim " : "";
+  return `${woord}${heel}`;
+}
+
 /** Vult {leerling}, {vak}, {cijfer} en {niveau} in, met nette terugvallen. */
 function vulIn(tekst: string, a: Antwoorden): string {
   // Vult de leerling zelf in, dan staat zijn naam in `naam` en niet in `naamLeerling`.
   const eigenVoornaam = a.naam?.trim().split(" ")[0];
-  const leerling =
-    a.naamLeerling?.trim() ||
-    (a.voorWie === "leerling" ? eigenVoornaam || "je" : "uw kind");
+  const leerling = a.voorWie === "leerling" ? eigenVoornaam || "je" : voornaamKind(a);
   return tekst
     .replaceAll("{leerling}", leerling)
-    .replaceAll("{vak}", (a.vak && vakNamen[a.vak]) || "wiskunde")
+    .replaceAll("{vak}", "wiskunde")
     .replaceAll("{cijfer}", (a.cijfer && cijferNamen[a.cijfer]) || "rond de streep")
-    .replaceAll("{niveau}", (a.klas && niveauNamen[a.klas]) || "examen");
+    .replaceAll("{niveau}", (a.klas && niveauNamen[a.klas]) || "examen")
+    .replaceAll("{jaar}", String(wiskundeOnvoldoende.jaar))
+    .replaceAll("{onvoldoende}", onvoldoendeTekst(a));
 }
 
 function persoonlijk(blok: Blok, a: Antwoorden): Blok {
@@ -69,11 +71,11 @@ function kiesOpening(a: Antwoorden): Blok {
  * gids — daar past een kort, eerlijk bevestigingsscherm beter.
  */
 export function assemble(a: Antwoorden): Gids | null {
-  if (a.klas === "voorexamen" || a.klas === "anders" || a.vak === "ander_vak") return null;
+  if (a.klas === "voorexamen" || a.klas === "anders") return null;
 
   if (a.voorWie === "leerling") {
     return {
-      titel: "Wat je deze week al kunt doen",
+      titel: "Tips voor deze week",
       blokken: leerlingGids.map((b) => persoonlijk(b, a)),
     };
   }
@@ -87,12 +89,12 @@ export function assemble(a: Antwoorden): Gids | null {
     kiesOpening(a),
     ...tips,
     ...gekozenModules,
-    ...((a.grootsteProbleem ?? []).includes("faalangst") ? [faalangst] : []),
+    ...((a.ouderPijn ?? []).includes("faalangst") ? [faalangst] : []),
     afsluiting,
   ];
 
   return {
-    titel: "Wat u deze week al kunt doen — zonder dat het ruzie wordt",
+    titel: "Tips voor deze week: zo helpt u zonder ruzie",
     blokken: blokken.map((b) => persoonlijk(b, a)),
   };
 }

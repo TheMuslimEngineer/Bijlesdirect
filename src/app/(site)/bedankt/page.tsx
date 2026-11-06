@@ -20,9 +20,8 @@ export default function BedanktPage() {
           </div>
           <h1 className="mt-7 text-[clamp(2rem,4vw,3rem)] text-ink">Bedankt voor uw aanvraag.</h1>
           <p className="mt-4 text-lg text-ink-soft">
-            We hebben uw aanvraag goed ontvangen en nemen binnen één werkdag persoonlijk contact met u op
-            — op het moment dat u heeft aangegeven. U ontvangt daarnaast direct een bevestiging per
-            e-mail.
+            We hebben uw aanvraag goed ontvangen en nemen binnen één werkdag persoonlijk contact met u
+            op. U ontvangt daarnaast direct een bevestiging per e-mail.
           </p>
 
           <div className="mt-9 rounded-2xl border border-line bg-sand p-7 text-left">

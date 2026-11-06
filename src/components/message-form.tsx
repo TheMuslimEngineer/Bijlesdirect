@@ -40,7 +40,7 @@ export function MessageForm({ kind }: { kind: "contact" | "docent" }) {
     <form
       onSubmit={onSubmit}
       noValidate
-      className="rounded-2xl border border-line bg-white p-7 shadow-[0_18px_50px_-24px_rgba(27,26,22,0.28)]"
+      className="rounded-2xl border border-line bg-white p-7"
     >
       <div className="grid gap-3 sm:grid-cols-2">
         <div>
@@ -90,7 +90,7 @@ export function MessageForm({ kind }: { kind: "contact" | "docent" }) {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-green px-6 py-3.5 text-base font-semibold text-white shadow-[0_10px_24px_-10px_rgba(14,107,79,0.6)] transition-all duration-150 hover:bg-green-deep disabled:cursor-not-allowed disabled:opacity-70"
+        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-green px-6 py-3.5 text-base font-semibold text-white transition-colors duration-150 hover:bg-green-deep disabled:cursor-not-allowed disabled:opacity-70"
       >
         {status === "submitting"
           ? "Bezig met versturen…"

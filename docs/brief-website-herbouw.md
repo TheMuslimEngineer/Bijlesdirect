@@ -1,4 +1,4 @@
-# Claude Code prompt — Bijlesdirect website herbouw
+# Claude Code prompt — ExamenDocent website herbouw
 
 > **Hoe te gebruiken:** open Claude Code in de map `Bijlesdirect Agent/website`, en plak onderstaande prompt (alles vanaf "## OPDRACHT"). Werk daarna per pagina verder in losse berichten.
 
@@ -6,7 +6,7 @@
 
 ## OPDRACHT
 
-Je herbouwt de website van Bijlesdirect. Het bedrijf maakt een strategische omslag: van een brede bijlesdienst voor alle vakken en niveaus naar een gespecialiseerd **examentrainingsbureau voor wiskunde in de bovenbouw HAVO/VWO**, met één vlaggenschipprogramma dat wordt verkocht met een slagingsgarantie.
+Je herbouwt de website van ExamenDocent. Het bedrijf maakt een strategische omslag: van een brede bijlesdienst voor alle vakken en niveaus naar een gespecialiseerd **examentrainingsbureau voor wiskunde in de bovenbouw HAVO/VWO**, met één vlaggenschipprogramma dat wordt verkocht met een slagingsgarantie.
 
 De huidige site verkoopt "alles voor iedereen" tegen een uurtarief. De nieuwe site verkoopt **één programma** met een hoge prijs en een sterke garantie. Dat vraagt om een fundamenteel andere opbouw: geen dienstenoverzicht, maar een overtuigende, gerichte verkooppagina-structuur.
 
@@ -16,7 +16,7 @@ Er staat al een Next.js-project in deze map. **Hergebruik de technische funderin
 
 ## 1. BEDRIJFSCONTEXT
 
-**Bijlesdirect** — bijlesdirect.nl · KVK 94485038 · info@bijlesdirect.nl · +31 6 42942121
+**ExamenDocent** — examendocent.nl · KVK 94485038 · info@examendocent.nl · +31 6 42942121
 Eigenaar: Adam. Klein persoonlijk team van bevoegde docenten. Online les.
 Bestaande sociale bewijskracht: 4,9★ gemiddeld, 100+ reviews (Trustpilot en Google), 500+ gezinnen geholpen.
 
@@ -41,7 +41,7 @@ Bestaande sociale bewijskracht: 4,9★ gemiddeld, 100+ reviews (Trustpilot en Go
 1. **Onomkeerbaarheid met deadline.** Eén examen in mei bepaalt of het kind blijft zitten, afstroomt, of de gewenste vervolgstudie misloopt. Er is geen tweede kans in hetzelfde jaar.
 2. **Machteloosheid en schuldgevoel.** Ze zien hun kind worstelen, kunnen de stof zelf niet meer helpen, kunnen motivatie niet afdwingen, en elke poging eindigt in ruzie aan de keukentafel. De onderliggende vraag is: *"ben ik een goede ouder als ik dit niet kan oplossen?"*
 
-Bijna alle concurrenten spreken alleen angst 1 aan ("hogere cijfers, geslaagd"). **Het onderscheidend vermogen van Bijlesdirect zit in angst 2.** Verkoop dus niet alleen het cijfer, maar ook *rust in huis* en *het einde van de dagelijkse strijd*.
+Bijna alle concurrenten spreken alleen angst 1 aan ("hogere cijfers, geslaagd"). **Het onderscheidend vermogen van ExamenDocent zit in angst 2.** Verkoop dus niet alleen het cijfer, maar ook *rust in huis* en *het einde van de dagelijkse strijd*.
 
 ---
 

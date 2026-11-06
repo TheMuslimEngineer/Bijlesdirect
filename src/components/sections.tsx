@@ -36,8 +36,8 @@ export function StatsBand() {
 }
 
 export function FinalCTA({
-  title = "Klaar om uw kind een voorsprong te geven?",
-  body = "Vraag vandaag de gratis Slagingscheck aan. We denken vrijblijvend met u mee — zonder verplichtingen.",
+  title = "Bel of app ons gerust",
+  body = "Of vraag de gratis Slagingscheck aan. In dertig minuten weet u waar uw kind staat.",
 }: {
   title?: string;
   body?: string;
@@ -45,15 +45,8 @@ export function FinalCTA({
   return (
     <section className="py-20">
       <Container>
-        <div className="relative overflow-hidden rounded-[28px] bg-ink px-8 py-16 text-center text-white sm:px-12">
-          <div
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(circle at 80% 20%, rgba(14,107,79,0.45), transparent 55%)",
-            }}
-          />
-          <div className="relative">
+        <div className="rounded-[28px] bg-ink px-8 py-16 text-center text-white sm:px-12">
+          <div>
             <h2 className="text-[clamp(1.9rem,4vw,3rem)] text-white">{title}</h2>
             <p className="mx-auto mt-4 max-w-xl text-lg text-white/80">{body}</p>
             <div className="mt-8 flex flex-wrap justify-center gap-3.5">
@@ -77,7 +70,7 @@ export function FinalCTA({
 
 export function ReviewCard({ review }: { review: Review }) {
   return (
-    <figure className="flex h-full flex-col rounded-2xl border border-line bg-white p-6 shadow-[0_8px_24px_-18px_rgba(27,26,22,0.3)]">
+    <figure className="flex h-full flex-col rounded-2xl border border-line bg-white p-6">
       <figcaption className="font-display text-[1.05rem] font-semibold text-ink">{review.name}</figcaption>
       <Stars count={review.stars} className="my-2.5" />
       <p className="text-[1.05rem] font-semibold text-ink">{review.title}</p>

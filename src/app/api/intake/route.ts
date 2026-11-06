@@ -96,7 +96,7 @@ export async function POST(req: Request) {
 
   try {
     const resultaat = await verstuur({
-      to: mailAdres().naarBijlesdirect,
+      to: mailAdres().naarExamenDocent,
       replyTo: data.email,
       subject: `${onderwerpen[data.type]} — ${data.naam}`,
       html,

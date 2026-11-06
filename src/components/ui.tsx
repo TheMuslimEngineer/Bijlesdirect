@@ -21,15 +21,13 @@ export function Container({
 type ButtonVariant = "primary" | "ghost" | "white";
 
 const buttonStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-green text-white shadow-[0_10px_24px_-10px_rgba(14,107,79,0.6)] hover:bg-green-deep hover:-translate-y-0.5",
-  ghost:
-    "bg-transparent text-ink border border-line hover:border-ink hover:-translate-y-0.5",
-  white: "bg-white text-green-deep hover:bg-sand hover:-translate-y-0.5",
+  primary: "bg-green text-white hover:bg-green-deep",
+  ghost: "bg-transparent text-ink border border-line hover:border-ink",
+  white: "bg-white text-green-deep hover:bg-sand",
 };
 
 const buttonBase =
-  "inline-flex items-center justify-center gap-2 rounded-full font-semibold text-base px-6 py-3.5 transition-all duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2";
+  "inline-flex items-center justify-center gap-2 rounded-full font-semibold text-base px-6 py-3.5 transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2";
 
 export function ButtonLink({
   href,
@@ -106,6 +104,33 @@ export function Stars({ count = 5, className }: { count?: number; className?: st
         <Star key={i} className={cn("h-[18px] w-[18px]", i < count ? "text-gold" : "text-sand-2")} />
       ))}
     </span>
+  );
+}
+
+/**
+ * Kruimelpad boven een programmapagina.
+ *
+ * Doet twee dingen tegelijk: de bezoeker kan terug naar het overzicht, en elke
+ * programmapagina verwijst zo aantoonbaar terug naar de homepage.
+ */
+export function Kruimelpad({ items }: { items: { label: string; href?: string }[] }) {
+  return (
+    <nav aria-label="Kruimelpad" className="mb-6 text-[14px] text-muted">
+      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
+        {items.map((item, i) => (
+          <li key={item.label} className="flex items-center gap-2">
+            {item.href ? (
+              <Link href={item.href} className="hover:text-green hover:underline">
+                {item.label}
+              </Link>
+            ) : (
+              <span className="text-ink-soft">{item.label}</span>
+            )}
+            {i < items.length - 1 && <span aria-hidden>/</span>}
+          </li>
+        ))}
+      </ol>
+    </nav>
   );
 }
 

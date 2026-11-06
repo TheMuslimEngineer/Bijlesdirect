@@ -30,7 +30,7 @@ function parseFile(file: string) {
     title: data.title ?? slug,
     description: data.description ?? "",
     date: data.date ? new Date(data.date).toISOString() : new Date().toISOString(),
-    author: data.author ?? "Bijlesdirect",
+    author: data.author ?? "ExamenDocent",
     category: data.category ?? "Studietips",
     readingTime: Math.max(1, Math.round(words / 200)),
   };

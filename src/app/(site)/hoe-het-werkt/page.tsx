@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Container, ButtonLink, Eyebrow } from "@/components/ui";
+import { Container, ButtonLink } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
-import { ProgrammaCTA, GarantieBlok } from "@/components/programma-secties";
-import { ArrowRight, Check, Calendar, Bell, ClipboardCheck, Mail, Cap, Target, Shield } from "@/components/icons";
+import { ProgrammaCTA } from "@/components/programma-secties";
+import { ArrowRight, Check } from "@/components/icons";
 import { programma } from "@/config/programma";
-import adamLesgeven from "../../../../public/images/adam-lesgeven.webp";
+import onlineLes from "../../../../public/images/online-les.webp";
+import docentTeam from "../../../../public/images/docent-team.webp";
 
 export const metadata: Metadata = {
-  title: "Onze aanpak — waarom dit anders is dan losse bijlesuren",
+  title: "Onze aanpak bij examentraining wiskunde",
   description:
-    "Diagnose, plan, begeleiding en garantie. Zo werkt het Wiskunde Slagingsprogramma — en waarom losse bijlesuren zelden het onderliggende probleem oplossen.",
+    "Diagnose, plan, begeleiding en garantie. Zo werkt Examenklaar, en waarom losse bijlesuren zelden het onderliggende probleem oplossen.",
   alternates: { canonical: "/hoe-het-werkt" },
 };
 
 const fasen = [
   {
     titel: "Diagnose",
-    body: "We beginnen niet met lesgeven, maar met meten. De diagnostische toets laat precies zien welke onderdelen ontbreken — meestal stof uit een eerder leerjaar die nooit is rechtgezet. Zonder die kaart is elke bijlesuur een gok.",
+    body: "We beginnen met meten. De diagnostische toets laat precies zien welke onderdelen ontbreken, meestal stof uit een eerder leerjaar die nooit is rechtgezet. Zonder die meting is elk bijlesuur een gok.",
     punten: ["Diagnostische toets vóór de start", "Persoonlijke gatenkaart", "Groepsindeling op niveau"],
   },
   {
@@ -27,39 +28,29 @@ const fasen = [
   },
   {
     titel: "De begeleiding",
-    body: `${programma.duurWeken} weken lang twee keer per week les, met een success coach die de voortgang bewaakt en uw kind elke twee weken persoonlijk spreekt. U krijgt elke week een kort rapport — meer hoeft u niet te doen.`,
-    punten: ["2× per week 2 uur les", "Tweewekelijks 1-op-1 gesprek", "Wekelijks ouderrapport"],
+    body: `${programma.duurWeken} weken lang twee keer per week les, met een success coach die de voortgang bewaakt en uw kind elke week persoonlijk spreekt. U krijgt elke week een kort rapport. Meer hoeft u niet te doen.`,
+    punten: ["2× per week 2 uur les", "Wekelijks 1-op-1 gesprek", "Wekelijks ouderrapport"],
   },
   {
     titel: "De garantie",
-    body: "Omdat we de diagnose, het plan én de uitvoering in handen hebben, durven we het risico te dragen. Slaagt uw kind niet, dan trainen we gratis door tot de herkansing. Lukt het dan nog niet, dan krijgt u uw geld terug.",
+    body: "Omdat we de diagnose, het plan en de uitvoering in handen hebben, durven we het risico te dragen. Slaagt uw kind niet, dan trainen we gratis door tot de herkansing. Lukt het dan nog niet, dan krijgt u uw geld terug.",
     punten: ["Gratis doortrainen bij zakken", "Volledige terugbetaling daarna", "Voorwaarden vooraf duidelijk"],
   },
 ];
 
 const docentPunten = [
   {
-    icon: Cap,
     titel: "Academisch afgestudeerd",
-    body: "Een universitaire graad in wiskunde, natuurkunde of een technische studie — geen student die er zelf nog middenin zit.",
+    body: "Een universitaire graad in wiskunde, natuurkunde of een technische studie.",
   },
   {
-    icon: Target,
     titel: "Werkzaam in het vak",
-    body: "Naast het lesgeven actief in hun vakgebied. Dat merkt u: ze kennen niet alleen de examenstof, maar ook waar die goed voor is.",
+    body: "Naast het lesgeven actief in hun vakgebied. Ze weten dus ook waar de examenstof in de praktijk voor dient.",
   },
   {
-    icon: Shield,
     titel: "Zelf geselecteerd en getraind",
-    body: "Elke docent doorloopt onze selectie en wordt getraind op onze examenmethode — niemand staat zomaar voor de klas.",
+    body: "Elke docent doorloopt onze selectie en wordt getraind op onze examenmethode.",
   },
-];
-
-const overnemen = [
-  { icon: Calendar, titel: "Wij plannen", body: "U hoeft geen agenda's te puzzelen." },
-  { icon: Bell, titel: "Wij sporen aan", body: "Het herinneren en controleren doen wij, niet u." },
-  { icon: ClipboardCheck, titel: "Wij bewaken het huiswerk", body: "We zien of het gedaan is en sturen bij." },
-  { icon: Mail, titel: "U krijgt het weekrapport", body: "Meer hoeft u niet te doen." },
 ];
 
 export default function HoeHetWerktPage() {
@@ -67,8 +58,8 @@ export default function HoeHetWerktPage() {
     <>
       <PageHeader
         eyebrow="Onze aanpak"
-        title="Waarom dit werkt waar losse bijlesuren stoppen."
-        intro="Bijles per week behandelt de stof van deze week. Wij pakken de oorzaak aan — en nemen het regelwerk bij u weg."
+        title="Waarom dit werkt waar losse bijlesuren stoppen"
+        intro="Gewone bijles behandelt de stof van deze week. Wij zoeken eerst uit waar het echt misgaat, en nemen u het regelwerk uit handen."
       >
         <ButtonLink href="/slagingscheck">
           Vraag een gratis Slagingscheck aan
@@ -84,12 +75,12 @@ export default function HoeHetWerktPage() {
         <Container>
           <figure className="relative overflow-hidden rounded-[28px] border border-line">
             <Image
-              src={adamLesgeven}
-              alt="Adam geeft online examentraining wiskunde"
+              src={onlineLes}
+              alt="Schermbeeld van een online les: de docent werkt een som uit op het digitale bord, naast een opgave uit het lesboek"
               placeholder="blur"
               priority
               sizes="(max-width: 1200px) 100vw, 1152px"
-              className="max-h-[440px] w-full object-cover object-center"
+              className="w-full"
             />
             <figcaption className="absolute bottom-4 left-4 rounded-full bg-ink/80 px-4 py-1.5 text-[13px] font-medium text-white backdrop-blur">
               Een online les in de praktijk
@@ -101,27 +92,44 @@ export default function HoeHetWerktPage() {
       {/* Wie geeft er les */}
       <section className="py-20">
         <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <Eyebrow>Onze docenten</Eyebrow>
-            <h2 className="mt-3 text-[clamp(1.75rem,3.4vw,2.5rem)] text-ink">
-              Geen student met een bijbaantje.
-            </h2>
+          <div className="max-w-2xl">
+            <h2 className="text-[clamp(1.75rem,3.4vw,2.5rem)] text-ink">Wie er lesgeeft</h2>
             <p className="mt-4 text-[1.05rem] text-ink-soft">
               Als wij &ldquo;bevoegde bèta-docent&rdquo; zeggen, bedoelen we dat letterlijk: een
-              afgestudeerde professional met een bèta-achtergrond — niet zomaar iemand die toevallig
-              goed is in wiskunde.
+              afgestudeerde professional met een bèta-achtergrond, die het vak heeft gestudeerd en het
+              kan uitleggen.
             </p>
           </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-3">
-            {docentPunten.map((p) => (
-              <div key={p.titel} className="rounded-2xl border border-line bg-white p-6">
-                <div className="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-green-soft">
-                  <p.icon className="h-5 w-5 text-green-deep" />
-                </div>
-                <h3 className="font-display text-[1.1rem] font-semibold text-ink">{p.titel}</h3>
-                <p className="mt-1.5 text-[14.5px] text-ink-soft">{p.body}</p>
-              </div>
-            ))}
+          {/* Bewust geen derde kaartenrij: één echte docent naast de eisen
+              zegt meer dan drie identieke kaarten. */}
+          <div className="mt-12 grid gap-10 md:grid-cols-[minmax(0,320px)_1fr] md:items-center md:gap-14">
+            <figure>
+              <Image
+                src={docentTeam}
+                alt="AbdulRahman, hoofddocent wiskunde bij ExamenDocent"
+                placeholder="blur"
+                sizes="(max-width: 768px) 100vw, 320px"
+                className="aspect-[4/5] w-full rounded-[24px] border border-line object-cover object-top"
+              />
+              <figcaption className="mt-4">
+                <p className="font-display text-[1.15rem] font-semibold text-ink">AbdulRahman</p>
+                <p className="text-[14px] font-medium text-green-deep">Onze hoofddocent wiskunde</p>
+                <p className="mt-2 text-[14px] leading-relaxed text-muted">
+                  Propedeuse lerarenopleiding wiskunde · wiskunde aan de universiteit · al 7 jaar
+                  docent
+                </p>
+              </figcaption>
+            </figure>
+            <ul className="grid gap-5">
+              {docentPunten.map((p) => (
+                <li key={p.titel}>
+                  <div>
+                    <h3 className="font-display text-[1.15rem] font-semibold text-ink">{p.titel}</h3>
+                    <p className="mt-1 text-[15px] text-ink-soft">{p.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </Container>
       </section>
@@ -153,43 +161,17 @@ export default function HoeHetWerktPage() {
         </Container>
       </section>
 
-      {/* Wij nemen het over */}
-      <section className="pb-20">
-        <Container>
-          <div className="rounded-[28px] bg-sand px-7 py-14 sm:px-11">
-            <div className="mx-auto max-w-2xl text-center">
-              <Eyebrow>Het regelwerk</Eyebrow>
-              <h2 className="mt-3 text-[clamp(1.75rem,3.4vw,2.5rem)] text-ink">
-                Wij nemen het zware deel over.
-              </h2>
-              <p className="mt-4 text-[1.05rem] text-ink-soft">
-                Het zwaarste aan bijles is niet de les. Het is het geregel eromheen — en dat halen we bij u
-                weg.
-              </p>
-            </div>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {overnemen.map((o) => (
-                <div key={o.titel} className="rounded-2xl bg-white p-6">
-                  <div className="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-green-soft">
-                    <o.icon className="h-[22px] w-[22px] text-green-deep" />
-                  </div>
-                  <h3 className="font-display text-[1.15rem] font-semibold text-ink">{o.titel}</h3>
-                  <p className="mt-1.5 text-[14.5px] text-ink-soft">{o.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Garantie */}
-      <section className="pb-20">
-        <Container>
-          <GarantieBlok />
-        </Container>
-      </section>
-
-      <ProgrammaCTA />
+      <ProgrammaCTA
+        title="Zo weet u binnen dertig minuten waar u aan toe bent"
+        body="De Slagingscheck is de eerste stap van precies deze aanpak: eerst meten, dan pas praten over het programma. Ook als daar uitkomt dat u ons niet nodig heeft."
+        recap={[
+          "We kijken samen naar de cijfers, de toetsen en wat er thuis gebeurt",
+          "U hoort een eerlijk oordeel: is slagen haalbaar, en is dit programma daarvoor de juiste weg",
+          "Past het? Dan volgt de diagnostische toets en binnen 48 uur het plan",
+          "Past het niet? Dan zeggen we dat, en bent u dertig minuten verder",
+        ]}
+      />
     </>
   );
 }
+

@@ -1,3 +1,5 @@
+> **Let op (6 november 2026):** de teksten op de site zijn herschreven in eenvoudig Nederlands (B1), omdat veel ouders moeite hebben met de taal. De actuele teksten staan in `src/content/oudergids/blokken.ts`. Dit document blijft staan als achtergrond.
+
 # De Oudergids — gepersonaliseerde snelle win
 
 *Wordt direct getoond op het bevestigingsscherm van de Slagingscheck, en nagestuurd per e-mail.*
@@ -179,7 +181,7 @@ Zit het dieper — echt dichtklappen, blackout, hevige spanning dagen van tevore
 > Is het niet haalbaar, dan zeggen we dat ook. Dat is de reden dat we deze gesprekken voeren.
 >
 > Tot snel,
-> **Adam** — Bijlesdirect
+> **Adam** — ExamenDocent
 > [WhatsApp ons] als u er tussentijds iets over wilt vragen.
 
 ---

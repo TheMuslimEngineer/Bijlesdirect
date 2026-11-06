@@ -2,34 +2,30 @@ import type { Metadata } from "next";
 import { Container, SectionHeading } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
 import { MessageForm } from "@/components/message-form";
-import { Check, Clock, Users, Target, Sparkles } from "@/components/icons";
+import { Check } from "@/components/icons";
 import { programma } from "@/config/programma";
 
 export const metadata: Metadata = {
-  title: "Docent worden — bevoegde wiskundedocenten gezocht",
+  title: "Docent worden: wiskundedocenten gezocht",
   description:
-    "Geef online examentraining wiskunde aan HAVO- en VWO-examenkandidaten. Kleine groepen, kant-en-klaar curriculum, marktconforme vergoeding. Meld je aan bij Bijlesdirect.",
+    "Geef online examentraining wiskunde aan HAVO- en VWO-examenkandidaten. Kleine groepen, kant-en-klaar curriculum, marktconforme vergoeding. Meld je aan bij ExamenDocent.",
   alternates: { canonical: "/docent-worden" },
 };
 
 const voordelen = [
   {
-    icon: Target,
     title: "Eén vak, één doel",
     body: "Geen versnipperde bijlesuren over vijf vakken. Jij doet waar je goed in bent: examentraining wiskunde.",
   },
   {
-    icon: Users,
     title: "Kleine groepen op niveau",
-    body: `Maximaal ${programma.maxPerGroep} leerlingen, allemaal met dezelfde gaten — ingedeeld op basis van een diagnostische toets.`,
+    body: `Maximaal ${programma.maxPerGroep} leerlingen, allemaal met dezelfde gaten, ingedeeld op basis van een diagnostische toets.`,
   },
   {
-    icon: Sparkles,
     title: "Curriculum ligt klaar",
     body: "Lesmateriaal, opgaven en proefexamens zijn er al. Jij hoeft geen avonden te besteden aan voorbereiding.",
   },
   {
-    icon: Clock,
     title: "Vaste blokken, online",
     body: "Twee vaste momenten per week, vanuit huis. Geen reistijd, duidelijke planning.",
   },
@@ -46,8 +42,8 @@ export default function DocentWordenPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Werken bij Bijlesdirect"
-        title="Word examentrainer wiskunde."
+        eyebrow="Werken bij ExamenDocent"
+        title="Word examentrainer wiskunde"
         intro="Wij zoeken bevoegde wiskundedocenten die examenkandidaten door hun laatste, belangrijkste maanden loodsen. Klein team, korte lijnen, en een programma dat staat."
       />
 
@@ -55,13 +51,10 @@ export default function DocentWordenPage() {
         <Container>
           <div className="grid items-start gap-12 lg:grid-cols-[1fr_0.9fr] lg:gap-16">
             <div>
-              <SectionHeading eyebrow="Waarom bij ons" title="Lesgeven zonder de rompslomp." />
+              <SectionHeading title="Lesgeven zonder rompslomp" />
               <div className="mt-10 grid gap-6 sm:grid-cols-2">
                 {voordelen.map((v) => (
                   <div key={v.title} className="rounded-2xl border border-line bg-white p-6">
-                    <div className="mb-4 grid h-[46px] w-[46px] place-items-center rounded-[13px] bg-green-soft">
-                      <v.icon className="h-[22px] w-[22px] text-green-deep" />
-                    </div>
                     <h3 className="text-[1.2rem]">{v.title}</h3>
                     <p className="mt-2 text-[15px] text-ink-soft">{v.body}</p>
                   </div>

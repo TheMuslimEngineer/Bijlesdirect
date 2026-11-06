@@ -52,7 +52,7 @@ export default async function BlogPostPage({
     description: post.meta.description,
     datePublished: post.meta.date,
     author: { "@type": "Organization", name: post.meta.author },
-    publisher: { "@type": "Organization", name: "Bijlesdirect" },
+    publisher: { "@type": "Organization", name: "ExamenDocent" },
     mainEntityOfPage: `${site.domain}/blog/${slug}`,
   };
 
@@ -104,7 +104,7 @@ export default async function BlogPostPage({
               <Link
                 key={p.slug}
                 href={`/blog/${p.slug}`}
-                className="group rounded-2xl border border-line bg-white p-7 transition-all hover:-translate-y-1 hover:shadow-[0_18px_50px_-24px_rgba(27,26,22,0.28)]"
+                className="group rounded-2xl border border-line bg-white p-7 transition-colors hover:border-ink"
               >
                 <span className="text-[13px] font-semibold text-green">{p.category}</span>
                 <h3 className="mt-2 font-display text-xl font-semibold text-ink">{p.title}</h3>

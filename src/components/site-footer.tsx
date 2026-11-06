@@ -1,21 +1,19 @@
 import Link from "next/link";
-import { site, portaal } from "@/lib/site";
-import { programma } from "@/config/programma";
+import { site } from "@/lib/site";
 import { BrandLogo } from "@/components/logo";
 
 const cols = [
   {
     title: "Het programma",
     links: [
-      { label: "Het Wiskunde Slagingsprogramma", href: "/slagingsprogramma" },
-      { label: "Alle programma's", href: "/programmas" },
+      { label: "Examenklaar", href: "/slagingsprogramma" },
       { label: "Onze aanpak", href: "/hoe-het-werkt" },
       { label: "Prijs & garantie", href: "/prijs-en-garantie" },
       { label: "Premium 1-op-1", href: "/premium" },
     ],
   },
   {
-    title: "Bijlesdirect",
+    title: "ExamenDocent",
     links: [
       { label: "Over ons", href: "/over-ons" },
       { label: "Reviews", href: "/reviews" },
@@ -34,8 +32,7 @@ export function SiteFooter() {
           <div>
             <BrandLogo />
             <p className="mt-4 max-w-xs text-[15px] text-ink-soft">
-              Examentraining wiskunde voor HAVO en VWO. {programma.duurWeken} weken persoonlijke
-              begeleiding, met slagingsgarantie.
+              Examentraining wiskunde voor HAVO en VWO, met slagingsgarantie.
             </p>
           </div>
 
@@ -72,20 +69,32 @@ export function SiteFooter() {
             <Link href="/contact" className="mb-2.5 block text-[15px] text-ink-soft hover:text-green">
               Contactpagina
             </Link>
-            <a
-              href={portaal.loginUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/inloggen"
               className="mb-2.5 block text-[15px] text-ink-soft hover:text-green"
             >
               Inloggen (huidige leerlingen)
-            </a>
+            </Link>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+        {/* Voor wie niet in het examenjaar zit of 1-op-1 bijles zoekt: het moederbedrijf. */}
+        <p className="mt-12 rounded-2xl bg-white/70 px-5 py-4 text-[15px] text-ink-soft">
+          Zit uw kind niet in het examenjaar, of zoekt u 1-op-1 bijles?{" "}
+          <a
+            href={site.bijlesdirectUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-green-deep underline underline-offset-4 hover:text-green"
+          >
+            Kijk bij Bijlesdirect
+          </a>
+          , waar ExamenDocent bij hoort.
+        </p>
+
+        <div className="mt-8 flex flex-col gap-3 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
           <span>
-            © {new Date().getFullYear()} Bijlesdirect · KVK {site.kvk}
+            © {new Date().getFullYear()} ExamenDocent · KVK {site.kvk}
           </span>
           <div className="flex gap-5">
             <Link href="/privacy" className="hover:text-green">

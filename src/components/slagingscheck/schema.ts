@@ -16,32 +16,22 @@ export const slagingscheckSchema = z.object({
   // vaste optielijst. De server zet ze om naar leesbare tekst via `leesbaar`.
   voorWie: z.enum(["ouder", "leerling"]),
   klas: z.enum(["examen_havo", "examen_vwo", "voorexamen", "anders"]),
-  vak: z.enum(["wiskunde_a", "wiskunde_b", "wiskunde_c", "wiskunde_d", "ander_vak"]).optional(),
   cijfer: z.enum(["onder_4", "4_5", "5_55", "55_65", "boven_65"]).optional(),
-  sinds: z.enum(["dit_jaar", "langer_dan_jaar", "sinds_onderbouw"]).optional(),
-  doel: z.enum(["numerus_fixus", "beta_studie", "hoog_slagen"]).optional(),
-  eerderBijles: z.enum(["nee", "ja_hielp_niet", "ja_hielp_wel"]).optional(),
-  beschikbaarheid: z.enum(["overdag", "avond", "weekend", "maakt_niet_uit"]).optional(),
+  droom: z.enum(["rust", "zelfvertrouwen", "toekomst", "last"]).optional(),
   gevraagdNiveau: z
     .enum(["vmbo_bb", "vmbo_kb", "vmbo_gl", "vmbo_tl", "mbo", "onderbouw", "anders"])
     .optional(),
 
-  watWerkteNiet: z.array(kort(60)).max(10).optional(),
   grootsteProbleem: z.array(kort(60)).max(10).optional(),
   ouderPijn: z.array(kort(60)).max(10).optional(),
   gevraagdeVakken: z.array(kort(60)).max(20).optional(),
-
-  watWerkteNietAnders: optioneel(200),
   gevraagdVakAnders: optioneel(200),
-  wilAanbeveling: z.boolean().optional(),
 
   // Contactgegevens
   naam: kort(120).min(1, "Vul uw naam in."),
-  email: kort(160).email("Vul een geldig e-mailadres in."),
+  email: kort(160).email("Dit e-mailadres klopt niet. Kijk het nog even na."),
   telefoon: optioneel(40),
   naamLeerling: optioneel(120),
-  school: optioneel(160),
-  opmerking: optioneel(2000),
 
   // Anti-spam — echte bezoekers laten dit leeg.
   website: z.string().optional(),
@@ -56,7 +46,7 @@ export function eersteFoutmelding(fout: z.ZodError): string {
     naam: "uw naam",
     email: "een geldig e-mailadres",
     telefoon: "een telefoonnummer",
-    naamLeerling: "de naam van de leerling",
+    naamLeerling: "de voornaam van uw kind",
   };
   const ruw = issue?.message ?? "";
   const technisch = /expected|received|invalid|too big|too small|nan|required/i.test(ruw);

@@ -7,7 +7,7 @@
 
 import type { Antwoorden, StapId } from "./types";
 
-const SLEUTEL = "bijlesdirect.slagingscheck.v1";
+const SLEUTEL = "examendocent.slagingscheck.v2";
 const HOUDBAAR_MS = 1000 * 60 * 60 * 24 * 7; // een week
 
 type Bewaard = {

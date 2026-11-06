@@ -7,9 +7,9 @@ import { ArrowRight, Clock } from "@/components/icons";
 import { getAllPosts, formatDate } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Blog — studietips & advies voor ouders",
+  title: "Studietips en advies voor ouders",
   description:
-    "Praktische tips over leren, plannen, examens en motivatie. Lees het blog van Bijlesdirect en help uw kind verder op school.",
+    "Praktische tips over het eindexamen wiskunde: leren, plannen en motivatie. Lees het blog van ExamenDocent en help uw kind op weg naar een voldoende.",
   alternates: { canonical: "/blog" },
 };
 
@@ -21,8 +21,8 @@ export default function BlogPage() {
     <>
       <PageHeader
         eyebrow="Blog"
-        title="Studietips & advies voor ouders."
-        intro="Praktische artikelen over leren, plannen, examens en motivatie — geschreven door onze docenten."
+        title="Studietips en advies voor ouders"
+        intro="Praktische artikelen over het eindexamen wiskunde, leren en motivatie."
       />
 
       <section className="py-20">
@@ -34,7 +34,7 @@ export default function BlogPage() {
               {featured && (
                 <Link
                   href={`/blog/${featured.slug}`}
-                  className="group grid overflow-hidden rounded-[28px] border border-line bg-white transition-all hover:-translate-y-1 hover:shadow-[0_24px_60px_-30px_rgba(27,26,22,0.35)] lg:grid-cols-2"
+                  className="group grid overflow-hidden rounded-[28px] border border-line bg-white transition-colors hover:border-ink lg:grid-cols-2"
                 >
                   <div
                     className="min-h-[240px] p-10"
@@ -67,7 +67,7 @@ export default function BlogPage() {
                     <Link
                       key={post.slug}
                       href={`/blog/${post.slug}`}
-                      className="group flex flex-col rounded-2xl border border-line bg-white p-7 transition-all hover:-translate-y-1 hover:shadow-[0_18px_50px_-24px_rgba(27,26,22,0.28)]"
+                      className="group flex flex-col rounded-2xl border border-line bg-white p-7 transition-colors hover:border-ink"
                     >
                       <div className="flex items-center gap-3 text-[13px] text-muted">
                         <span className="font-semibold text-green">{post.category}</span>

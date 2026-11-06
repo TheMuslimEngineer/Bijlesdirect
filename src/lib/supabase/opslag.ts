@@ -10,7 +10,7 @@
 
 import { maakServerClient, supabaseBeschikbaar } from "./server";
 import type { AanvraagInsert, BerichtInsert } from "./types";
-import { bepaalMarkering, bepaalRoute } from "@/components/slagingscheck/questions";
+import { bepaalMarkering, bepaalRoute, optieLabels } from "@/components/slagingscheck/questions";
 import type { Antwoorden } from "@/components/slagingscheck/types";
 
 /** Zet de antwoorden om naar een databaseregel. */
@@ -21,28 +21,20 @@ function naarRij(a: Antwoorden): AanvraagInsert {
 
     voor_wie: a.voorWie ?? "ouder",
     klas: a.klas ?? "anders",
-    vak: a.vak ?? null,
     cijfer: a.cijfer ?? null,
-    sinds: a.sinds ?? null,
-    doel: a.doel ?? null,
-    eerder_bijles: a.eerderBijles ?? null,
-    wat_werkte_niet: a.watWerkteNiet ?? [],
-    wat_werkte_niet_anders: a.watWerkteNietAnders || null,
     grootste_probleem: a.grootsteProbleem ?? [],
     ouder_pijn: a.ouderPijn ?? [],
-    beschikbaarheid: a.beschikbaarheid ?? null,
 
     gevraagd_niveau: a.gevraagdNiveau ?? null,
     gevraagde_vakken: a.gevraagdeVakken ?? [],
     gevraagd_vak_anders: a.gevraagdVakAnders || null,
-    wil_aanbeveling: a.wilAanbeveling ?? false,
 
     naam: a.naam ?? "",
     email: a.email ?? "",
     telefoon: a.telefoon || null,
     naam_leerling: a.naamLeerling || null,
-    school: a.school || null,
-    opmerking: a.opmerking || null,
+    // De droom-vraag heeft geen eigen kolom; zo hoeft de database niet te wijzigen.
+    opmerking: a.droom ? `Het mooiste na het slagen: ${optieLabels("droom", [a.droom], a)[0]}` : null,
   };
 }
 

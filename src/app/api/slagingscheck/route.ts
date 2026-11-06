@@ -26,20 +26,16 @@ function onderwerp(a: Antwoorden): string {
   const route = bepaalRoute(a);
   const wie = a.naamLeerling?.trim() || a.naam;
   const niveau = a.klas === "examen_vwo" ? "VWO" : a.klas === "examen_havo" ? "HAVO" : "";
-  // Zijroute E heeft een eigen vakkenlijst (inclusief wiskunde), zijroute D niet.
-  const vakstap = route === "ander_niveau" ? "niveau_vak" : "gevraagde_vakken";
-  const vakken = optieLabels(vakstap, a.gevraagdeVakken).join(", ") || a.gevraagdVakAnders || "onbekend";
+  const vakken = optieLabels("niveau_vak", a.gevraagdeVakken, a).join(", ") || a.gevraagdVakAnders || "onbekend";
 
   switch (route) {
     case "hoofdroute": {
       const markering = bepaalMarkering(a);
       const staart = markering ? ` (${markeringTekst[markering]})` : "";
-      return `[LEAD] Slagingscheck — ${wie}, ${niveau}, ${label(a.vak)}, staat ${label(a.cijfer)}${staart}`;
+      return `[LEAD] Slagingscheck — ${wie}, ${niveau}, staat ${label(a.cijfer)}${staart}`;
     }
     case "inhaalprogramma":
-      return `[LEAD] Inhaalprogramma — ${wie}, klas 4 of 5`;
-    case "ander_vak":
-      return `[VRAAG] Ander vak — ${vakken}${niveau ? `, ${niveau} examen` : ""}`;
+      return `[LEAD] Klas 4 of 5 — ${wie}`;
     case "ander_niveau":
       return `[VRAAG] Ander niveau — ${label(a.gevraagdNiveau)}, ${vakken}`;
   }
@@ -58,30 +54,17 @@ function profielRegels(a: Antwoorden): [string, string][] {
 
   if (route === "ander_niveau") {
     regels.push(["Gevraagd niveau", label(a.gevraagdNiveau)]);
-    regels.push(["Gevraagde vakken", optieLabels("niveau_vak", a.gevraagdeVakken).join(", ") || "—"]);
+    regels.push(["Gevraagde vakken", optieLabels("niveau_vak", a.gevraagdeVakken, a).join(", ") || "—"]);
     if (a.gevraagdVakAnders) regels.push(["Toelichting vak", a.gevraagdVakAnders]);
-  } else if (route === "ander_vak") {
-    regels.push(["Gevraagde vakken", optieLabels("gevraagde_vakken", a.gevraagdeVakken).join(", ") || "—"]);
-    if (a.gevraagdVakAnders) regels.push(["Toelichting vak", a.gevraagdVakAnders]);
-    regels.push(["Huidig cijfer", label(a.cijfer)]);
-    regels.push(["Wil aanbeveling", a.wilAanbeveling ? "ja" : "nee"]);
   } else {
-    if (a.vak) regels.push(["Vak", label(a.vak)]);
-    if (a.cijfer) regels.push(["Huidig cijfer", label(a.cijfer)]);
-    if (a.sinds) regels.push(["Loopt", label(a.sinds)]);
-    if (a.doel) regels.push(["Doel", label(a.doel)]);
-    if (a.eerderBijles) regels.push(["Eerder bijles", label(a.eerderBijles)]);
-    if (a.watWerkteNiet?.length) {
-      regels.push(["Wat werkte niet", optieLabels("wat_werkte_niet", a.watWerkteNiet).join(" · ")]);
-    }
-    if (a.watWerkteNietAnders) regels.push(["Toelichting daarop", a.watWerkteNietAnders]);
-    if (a.grootsteProbleem?.length) {
-      regels.push(["Grootste probleem", optieLabels("grootste_probleem", a.grootsteProbleem).join(" · ")]);
-    }
+    if (a.cijfer) regels.push(["Huidig cijfer wiskunde", label(a.cijfer)]);
     if (a.ouderPijn?.length) {
-      regels.push(["Waar de ouder tegenaan loopt", optieLabels("ouder_pijn", a.ouderPijn).join(" · ")]);
+      regels.push(["Waar de ouder zich in herkent", optieLabels("ouder_pijn", a.ouderPijn, a).join(" · ")]);
     }
-    if (a.beschikbaarheid) regels.push(["Liefst bellen", label(a.beschikbaarheid)]);
+    if (a.grootsteProbleem?.length) {
+      regels.push(["Waar de leerling zich in herkent", optieLabels("grootste_probleem", a.grootsteProbleem, a).join(" · ")]);
+    }
+    if (a.droom) regels.push(["Het mooiste na het slagen", optieLabels("droom", [a.droom], a)[0]]);
   }
 
   // Vult de leerling zelf in, dan is er maar één naam — die van de leerling.
@@ -93,7 +76,6 @@ function profielRegels(a: Antwoorden): [string, string][] {
     ["Telefoon", a.telefoon || "—"],
   );
   if (!leerlingVultZelfIn) regels.push(["Naam leerling", a.naamLeerling || "—"]);
-  regels.push(["School", a.school || "—"], ["Opmerking", a.opmerking || "—"]);
   return regels;
 }
 
@@ -110,24 +92,22 @@ function dataRegel(a: Antwoorden): string {
     a.voorWie ?? "",
     a.klas ?? "",
     a.gevraagdNiveau ?? "",
-    a.vak ?? "",
     (a.gevraagdeVakken ?? []).join("|"),
     a.gevraagdVakAnders ?? "",
     a.cijfer ?? "",
-    a.sinds ?? "",
-    a.doel ?? "",
-    a.eerderBijles ?? "",
-    (a.watWerkteNiet ?? []).join("|"),
     (a.grootsteProbleem ?? []).join("|"),
     (a.ouderPijn ?? []).join("|"),
-    a.beschikbaarheid ?? "",
-    a.school ?? "",
+    a.droom ?? "",
   ];
   return "DATA;" + velden.map((v) => String(v).replace(/;/g, ",")).join(";");
 }
 
+/** Het formulier vraagt bewust weinig; dit is wat Adam in het gesprek nog moet ophalen. */
+const nogTeVragen = "Nog te vragen in het gesprek: wiskunde A, B of C, eerdere bijles, school en wanneer bellen het beste uitkomt.";
+
 function notificatie(a: Antwoorden) {
   const regels = profielRegels(a);
+  const opHoofdroute = bepaalRoute(a) === "hoofdroute";
   const markering = bepaalMarkering(a);
 
   const kop = markering
@@ -148,6 +128,7 @@ function notificatie(a: Antwoorden) {
         )
         .join("")}
     </table>
+    ${opHoofdroute ? `<p style="font-family:sans-serif;font-size:14px;margin-top:18px"><strong>${nogTeVragen}</strong></p>` : ""}
     <p style="font-family:sans-serif;color:#6f6a5e;font-size:13px;margin-top:18px">
       Programma: start ${programma.start}, inschrijving sluit ${programma.inschrijvingSluit}.
     </p>
@@ -159,6 +140,7 @@ function notificatie(a: Antwoorden) {
     "",
     ...regels.map(([k, v]) => (k === "—" ? "—" : `${k}: ${v}`)),
     "",
+    ...(opHoofdroute ? [nogTeVragen, ""] : []),
     dataRegel(a),
   ].join("\n");
 
@@ -215,18 +197,21 @@ function bevestiging(a: Antwoorden) {
   if (!gids) {
     // Zijroute: kort en eerlijk, geen gids.
     const body = `
-      <h1 style="font-size:22px;margin:0 0 12px;color:#1b1a16">Dank u wel — we hebben het genoteerd.</h1>
+      <h1 style="font-size:22px;margin:0 0 12px;color:#1b1a16">Dank u wel. We hebben het genoteerd.</h1>
       <p style="font-size:15px;line-height:1.65;color:#403d35;margin:0 0 14px">
-        We houden bij welke vakken en niveaus het vaakst gevraagd worden. Dat bepaalt waar we als
-        volgende uitbreiden — en u bent een van de eersten die het hoort.
+        Zo weten we welke vakken en niveaus ouders zoeken. Gaan we dat ook doen? Dan hoort u het
+        als een van de eersten.
+      </p>
+      <p style="font-size:15px;line-height:1.65;color:#403d35;margin:0 0 14px">
+        Zoekt u nu al bijles? Kijk bij <a href="${site.bijlesdirectUrl}" style="color:#0a5340;font-weight:bold">Bijlesdirect</a>, waar ExamenDocent bij hoort.
       </p>
       <p style="font-size:15px;line-height:1.65;color:#403d35;margin:0">
-        Heeft u tussentijds een vraag? Bel of WhatsApp gerust.
+        Heeft u een vraag? Bel ons of stuur een WhatsApp.
       </p>`;
     return {
-      subject: "Dank u wel — we hebben het genoteerd | Bijlesdirect",
+      subject: "Dank u wel, we hebben het genoteerd | ExamenDocent",
       html: omlijst(body),
-      text: "Dank u wel — we hebben het genoteerd.\n\nWe houden bij welke vakken en niveaus het vaakst gevraagd worden en laten het weten zodra we uitbreiden.\n\nBijlesdirect · " + site.phoneDisplay,
+      text: "Dank u wel. We hebben het genoteerd.\n\nZo weten we welke vakken en niveaus ouders zoeken. Gaan we dat ook doen? Dan hoort u het als een van de eersten.\n\nZoekt u nu al bijles? Kijk bij Bijlesdirect, waar ExamenDocent bij hoort: " + site.bijlesdirectUrl + "\n\nExamenDocent · " + site.phoneDisplay,
     };
   }
 
@@ -236,8 +221,8 @@ function bevestiging(a: Antwoorden) {
 
   return {
     subject: jeVorm
-      ? "Je Slagingscheck staat gepland — en alvast dit"
-      : "Uw Slagingscheck staat gepland — en alvast dit",
+      ? "Adam belt je snel. Hier zijn alvast tips."
+      : "Adam belt u snel. Hier zijn alvast tips.",
     html: omlijst(body),
     text: `${gids.titel}\n\n${gidsText(gids)}`,
   };
@@ -252,7 +237,7 @@ export async function POST(req: Request) {
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ error: "Ongeldige aanvraag." }, { status: 400 });
+    return NextResponse.json({ error: "Er ging iets mis. Probeer het nog een keer." }, { status: 400 });
   }
 
   const parsed = slagingscheckSchema.safeParse(body);
@@ -268,18 +253,18 @@ export async function POST(req: Request) {
   // Honeypot: bot vulde het verborgen veld in → doe alsof het lukte, doe niets.
   if (a.website) return NextResponse.json({ ok: true });
 
-  const { naarBijlesdirect } = mailAdres();
+  const { naarExamenDocent } = mailAdres();
   const melding = notificatie(a);
 
   // Wegschrijven naar de database. Bewust vóór de mail, maar niet blokkerend:
   // mislukt het, dan gaat de aanvraag gewoon door via de mail.
   const bewaard = await bewaarAanvraag(a);
 
-  // 1) Melding naar Bijlesdirect — dit mag niet misgaan.
+  // 1) Melding naar ExamenDocent — dit mag niet misgaan.
   let bezorgd = false;
   try {
     const resultaat = await verstuur({
-      to: naarBijlesdirect,
+      to: naarExamenDocent,
       replyTo: ingevuld.email,
       subject: onderwerp(a),
       html: melding.html,
@@ -287,14 +272,14 @@ export async function POST(req: Request) {
     });
     if (!resultaat.ok) {
       return NextResponse.json(
-        { error: "Versturen mislukt. Bel of WhatsApp ons gerust direct." },
+        { error: "Het versturen is niet gelukt. Bel ons of stuur een WhatsApp." },
         { status: 502 },
       );
     }
     bezorgd = resultaat.bezorgd;
   } catch (err) {
     console.error("[slagingscheck] onverwachte fout:", err);
-    return NextResponse.json({ error: "Er ging iets mis. Probeer het later opnieuw." }, { status: 500 });
+    return NextResponse.json({ error: "Er ging iets mis. Probeer het later nog een keer." }, { status: 500 });
   }
 
   // 2) Bevestiging met de oudergids — mag falen zonder de aanvraag te blokkeren.
@@ -302,7 +287,7 @@ export async function POST(req: Request) {
     const mail = bevestiging(a);
     await verstuur({
       to: ingevuld.email,
-      replyTo: naarBijlesdirect,
+      replyTo: naarExamenDocent,
       subject: mail.subject,
       html: mail.html,
       text: mail.text,

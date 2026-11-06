@@ -1,8 +1,8 @@
 @AGENTS.md
 
-# Bijlesdirect — projectcontext
+# ExamenDocent — projectcontext
 
-Website van Bijlesdirect. Het bedrijf maakt een omslag van brede bijles naar één
+Website van ExamenDocent. Het bedrijf maakt een omslag van brede bijles naar één
 gespecialiseerd aanbod: **examentraining wiskunde voor de bovenbouw HAVO/VWO**,
 verkocht met een slagingsgarantie.
 

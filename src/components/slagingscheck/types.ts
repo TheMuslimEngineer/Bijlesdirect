@@ -1,24 +1,20 @@
 /**
  * De Slagingscheck — datamodel.
  *
- * Eén antwoordobject dat door de hele stroom wordt meegedragen. Welke velden
- * gevuld zijn hangt af van de route: de hoofdroute levert een volledig profiel,
- * de zijroutes alleen wat nodig is om de vraag te meten en contact te houden.
+ * Eén antwoordobject dat door de hele stroom wordt meegedragen. Dit formulier
+ * vraagt bewust weinig: vak, eerdere bijles, school en voorkeursmoment vraagt
+ * Adam in het gesprek.
  */
 
 /** Welke weg de invuller door het formulier neemt. Afgeleid uit de antwoorden. */
-export type Route = "hoofdroute" | "inhaalprogramma" | "ander_vak" | "ander_niveau";
+export type Route = "hoofdroute" | "inhaalprogramma" | "ander_niveau";
 
 /** Bepaalt de aanspreekvorm in álle volgende schermen. */
 export type VoorWie = "ouder" | "leerling";
 
 export type Klas = "examen_havo" | "examen_vwo" | "voorexamen" | "anders";
-export type Vak = "wiskunde_a" | "wiskunde_b" | "wiskunde_c" | "wiskunde_d" | "ander_vak";
 export type Cijfer = "onder_4" | "4_5" | "5_55" | "55_65" | "boven_65";
-export type Sinds = "dit_jaar" | "langer_dan_jaar" | "sinds_onderbouw";
-export type Doel = "numerus_fixus" | "beta_studie" | "hoog_slagen";
-export type EerderBijles = "nee" | "ja_hielp_niet" | "ja_hielp_wel";
-export type Beschikbaarheid = "overdag" | "avond" | "weekend" | "maakt_niet_uit";
+export type Droom = "rust" | "zelfvertrouwen" | "toekomst" | "last";
 export type GevraagdNiveau =
   | "vmbo_bb"
   | "vmbo_kb"
@@ -30,35 +26,24 @@ export type GevraagdNiveau =
 
 export type Antwoorden = {
   voorWie?: VoorWie;
+  naamLeerling?: string; // bij de ouder al vroeg gevraagd, zodat de vragen persoonlijk worden
   klas?: Klas;
-  vak?: Vak;
   cijfer?: Cijfer;
 
   // hoofdroute
-  sinds?: Sinds; // alleen bij cijfer onder_4 | 4_5
-  doel?: Doel; // alleen bij cijfer boven_65
-  eerderBijles?: EerderBijles;
-  watWerkteNiet?: string[]; // alleen bij ja_hielp_niet
-  watWerkteNietAnders?: string;
-  grootsteProbleem?: string[];
   ouderPijn?: string[]; // alleen bij voorWie === 'ouder'
-  beschikbaarheid?: Beschikbaarheid;
+  grootsteProbleem?: string[]; // alleen bij voorWie === 'leerling'
+  droom?: Droom;
 
-  // zijroute D — ander vak (vraagregistratie voor toekomstige uitbreiding)
+  // zijroute: ander niveau of ander vak (vraagregistratie voor later)
+  gevraagdNiveau?: GevraagdNiveau;
   gevraagdeVakken?: string[];
   gevraagdVakAnders?: string;
-  wilAanbeveling?: boolean;
-
-  // zijroute E — ander niveau
-  gevraagdNiveau?: GevraagdNiveau;
 
   // altijd
   naam?: string;
   email?: string;
   telefoon?: string;
-  naamLeerling?: string;
-  school?: string;
-  opmerking?: string;
 
   // anti-spam
   website?: string;
@@ -67,11 +52,26 @@ export type Antwoorden = {
 /** Interne markering voor de notificatiemail — bepaalt hoe Adam het gesprek voorbereidt. */
 export type Markering = "extra_screening" | "premium_kandidaat" | null;
 
-/** Tekst die verschilt per aanspreekvorm. Eén string = geldt voor beide. */
+/**
+ * Tekst die verschilt per aanspreekvorm. Eén string = geldt voor beide.
+ * `{kind}` wordt de voornaam van het kind, zie `persoonlijk`.
+ */
 export type Tekst = string | { u: string; je: string };
 
 export function tekst(t: Tekst, voorWie: VoorWie = "ouder"): string {
   return typeof t === "string" ? t : voorWie === "ouder" ? t.u : t.je;
+}
+
+/** De voornaam zoals we hem aanspreken, ook als de ouder hem met een kleine letter typte. */
+export function voornaamKind(a: Antwoorden): string {
+  const voornaam = a.naamLeerling?.trim().split(/\s+/)[0];
+  if (!voornaam) return "uw kind";
+  return voornaam.charAt(0).toUpperCase() + voornaam.slice(1);
+}
+
+/** De tekst voor deze invuller: juiste aanspreekvorm, met de naam van het kind erin. */
+export function persoonlijk(t: Tekst, a: Antwoorden): string {
+  return tekst(t, a.voorWie ?? "ouder").replaceAll("{kind}", voornaamKind(a));
 }
 
 export type Optie = {
@@ -84,30 +84,27 @@ export type Optie = {
 export type StapId =
   // hoofdroute
   | "voor_wie"
+  | "naam_kind"
   | "klas"
-  | "vak"
+  | "landelijk"
   | "cijfer"
-  | "sinds"
-  | "doel"
-  | "eerder_bijles"
-  | "wat_werkte_niet"
-  | "grootste_probleem"
+  | "grafiek"
   | "ouder_pijn"
+  | "geruststelling"
+  | "grootste_probleem"
+  | "droom"
   | "contact"
-  | "beschikbaarheid"
-  // zijroute A — klas 4/5
+  // zijroute — klas 4/5
   | "inhaal_bericht"
   | "inhaal_contact"
-  // zijroute D — ander vak
-  | "vak_bericht"
-  | "gevraagde_vakken"
-  | "vak_cijfer"
-  | "vak_contact"
-  // zijroute E — ander niveau
+  // zijroute — ander niveau of ander vak
   | "niveau_bericht"
   | "gevraagd_niveau"
   | "niveau_vak"
   | "niveau_contact";
+
+/** Korte zin boven de vraag die reageert op het vorige antwoord. */
+type Reactie = (a: Antwoorden) => Tekst;
 
 export type Stap =
   | {
@@ -115,6 +112,7 @@ export type Stap =
       soort: "keuze"; // enkelvoudig — klikken slaat op en gaat door
       vraag: Tekst;
       toelichting?: Tekst;
+      reactie?: Reactie;
       opties: Optie[];
       veld: keyof Antwoorden;
     }
@@ -123,9 +121,38 @@ export type Stap =
       soort: "meerkeuze"; // meerdere antwoorden, expliciete Verder-knop
       vraag: Tekst;
       toelichting?: Tekst;
+      reactie?: Reactie;
       opties: Optie[];
       veld: keyof Antwoorden;
       andersVeld?: keyof Antwoorden;
+    }
+  | {
+      id: StapId;
+      soort: "statistiek"; // landelijke cijfers na de klasvraag; de inhoud volgt uit de klas
+      knop: Tekst;
+    }
+  | {
+      id: StapId;
+      soort: "grafiek"; // persoonlijke grafiek: waar het kind nu staat en waar het naartoe kan
+      vraag: Tekst;
+      toelichting?: Tekst;
+      reactie?: Reactie;
+      /** Eerlijke kanttekening onder de grafiek. */
+      noot: Tekst;
+      /** Waar het getal vandaan komt, klein onderaan. */
+      bron: Tekst;
+      knop: Tekst;
+    }
+  | {
+      id: StapId;
+      soort: "geruststelling"; // na de ouderpijn: wat wij doen aan precies die zorgen
+      vraag: Tekst;
+      toelichting?: Tekst;
+      reactie?: Reactie;
+      /** Persoonlijke zin van Adam onderaan, met zijn foto. */
+      citaat: Tekst;
+      afzender: string;
+      knop: Tekst;
     }
   | {
       id: StapId;
@@ -141,19 +168,9 @@ export type Stap =
       soort: "contact";
       vraag: Tekst;
       toelichting?: Tekst;
-      /** Welke velden dit scherm toont; de hoofdroute vraagt meer dan de zijroutes. */
+      reactie?: Reactie;
+      /** Welke velden dit scherm toont. */
       velden: ContactVeld[];
-      knop: Tekst;
-      /** Extra vinkje onderaan (zijroute D). */
-      vinkje?: { veld: keyof Antwoorden; label: Tekst };
-    }
-  | {
-      id: StapId;
-      soort: "afsluiting"; // laatste scherm vóór verzenden
-      vraag: Tekst;
-      opties: Optie[];
-      veld: keyof Antwoorden;
-      opmerkingLabel: Tekst;
       knop: Tekst;
     };
 
@@ -164,15 +181,4 @@ export type ContactVeld = {
   autoComplete?: string;
   placeholder?: string;
   verplicht: boolean;
-  /**
-   * Toon dit veld alleen bij deze aanspreekvorm. Weglaten = altijd tonen.
-   * Nodig omdat de ouder én zichzelf én de leerling invult, terwijl de
-   * leerling die het zelf doet maar één naam heeft.
-   */
-  alleenVoor?: VoorWie;
 };
-
-/** De velden die bij deze aanspreekvorm horen. */
-export function zichtbareVelden(velden: ContactVeld[], voorWie: VoorWie): ContactVeld[] {
-  return velden.filter((v) => !v.alleenVoor || v.alleenVoor === voorWie);
-}

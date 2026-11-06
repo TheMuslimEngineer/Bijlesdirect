@@ -1,5 +1,7 @@
 # De Slagingscheck — vragenstroom + Claude Code prompt
 
+> **Let op (5 november 2026):** de vragenstroom hieronder is vervangen door een kortere, emotionelere versie. De actuele vragen staan in `src/components/slagingscheck/questions.ts`. Dit document blijft staan als achtergrond.
+
 Dit document bestaat uit twee delen:
 
 - **Deel A** — het ontwerp van de vragenstroom (voor jou, om te beoordelen en aan te passen)
@@ -289,7 +291,7 @@ Bouw een meerstaps aanmeldformulier ("De Slagingscheck") ter vervanging van het 
 
 ### Context
 
-Bijlesdirect verkoopt een examentrainingsprogramma wiskunde van €2.450 voor HAVO/VWO-examenkandidaten. Dit formulier is de enige conversieactie op de site en leidt tot een gratis adviesgesprek van 30 minuten ("De Slagingscheck"). Het formulier doet twee dingen tegelijk: het kwalificeert de aanvrager, en het laat de ouder voelen dat we het probleem begrijpen.
+ExamenDocent verkoopt een examentrainingsprogramma wiskunde van €2.450 voor HAVO/VWO-examenkandidaten. Dit formulier is de enige conversieactie op de site en leidt tot een gratis adviesgesprek van 30 minuten ("De Slagingscheck"). Het formulier doet twee dingen tegelijk: het kwalificeert de aanvrager, en het laat de ouder voelen dat we het probleem begrijpen.
 
 Lees eerst `docs/brief-website-herbouw.md` en `docs/merkbord.html` voor merk, toon en kleuren.
 
@@ -350,7 +352,7 @@ type Antwoorden = {
 | cijfer | overig | direct naar "eerderBijles" |
 | eerderBijles | `ja_hielp_niet` | stap "watWerkteNiet" |
 
-**Belangrijk:** zijroutes D en E zijn géén uitgangen. Ze tonen eerlijk dat het gevraagde vak/niveau nu niet wordt aangeboden, maar lopen dóór met een verkorte vragenreeks. Bijlesdirect gebruikt die antwoorden om te bepalen naar welk vak en niveau er wordt uitgebreid. Zie Deel A, "De zijroutes", voor de exacte teksten en vragen.
+**Belangrijk:** zijroutes D en E zijn géén uitgangen. Ze tonen eerlijk dat het gevraagde vak/niveau nu niet wordt aangeboden, maar lopen dóór met een verkorte vragenreeks. ExamenDocent gebruikt die antwoorden om te bepalen naar welk vak en niveau er wordt uitgebreid. Zie Deel A, "De zijroutes", voor de exacte teksten en vragen.
 
 De verkorte routes bevatten **geen** verkoopvragen (eerdere bijles, ouderpijn, beschikbaarheid) — alleen wat nodig is om de vraag te meten en contact te houden.
 

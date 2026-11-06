@@ -24,8 +24,8 @@ export type Bericht = {
 
 export function mailAdres() {
   return {
-    naarBijlesdirect: process.env.INTAKE_TO ?? site.email,
-    van: process.env.INTAKE_FROM ?? "Bijlesdirect <onboarding@resend.dev>",
+    naarExamenDocent: process.env.INTAKE_TO ?? site.email,
+    van: process.env.INTAKE_FROM ?? "ExamenDocent <onboarding@resend.dev>",
   };
 }
 
@@ -64,12 +64,12 @@ export function omlijst(inhoud: string) {
   return `
   <div style="font-family:Arial,Helvetica,sans-serif;max-width:600px;margin:0 auto;color:#1b1a16">
     <div style="background:#0e6b4f;padding:22px 28px;border-radius:14px 14px 0 0">
-      <span style="color:#ffffff;font-size:20px;font-weight:bold;letter-spacing:-0.02em">Bijlesdirect</span>
+      <span style="color:#ffffff;font-size:20px;font-weight:bold;letter-spacing:-0.02em">ExamenDocent</span>
     </div>
     <div style="background:#fbfaf6;padding:28px;border:1px solid #e6e0d4;border-top:0;border-radius:0 0 14px 14px">
       ${inhoud}
       <p style="font-size:13px;color:#8a8270;margin:26px 0 0">
-        Bijlesdirect · <a href="${site.phoneHref}" style="color:#0a5340">${site.phoneDisplay}</a> ·
+        ExamenDocent · <a href="${site.phoneHref}" style="color:#0a5340">${site.phoneDisplay}</a> ·
         <a href="${site.whatsapp}" style="color:#0a5340">WhatsApp</a>
       </p>
     </div>

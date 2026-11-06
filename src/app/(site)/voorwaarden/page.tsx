@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
 import { site } from "@/lib/site";
-import { programma, prijzen, garantie, euro } from "@/config/programma";
+import { programma, prijzen, garantie, premiumGarantie, euro } from "@/config/programma";
 
 export const metadata: Metadata = {
   title: "Algemene voorwaarden",
   description:
-    "De algemene voorwaarden van Bijlesdirect, inclusief de volledige voorwaarden van de slagingsgarantie.",
+    "De algemene voorwaarden van ExamenDocent, inclusief de volledige voorwaarden van de slagingsgarantie.",
   alternates: { canonical: "/voorwaarden" },
 };
 
@@ -19,7 +19,7 @@ export default function VoorwaardenPage() {
         <div className="prose prose-lg mx-auto max-w-3xl prose-headings:font-display">
           <h2>1. Definities</h2>
           <p>
-            In deze voorwaarden wordt verstaan onder &ldquo;Bijlesdirect&rdquo; de onderneming met
+            In deze voorwaarden wordt verstaan onder &ldquo;ExamenDocent&rdquo; de onderneming met
             KvK-nummer {site.kvk}, onder &ldquo;opdrachtgever&rdquo; de ouder of verzorger die een
             overeenkomst aangaat, en onder &ldquo;het programma&rdquo; {programma.naam}.
           </p>
@@ -36,15 +36,17 @@ export default function VoorwaardenPage() {
           <p>
             Aanmelding verloopt via de gratis en vrijblijvende Slagingscheck. Een overeenkomst komt tot
             stand nadat de opdrachtgever akkoord gaat met het voorstel en de diagnostische toets is
-            afgenomen. Bijlesdirect behoudt zich het recht voor een leerling niet toe te laten wanneer het
-            programma naar oordeel van Bijlesdirect niet passend is.
+            afgenomen. ExamenDocent behoudt zich het recht voor een leerling niet toe te laten wanneer het
+            programma naar oordeel van ExamenDocent niet passend is.
           </p>
 
           <h2>4. Tarieven en betaling</h2>
           <p>
             De deelnamekosten bedragen {euro(prijzen.programma)}, te voldoen in één termijn of in{" "}
-            {prijzen.termijnen.aantal} termijnen van {euro(prijzen.termijnen.bedrag)} zonder extra kosten.
-            De variant Premium 1-op-1 bedraagt {euro(prijzen.premium)}. Betaling vindt plaats na de
+            {prijzen.termijnen.aantal} termijnen van {euro(prijzen.termijnen.bedrag)} (in totaal{" "}
+            {euro(prijzen.termijnenTotaal)}).
+            De variant Premium 1-op-1 bedraagt {euro(prijzen.premium)}, te voldoen in één termijn of in{" "}
+            {prijzen.premiumTermijnen.aantal} termijnen van {euro(prijzen.premiumTermijnen.bedrag)}. Betaling vindt plaats na de
             Slagingscheck en vóór aanvang van het programma, tenzij schriftelijk anders overeengekomen.
           </p>
 
@@ -65,8 +67,14 @@ export default function VoorwaardenPage() {
           </ul>
           <p>
             {garantie.toelichting} De garantie heeft betrekking op het behalen van een voldoende voor het
-            eindexamen wiskunde. Voor de variant Premium 1-op-1 geldt geen cijfergarantie; daar wordt het
-            leerdoel individueel vastgesteld na de diagnostische toets.
+            eindexamen wiskunde.
+          </p>
+          <p>
+            Voor de variant Premium 1-op-1 geldt een cijfergarantie. Haalt de leerling geen{" "}
+            {premiumGarantie.cijfer},0 of hoger voor het centraal examen wiskunde, dan begeleiden we gratis
+            door tot de herkansing. Haalt de leerling ook dan geen {premiumGarantie.cijfer},0, dan volgt
+            volledige terugbetaling. Deze garantie geldt alleen voor leerlingen die via onze selectie zijn
+            toegelaten, en onder dezelfde voorwaarden als hierboven.
           </p>
           <p>
             Terugbetaling vindt plaats binnen 30 dagen na bekendmaking van de herkansingsuitslag, na
@@ -82,7 +90,7 @@ export default function VoorwaardenPage() {
 
           <h2>7. Aansprakelijkheid</h2>
           <p>
-            Bijlesdirect spant zich maximaal in om het afgesproken resultaat te behalen. Buiten de hierboven
+            ExamenDocent spant zich maximaal in om het afgesproken resultaat te behalen. Buiten de hierboven
             omschreven slagingsgarantie is de aansprakelijkheid beperkt tot het bedrag van de betreffende
             dienst.
           </p>
@@ -93,12 +101,6 @@ export default function VoorwaardenPage() {
             <a href={`mailto:${site.email}`}>{site.email}</a> of {site.phoneDisplay}.
           </p>
 
-          <p className="text-sm">
-            <em>
-              Dit is een algemene basisversie. Laat de definitieve voorwaarden — en in het bijzonder de
-              garantiebepaling — vóór livegang juridisch controleren.
-            </em>
-          </p>
         </div>
       </Container>
     </>

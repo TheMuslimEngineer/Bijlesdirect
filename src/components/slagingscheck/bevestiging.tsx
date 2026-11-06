@@ -55,16 +55,12 @@ function Regels({ blok }: { blok: Blok }) {
 
 const zijrouteTekst: Record<Exclude<Route, "hoofdroute">, { kop: string; body: string }> = {
   inhaalprogramma: {
-    kop: "Genoteerd — we laten het weten.",
-    body: "Zodra de volgende groep van het Inhaalprogramma start, hoort u het van ons. Geen nieuwsbrief, alleen dit bericht.",
-  },
-  ander_vak: {
-    kop: "Dank u wel — dit helpt ons echt.",
-    body: "We houden bij welke vakken het vaakst gevraagd worden. Zodra we dit vak aanbieden, bent u een van de eersten die het hoort.",
+    kop: "Bedankt. We nemen contact met u op.",
+    body: "Samen kijken we wat we voor uw kind kunnen doen. U krijgt geen nieuwsbrief. Alleen dit bericht.",
   },
   ander_niveau: {
-    kop: "Dank u wel — dit helpt ons echt.",
-    body: "We houden bij naar welke niveaus de vraag uitgaat. Zodra we hier iets voor hebben, laten we het u weten.",
+    kop: "Dank u wel. Dit helpt ons echt.",
+    body: "Zo weten we waar ouders hulp bij zoeken. Gaan we dit ook doen? Dan hoort u het van ons.",
   },
 };
 
@@ -90,13 +86,13 @@ export function Bevestiging({ antwoorden, route }: { antwoorden: Antwoorden; rou
 
           <div className="mt-10 rounded-3xl border border-line bg-paper p-6 sm:p-8">
             <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-green">
-              Alvast meegestuurd
+              {jeVorm ? "Alvast voor jou" : "Alvast voor u"}
             </p>
             <h2 className="kop-tekst mt-3 text-[clamp(1.35rem,3.5vw,1.75rem)] text-ink">{gids.titel}</h2>
             <p className="mt-3 text-[15px] text-muted">
               {jeVorm
-                ? "We sturen dit ook naar je mailbox, zodat je het rustig kunt teruglezen."
-                : "We sturen dit ook naar uw mailbox, zodat u het rustig kunt teruglezen."}
+                ? "Je krijgt dit ook per e-mail. Dan kun je het later nog eens lezen."
+                : "U krijgt dit ook per e-mail. Dan kunt u het later nog eens lezen."}
             </p>
 
             <div className="mt-8 space-y-9">
@@ -117,6 +113,18 @@ export function Bevestiging({ antwoorden, route }: { antwoorden: Antwoorden; rou
           <p className="mt-4 text-[17px] leading-relaxed text-ink-soft">
             {zijrouteTekst[route as Exclude<Route, "hoofdroute">].body}
           </p>
+          <p className="mt-4 text-[17px] leading-relaxed text-ink-soft">
+            Zoekt u nu al bijles?{" "}
+            <a
+              href={site.bijlesdirectUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-green-deep underline underline-offset-4 hover:text-green"
+            >
+              Kijk bij Bijlesdirect
+            </a>
+            , waar ExamenDocent bij hoort.
+          </p>
         </>
       )}
 
@@ -126,13 +134,13 @@ export function Bevestiging({ antwoorden, route }: { antwoorden: Antwoorden; rou
           className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-green px-6 text-[15px] font-semibold text-white transition-colors hover:bg-green-deep"
         >
           <WhatsApp className="h-5 w-5" />
-          Liever meteen contact? WhatsApp ons
+          Nu al een vraag? Stuur een WhatsApp
         </a>
         <Link
           href="/"
           className="inline-flex min-h-[52px] items-center rounded-full border border-line px-6 text-[15px] font-semibold text-ink-soft transition-colors hover:border-ink hover:text-ink"
         >
-          Terug naar de site
+          Terug naar de website
         </Link>
       </div>
 

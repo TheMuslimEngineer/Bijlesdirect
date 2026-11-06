@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bijlesdirect — Merkbord</title>
+<title>ExamenDocent — Merkbord</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -81,6 +81,21 @@
   .type-card .rollen{margin-top:14px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
   @media(max-width:760px){.type-grid{grid-template-columns:1fr}}
 
+  /* variabele assen */
+  .axes-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:16px}
+  .axes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+  .axis{border:1px solid var(--line);border-radius:12px;padding:16px}
+  .axis .tag{font-family:'Inter';font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green-deep);background:var(--green-soft);display:inline-block;padding:3px 9px;border-radius:999px}
+  .axis .naam{margin-top:10px;font-weight:600;font-size:14.5px}
+  .axis .uitleg{margin-top:4px;font-size:13px;color:var(--ink-soft)}
+  .axis .voorbeeld{margin-top:12px;font-family:'Fraunces',serif;font-size:26px;border-top:1px solid var(--line);padding-top:10px}
+  .ax-opsz-laag{font-variation-settings:"opsz" 14}
+  .ax-opsz-hoog{font-variation-settings:"opsz" 144}
+  .ax-soft{font-variation-settings:"opsz" 60,"SOFT" 60}
+  .ax-wonk{font-variation-settings:"opsz" 60,"WONK" 1}
+  .axes-note{margin-top:14px;font-size:13px;color:var(--muted)}
+  @media(max-width:760px){.axes-grid{grid-template-columns:1fr}}
+
   /* UI elementen */
   .ui-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
   .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:13px 24px;border-radius:999px;font-family:'Inter'}
@@ -132,15 +147,15 @@
   <div class="wrap head-grid">
     <div>
       <div class="logo-lockup">
-        <img src="brand-icon.png" alt="Bijlesdirect icoon" />
-        <span class="name">Bijlesdirect</span>
+        <img src="brand-icon.png" alt="ExamenDocent icoon" />
+        <span class="name">ExamenDocent</span>
       </div>
-      <p class="tagline">Persoonlijke 1-op-1 online bijles · basisschool &amp; voortgezet onderwijs</p>
+      <p class="tagline">Examentraining wiskunde voor de bovenbouw — HAVO &amp; VWO · geslaagd of geld terug</p>
     </div>
     <div class="meta">
       <strong style="color:var(--ink)">Merkbord</strong><br />
-      Versie 1.0 · juli 2026<br />
-      bijlesdirect.nl
+      Versie 2.0 · augustus 2026<br />
+      examendocent.nl
     </div>
   </div>
 </header>
@@ -151,13 +166,13 @@
     <div class="sec-title">Merkessentie</div>
     <div class="essence">
       <div>
-        <h1>Betere cijfers en <em>meer zelfvertrouwen</em> voor uw kind.</h1>
-        <p>Bijlesdirect is de persoonlijke tegenhanger van het anonieme bijlesinstituut: één vaste docent, volledige begeleiding standaard inbegrepen, en risicoloos starten — geen inschrijfkosten, maandelijks opzegbaar.</p>
+        <h1>Uw kind slaagt voor het eindexamen wiskunde. <em>Gegarandeerd.</em></h1>
+        <p>ExamenDocent heeft één programma en één belofte: 12 weken examentraining wiskunde voor HAVO- en VWO-examenkandidaten, met een vaste, afgestudeerde bèta-professional en een diagnose vooraf. Slaagt uw kind niet, dan trainen we gratis door tot de herkansing — en lukt het dan nog niet, dan krijgt u uw geld terug.</p>
       </div>
       <div class="kern">
-        <div class="chip"><span class="dot"></span>Persoonlijk — echte mensen, echte resultaten</div>
-        <div class="chip"><span class="dot"></span>Risicoloos — geen drempels, geen kleine lettertjes</div>
-        <div class="chip"><span class="dot"></span>Premium maar warm — kwaliteit zonder afstandelijkheid</div>
+        <div class="chip"><span class="dot"></span>Gegarandeerd — geslaagd of geld terug</div>
+        <div class="chip"><span class="dot"></span>Gespecialiseerd — één vak, één examenjaar, tot in detail beheerst</div>
+        <div class="chip"><span class="dot"></span>Persoonlijk — geen student met een bijbaantje, maar een echte docent</div>
       </div>
     </div>
   </div>
@@ -169,7 +184,7 @@
     <div class="sec-title">Logo</div>
     <div class="logo-grid">
       <div class="logo-card lc-light">
-        <div class="mini-lockup"><img src="brand-icon.png" alt="" /><span>Bijlesdirect</span></div>
+        <div class="mini-lockup"><img src="brand-icon.png" alt="" /><span>ExamenDocent</span></div>
         <span class="lbl">Primair · op wit</span>
       </div>
       <div class="logo-card lc-sand">
@@ -177,7 +192,7 @@
         <span class="lbl">Alleen icoon · op zand</span>
       </div>
       <div class="logo-card lc-dark">
-        <div class="mini-lockup"><img src="brand-icon.png" alt="" /><span>Bijlesdirect</span></div>
+        <div class="mini-lockup"><img src="brand-icon.png" alt="" /><span>ExamenDocent</span></div>
         <span class="lbl">Diapositief · op inkt</span>
       </div>
     </div>
@@ -193,7 +208,7 @@
       <div class="swatch"><div class="color" style="background:#0E6B4F"></div><div class="info"><div class="nm">Groen</div><div class="hex">#0E6B4F</div><div class="use">Primair · knoppen · logo</div></div></div>
       <div class="swatch"><div class="color" style="background:#0A5340"></div><div class="info"><div class="nm">Diep groen</div><div class="hex">#0A5340</div><div class="use">Hover · nadruk</div></div></div>
       <div class="swatch"><div class="color" style="background:#E4F0EA"></div><div class="info"><div class="nm">Zacht groen</div><div class="hex">#E4F0EA</div><div class="use">Accentvlakken · pills</div></div></div>
-      <div class="swatch"><div class="color" style="background:#BF7D2C"></div><div class="info"><div class="nm">Goud</div><div class="hex">#BF7D2C</div><div class="use">Sterren · badges · spaarzaam</div></div></div>
+      <div class="swatch"><div class="color" style="background:#BF7D2C"></div><div class="info"><div class="nm">Goud</div><div class="hex">#BF7D2C</div><div class="use">Sterren · schaarste · badges, spaarzaam</div></div></div>
       <div class="swatch"><div class="color" style="background:#FBFAF6;border-bottom:1px solid var(--line)"></div><div class="info"><div class="nm">Crème</div><div class="hex">#FBFAF6</div><div class="use">Achtergrond</div></div></div>
       <div class="swatch"><div class="color" style="background:#F3EFE6"></div><div class="info"><div class="nm">Zand</div><div class="hex">#F3EFE6</div><div class="use">Secties · banden</div></div></div>
       <div class="swatch"><div class="color" style="background:#1B1A16"></div><div class="info"><div class="nm">Inkt</div><div class="hex">#1B1A16</div><div class="use">Koppen · tekst · donkere vlakken</div></div></div>
@@ -209,14 +224,40 @@
     <div class="type-grid">
       <div class="type-card">
         <div class="fam">Koppen — Fraunces</div>
-        <div class="specimen spec-fraunces">Excelleren begint met <em>aandacht</em>.</div>
-        <div class="rollen">Gewichten 400–600 · cursief voor nadruk in merkgroen · strakke regelafstand (1.05–1.1)</div>
+        <div class="specimen spec-fraunces">Het ligt niet aan <em>uw kind</em>.</div>
+        <div class="rollen">Gewicht 500 · cursief voor nadruk in merkgroen · strakke regelafstand (1.05–1.1). Variabele font — zie de assen hieronder.</div>
       </div>
       <div class="type-card">
         <div class="fam">Lopende tekst — Inter</div>
-        <div class="specimen spec-inter">Persoonlijke online bijles van bevlogen docenten. Vandaag een gratis intake, deze week al de eerste les. Wij geloven in echte aandacht: één vaste docent die uw kind écht leert kennen.</div>
+        <div class="specimen spec-inter">12 weken examentraining wiskunde, met een vaste docent en een diagnose vooraf. Slaagt uw kind niet, dan trainen we gratis door tot de herkansing.</div>
         <div class="rollen">Regular 400 voor tekst · Medium 500 voor labels · SemiBold 600 voor knoppen · regelafstand 1.6</div>
       </div>
+    </div>
+
+    <div class="axes-card">
+      <div class="fam">Fraunces is variabel — drie assen sturen de snede</div>
+      <p style="margin-top:8px;font-size:13.5px;color:var(--ink-soft)">Geen vaste gewichten laden, maar de assen zelf. <code style="font-family:monospace;font-size:12.5px">opsz</code> bepaalt hóé de letter getekend is, niet hoe groot — een displaykop wil fijne haarlijnen en veel contrast, een klein kopje juist niet. Zonder deze as staat alles op de snede voor lopende tekst, ook een kop van 60px.</p>
+      <div class="axes-grid">
+        <div class="axis">
+          <span class="tag">opsz</span>
+          <div class="naam">Optische grootte</div>
+          <div class="uitleg">9–144 · h1 op 144, kleine kopjes op 28. Bepaalt fijnheid van de haarlijnen.</div>
+          <div class="voorbeeld ax-opsz-laag">Wiskunde</div>
+        </div>
+        <div class="axis">
+          <span class="tag">SOFT</span>
+          <div class="naam">Zachtheid</div>
+          <div class="uitleg">0–100 · h1 op 40. Verzacht de uiteinden — past bij "premium maar warm".</div>
+          <div class="voorbeeld ax-soft">Wiskunde</div>
+        </div>
+        <div class="axis">
+          <span class="tag">WONK</span>
+          <div class="naam">Eigenzinnigheid</div>
+          <div class="uitleg">0 of 1 · alléén op het accentwoord in de hero. De alternatieve letterkorven.</div>
+          <div class="voorbeeld ax-wonk">Gegarandeerd</div>
+        </div>
+      </div>
+      <p class="axes-note">Vaste waarden per kopniveau: h1 → opsz 144 / SOFT 40 · h2 → opsz 96 / SOFT 35 · h3/h4 → opsz 28 / SOFT 25. WONK staat verder overal op 0 — spaarzaam gebruiken, dit is het handschrift van het merk, niet een effect.</p>
     </div>
   </div>
 </section>
@@ -226,14 +267,14 @@
   <div class="wrap">
     <div class="sec-title">Vaste elementen</div>
     <div class="ui-row">
-      <span class="btn btn-primary">Vraag een gratis intake aan →</span>
-      <span class="btn btn-ghost">Hoe het werkt</span>
-      <span class="pill">✓ Geen inschrijfkosten</span>
-      <span class="badge-gold">Meest gekozen</span>
+      <span class="btn btn-primary">Vraag een gratis Slagingscheck aan →</span>
+      <span class="btn btn-ghost">Bekijk het programma</span>
+      <span class="pill">Gratis Slagingscheck · 30 minuten</span>
+      <span class="badge-gold">Vlaggenschip</span>
       <span class="stars">★★★★★</span>
-      <span class="chip-vak">Wiskunde</span>
+      <span class="chip-vak">Wiskunde B</span>
     </div>
-    <p class="ui-note">Knoppen altijd afgerond (pill-vorm) · één primaire (groene) knop per sectie · goud alleen voor sterren en "Meest gekozen" · kaarten met 16–28px afronding en subtiele lijnrand, nooit harde schaduwen.</p>
+    <p class="ui-note">Knoppen altijd afgerond (pill-vorm) · één primaire (groene) knop per sectie · goud alleen voor sterren, schaarste-stippen en de "Vlaggenschip"-badge · kaarten met 16–28px afronding en subtiele lijnrand, nooit harde schaduwen.</p>
   </div>
 </section>
 
@@ -246,24 +287,29 @@
         <h3>Wél zo</h3>
         <ul>
           <li>Warm en persoonlijk — "u" tegen ouders, "je" tegen leerlingen</li>
+          <li><b>Benoem de zorg die er al is</b> — precies, zonder omhaal. Een ouder die haar eigen avond terugleest, voelt zich begrepen</li>
           <li>Concreet en eerlijk: echte cijfers, echte namen, echte resultaten</li>
-          <li>Geruststellend: benoem altijd wat er níét aan vastzit</li>
-          <li>Zelfverzekerd zonder schreeuwen — de resultaten spreken</li>
+          <li>Na de herkenning altijd de uitweg: wat er wél kan, en wat er níét aan vastzit</li>
+          <li>Zelfverzekerd zonder schreeuwen — de garantie spreekt voor zich</li>
         </ul>
       </div>
       <div class="tone-card niet">
         <h3>Niet zo</h3>
         <ul>
           <li>Schoolse afstandelijkheid of instituut-taal ("onderwijsinstelling")</li>
-          <li>Overdreven claims ("gegarandeerd een 8!") of uitroeptekens stapelen</li>
-          <li>Angst aanjagen over achterstanden of blijven zitten</li>
-          <li>Jargon, Engels of afkortingen waar ouders niets mee kunnen</li>
+          <li>Overdreven claims of uitroeptekens stapelen</li>
+          <li><b>Angst áánpraten</b>: gevolgen opblazen die niet waar zijn, of dreigen met iets wat wij niet kunnen weten. Bestaande zorgen benoemen mág en móét — verzonnen zorgen niet</li>
+          <li>De ouder of het kind de schuld geven — nooit</li>
+          <li>Verzonnen schaarste of deadlines die we niet nakomen</li>
+          <li>Jargon, Engels, uurtarieven, of basisschool/Cito — dat bieden we niet meer aan</li>
         </ul>
       </div>
     </div>
     <div class="voorbeeld">
-      <div class="q">"Vandaag een gratis intake, deze week al de eerste les."</div>
-      <div class="s">Voorbeeldzin: concreet, laagdrempelig, actiegericht — zo klinkt Bijlesdirect.</div>
+      <div class="q">"En 's avonds ligt u wakker met dezelfde vraag: gaat dit lukken? Of zitten we in juni tegenover een mentor die zegt dat het jaar over moet?"</div>
+      <div class="s">Voorbeeldzin 1 — herkenning. We verzinnen deze zorg niet; hij is de reden dat de ouder hier is. Door hem te benoemen weet ze dat wij haar situatie kennen.</div>
+      <div class="q" style="margin-top:16px">"Slaagt uw kind niet, dan trainen we gratis door tot de herkansing. Lukt het dan nog niet, dan krijgt u uw geld terug."</div>
+      <div class="s">Voorbeeldzin 2 — de uitweg. Herkenning zonder uitweg is bangmakerij; herkenning mét uitweg is hulp. Altijd in deze volgorde.</div>
     </div>
   </div>
 </section>
@@ -274,8 +320,8 @@
     <div class="sec-title">Kerncijfers &amp; fotografie</div>
     <div class="facts">
       <div class="fact"><div class="big">4,9★</div><div class="lbl">gemiddelde beoordeling</div></div>
-      <div class="fact"><div class="big">500+</div><div class="lbl">gezinnen geholpen</div></div>
-      <div class="fact"><div class="big">100+</div><div class="lbl">reviews van ouders</div></div>
+      <div class="fact"><div class="big">547</div><div class="lbl">gezinnen geholpen sinds 2024</div></div>
+      <div class="fact"><div class="big">100+</div><div class="lbl">reviews van ouders en leerlingen</div></div>
       <div class="fact"><div class="big">98%</div><div class="lbl">betere cijfers in 2025</div></div>
     </div>
     <div class="foto-regels" style="margin-top:22px">
@@ -283,7 +329,7 @@
         <li>Alleen échte foto's: het team, echte lessen, echte werkplekken</li>
         <li>Warm, natuurlijk licht · rustige achtergronden</li>
         <li>Geen stockfoto's, geen cartoon-illustraties, geen AI-mensen</li>
-        <li>Cijfers elk kwartaal actualiseren — nooit afronden naar boven</li>
+        <li>Het cijferpercentage wordt één keer per jaar gemeten, aan het eind van het schooljaar — een achterlopend jaartal is dus juist, niet verouderd. Aantallen gezinnen en reviews mogen tussentijds bij. Nooit afronden naar boven</li>
       </ul>
       <ul>
         <li>WhatsApp-groen (#25D366) alléén voor de WhatsApp-knop</li>
@@ -297,8 +343,8 @@
 
 <footer>
   <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:0">
-    <span>© 2026 Bijlesdirect · KVK 94485038 · info@bijlesdirect.nl</span>
-    <span>Merkbord v1.0 — vragen over gebruik: Adam</span>
+    <span>© 2026 ExamenDocent · KVK 94485038 · info@examendocent.nl</span>
+    <span>Merkbord v2.0 — vragen over gebruik: Adam</span>
   </div>
 </footer>
 

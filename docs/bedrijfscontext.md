@@ -1,4 +1,4 @@
-# Bijlesdirect — Bedrijfscontext
+# ExamenDocent — Bedrijfscontext
 
 *Lees dit eerst. Korte samenvatting van het bedrijf, de niche en het aanbod zodat de AI-helper meteen op de hoogte is.*
 
@@ -7,8 +7,8 @@ Laatst bijgewerkt: 26 juli 2026
 ---
 
 ## Het bedrijf
-- **Naam:** Bijlesdirect (bijlesdirect.nl)
-- **Eigenaar:** Adam (adam@bijlesdirect.nl)
+- **Naam:** ExamenDocent (examendocent.nl)
+- **Eigenaar:** Adam (adam@examendocent.nl)
 - **Wat:** Persoonlijke online bijles, huiswerkbegeleiding en examentraining voor scholieren (basisschool t/m middelbare school).
 - **Aanpak:** Klein, persoonlijk team; direct contact zonder tussenpersonen; wekelijkse voortgangsrapporten; sterke reviews (Trustpilot/Google).
 

@@ -2,7 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 /* ─────────────────────────────────────────────
-   Bijlesdirect — Design system (Richting A · Helder & Warm)
+   ExamenDocent — Design system (Richting A · Helder & Warm)
    ───────────────────────────────────────────── */
 @theme {
   --color-cream: #fbfaf6;
@@ -19,6 +19,10 @@
   --color-green-soft: #e4f0ea;
 
   --color-gold: #bf7d2c;
+  /* Zelfde rood als de "niet"-kaarten in het merkbord — voor bijna-vol,
+     niet voor decoratie. */
+  --color-red: #a3271f;
+  --color-red-soft: #f6e9e8;
   --color-line: #e6e0d4;
 
   --font-display: var(--font-fraunces);
@@ -255,5 +259,61 @@ h3, h4 {
 
 
 
+
+
+/* ─────────────────────────────────────────────
+   Hero — de wisselende wiskundevariant in de kop
+
+   "wiskunde A" wordt uitgetypt, staat even stil, wordt weer
+   gewist en maakt plaats voor "wiskunde B", dan "wiskunde C".
+
+   De drie volledige varianten staan onzichtbaar (visibility:
+   hidden) in dezelfde grid-cel als de zichtbare tekst. Ze nemen
+   geen ruimte weg qua weergave, maar bepalen wél de breedte van
+   de cel — die wordt dus automatisch zo breed als de langste
+   variant, en de rest van de kop schuift tijdens het typen niet
+   heen en weer.
+   ───────────────────────────────────────────── */
+.vak-typewriter-doos {
+  display: inline-grid;
+  vertical-align: baseline;
+}
+
+.vak-typewriter-reservering,
+.vak-typewriter-tekst {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+}
+
+.vak-typewriter-reservering {
+  visibility: hidden;
+}
+
+.vak-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.8em;
+  margin-left: 2px;
+  background: currentColor;
+  vertical-align: -0.05em;
+  animation: vak-cursor-knipper 900ms step-end infinite;
+}
+
+@keyframes vak-cursor-knipper {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vak-cursor {
+    animation: none;
+  }
+}
 
 

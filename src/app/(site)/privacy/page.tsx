@@ -5,7 +5,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacyverklaring",
-  description: "Hoe Bijlesdirect omgaat met uw persoonsgegevens, conform de AVG.",
+  description: "Hoe ExamenDocent omgaat met uw persoonsgegevens, conform de AVG.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -16,7 +16,7 @@ export default function PrivacyPage() {
       <Container className="py-16">
         <div className="prose prose-lg mx-auto max-w-3xl prose-headings:font-display">
           <p>
-            Bijlesdirect (KvK {site.kvk}) hecht veel waarde aan de bescherming van uw persoonsgegevens. In
+            ExamenDocent (KvK {site.kvk}) hecht veel waarde aan de bescherming van uw persoonsgegevens. In
             deze privacyverklaring leggen we uit welke gegevens we verzamelen, waarom en hoe we daarmee
             omgaan, conform de Algemene verordening gegevensbescherming (AVG).
           </p>
@@ -64,12 +64,6 @@ export default function PrivacyPage() {
             <a href={`mailto:${site.email}`}>{site.email}</a> of bel {site.phoneDisplay}.
           </p>
 
-          <p className="text-sm">
-            <em>
-              Dit is een algemene basisversie. Laat de definitieve privacyverklaring vóór livegang
-              controleren op uw specifieke situatie.
-            </em>
-          </p>
         </div>
       </Container>
     </>
