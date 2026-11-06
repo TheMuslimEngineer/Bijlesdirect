@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import { Container } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
 import { PortaalWidget } from "@/components/portaal-widget";
 import { site, portaal } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Inloggen op het portaal",
-  description:
+export const metadata: Metadata = paginaMeta({
+  titel: "Inloggen op het portaal",
+  omschrijving:
     "Log in op het leerlingportaal van ExamenDocent: bekijk je lessen, je rooster en je huiswerk.",
-  alternates: { canonical: "/inloggen" },
+  pad: "/inloggen",
   // Een inlogpagina heeft geen zoekwaarde en hoeft niet in Google.
-  robots: { index: false, follow: true },
-};
+  indexeren: false,
+});
 
 export default function InloggenPage() {
   return (

@@ -19,3 +19,10 @@ export const wiskundeOnvoldoende = {
   havo: 27.9,
   vwo: 20.2,
 };
+
+/** "bijna 28" of "ruim 20": een percentage nooit stilletjes naar boven afronden. */
+export function vanDe100(procent: number) {
+  const heel = Math.round(procent);
+  const woord = heel - procent > 0.05 ? "bijna " : procent - heel > 0.05 ? "ruim " : "";
+  return { heel, tekst: `${woord}${heel}` };
+}

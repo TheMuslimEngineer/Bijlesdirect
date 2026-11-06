@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import { Container, ButtonLink, SectionHeading } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -12,26 +13,19 @@ import { ArrowRight, Check } from "@/components/icons";
 import { programma, prijzen, plekken, euro } from "@/config/programma";
 import { ReviewCard, ReviewPlatforms } from "@/components/sections";
 import { rating, site, reviews } from "@/lib/site";
+import { vakken, vakNaam } from "@/content/vakken";
+import Link from "next/link";
 
 /**
  * De verdieping op de homepage: week voor week hoe Examenklaar werkt, met de
  * volledige FAQ.
  */
-export const metadata: Metadata = {
-  title: "Examentraining wiskunde HAVO en VWO met slagingsgarantie",
-  description:
-    "Examenklaar: 12 weken examentraining wiskunde voor HAVO en VWO, met een vaste docent en een diagnose vooraf. Slaagt uw kind niet, dan trainen we gratis door tot de herkansing. Lukt het dan nog niet, dan krijgt u uw geld terug.",
-  keywords: [
-    "examentraining wiskunde havo",
-    "examentraining wiskunde vwo",
-    "bijles wiskunde examen",
-    "wiskunde B examentraining",
-    "eindexamen wiskunde hulp",
-    "examentraining wiskunde online",
-    "wiskunde bijles examenjaar",
-  ],
-  alternates: { canonical: "/slagingsprogramma" },
-};
+export const metadata: Metadata = paginaMeta({
+  titel: `${programma.naam}: ${programma.duurWeken} weken examentraining wiskunde`,
+  omschrijving:
+    `Eerst een diagnose, dan ${programma.duurWeken} weken les met een vaste docent en elke week een rapport voor u. Slaagt uw kind niet, dan trainen we gratis door.`,
+  pad: "/slagingsprogramma",
+});
 
 /** Course-schema hoort bij dit programma, dus bij deze pagina. */
 const jsonLd = {
@@ -45,17 +39,20 @@ const jsonLd = {
     name: "ExamenDocent",
     url: site.domain,
   },
+  url: `${site.domain}/slagingsprogramma`,
+  inLanguage: "nl",
+  educationalLevel: "HAVO 5 en VWO 6",
+  hasCourseInstance: {
+    "@type": "CourseInstance",
+    courseMode: "Online",
+    courseWorkload: `PT${programma.lesurenTotaal}H`,
+  },
   offers: {
     "@type": "Offer",
     price: prijzen.programma,
     priceCurrency: "EUR",
-    category: "Examentraining wiskunde",
-  },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: rating.count,
-    bestRating: "5",
+    category: "Paid",
+    url: `${site.domain}/prijs-en-garantie`,
   },
 };
 
@@ -248,6 +245,29 @@ export default function SlagingsprogrammaPage() {
           <div className="mt-12">
             <Waardestapel />
           </div>
+        </Container>
+      </section>
+
+      {/* Per vak: elke combinatie van vak en niveau heeft een eigen pagina met de
+          examenstof. Handig voor ouders, en zo vindt Google ze ook. */}
+      <section className="pb-20">
+        <Container>
+          <h2 className="text-[clamp(1.4rem,2.6vw,1.8rem)] text-ink">Examentraining per vak</h2>
+          <p className="mt-3 max-w-2xl text-[15.5px] text-ink-soft">
+            Wat er op het centraal examen komt en waar leerlingen punten verliezen, per vak en niveau.
+          </p>
+          <ul className="mt-5 flex flex-wrap gap-3">
+            {vakken.map((x) => (
+              <li key={x.slug}>
+                <Link
+                  href={`/examentraining/${x.slug}`}
+                  className="inline-flex rounded-full border border-line bg-white px-5 py-2.5 text-[15px] font-medium text-ink transition-colors hover:border-ink"
+                >
+                  {vakNaam(x)}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 

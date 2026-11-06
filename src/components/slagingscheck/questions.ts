@@ -18,7 +18,7 @@
 
 import { seizoen } from "@/config/programma";
 import { gemiddeldePuntenErbij, site } from "@/lib/site";
-import { wiskundeOnvoldoende } from "@/config/examencijfers";
+import { wiskundeOnvoldoende, vanDe100 } from "@/config/examencijfers";
 import type { Antwoorden, Cijfer, ContactVeld, Markering, Route, Stap, StapId, Tekst } from "./types";
 import { persoonlijk } from "./types";
 
@@ -444,13 +444,6 @@ export function bepaalMarkering(a: Antwoorden): Markering {
 /* ─────────────────────────────────────────────────────────
    De landelijke cijfers na de klasvraag
    ───────────────────────────────────────────────────────── */
-
-/** "bijna 28" of "ruim 20": een percentage nooit stilletjes naar boven afronden. */
-function vanDe100(procent: number) {
-  const heel = Math.round(procent);
-  const woord = heel - procent > 0.05 ? "bijna " : procent - heel > 0.05 ? "ruim " : "";
-  return { heel, tekst: `${woord}${heel}` };
-}
 
 export type Statistiek =
   | { soort: "een"; kop: string; aantal: number; uitweg: Tekst; bron: string }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import Image from "next/image";
 import { Container, ButtonLink, SectionHeading } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
@@ -8,12 +9,12 @@ import { site, gezinnen } from "@/lib/site";
 import adamPortret from "../../../../public/images/adam-portret.webp";
 import abdulrahmanPortret from "../../../../public/images/abdulrahman-portret.webp";
 
-export const metadata: Metadata = {
-  title: "Over ons",
-  description:
+export const metadata: Metadata = paginaMeta({
+  titel: "Over ons: het team achter ExamenDocent",
+  omschrijving:
     "ExamenDocent is een klein, persoonlijk team dat zich volledig richt op examentraining wiskunde voor HAVO en VWO. Lees waarom we die keuze maakten.",
-  alternates: { canonical: "/over-ons" },
-};
+  pad: "/over-ons",
+});
 
 /**
  * Het team. Bewust naast elkaar en even groot: ExamenDocent is een team, niet

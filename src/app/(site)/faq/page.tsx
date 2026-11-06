@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import { Container, ButtonLink } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
 import { FinalCTA } from "@/components/sections";
@@ -6,12 +7,12 @@ import { FaqLijst } from "@/components/programma-secties";
 import { ArrowRight } from "@/components/icons";
 import { faqs, faqTekst } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Veelgestelde vragen over Examenklaar",
-  description:
-    "Antwoord op de meestgestelde vragen over onze examentraining wiskunde: prijs, garantie, groepsgrootte, online lesgeven en wat de gratis Slagingscheck inhoudt.",
-  alternates: { canonical: "/faq" },
-};
+export const metadata: Metadata = paginaMeta({
+  titel: "Veelgestelde vragen over Examenklaar",
+  omschrijving:
+    "Antwoord op de meestgestelde vragen over onze examentraining wiskunde: prijs, garantie, groepsgrootte, online les en de gratis Slagingscheck.",
+  pad: "/faq",
+});
 
 const faqJsonLd = {
   "@context": "https://schema.org",

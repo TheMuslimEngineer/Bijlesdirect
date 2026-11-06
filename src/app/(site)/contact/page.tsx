@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import { Container } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
 import { MessageForm } from "@/components/message-form";
 import { Phone, Mail, WhatsApp, Clock } from "@/components/icons";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
+export const metadata: Metadata = paginaMeta({
+  titel: "Contact: bel, app of mail ons",
+  omschrijving:
     "Vragen over de examentraining wiskunde of Examenklaar? Bel, mail of WhatsApp ExamenDocent, of stuur een bericht via het contactformulier.",
-  alternates: { canonical: "/contact" },
-};
+  pad: "/contact",
+});
 
 const channels = [
   { icon: Phone, label: "Telefoon", value: site.phoneDisplay, href: site.phoneHref },

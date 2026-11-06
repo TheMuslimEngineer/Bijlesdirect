@@ -1,17 +1,17 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { getAllPosts } from "@/lib/blog";
+import { vakken } from "@/content/vakken";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = site.domain;
-  const now = new Date();
-
   const routes: { path: string; priority: number }[] = [
     { path: "", priority: 1 },
     { path: "/slagingsprogramma", priority: 0.9 },
     { path: "/prijs-en-garantie", priority: 0.9 },
     { path: "/hoe-het-werkt", priority: 0.8 },
     { path: "/premium", priority: 0.7 },
+    ...vakken.map((v) => ({ path: `/examentraining/${v.slug}`, priority: 0.8 })),
     { path: "/reviews", priority: 0.7 },
     { path: "/over-ons", priority: 0.6 },
     { path: "/faq", priority: 0.6 },
@@ -22,9 +22,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/voorwaarden", priority: 0.3 },
   ];
 
+  /* Geen lastModified bij vaste pagina's: met de builddatum zou elke pagina
+     bij elke deploy "gewijzigd" lijken, en dan negeert Google de datums. */
   const staticRoutes = routes.map((r) => ({
     url: `${base}${r.path}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: r.priority,
   }));

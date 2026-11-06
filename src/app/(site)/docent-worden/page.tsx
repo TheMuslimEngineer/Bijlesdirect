@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import { Container, SectionHeading } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
 import { MessageForm } from "@/components/message-form";
 import { Check } from "@/components/icons";
 import { programma } from "@/config/programma";
 
-export const metadata: Metadata = {
-  title: "Docent worden: wiskundedocenten gezocht",
-  description:
-    "Geef online examentraining wiskunde aan HAVO- en VWO-examenkandidaten. Kleine groepen, kant-en-klaar curriculum, marktconforme vergoeding. Meld je aan bij ExamenDocent.",
-  alternates: { canonical: "/docent-worden" },
-};
+export const metadata: Metadata = paginaMeta({
+  titel: "Docent worden: wiskundedocenten gezocht",
+  omschrijving:
+    "Geef online examentraining wiskunde aan examenkandidaten HAVO en VWO. Kleine groepen, een curriculum dat klaarligt en een marktconforme vergoeding.",
+  pad: "/docent-worden",
+});
 
 const voordelen = [
   {

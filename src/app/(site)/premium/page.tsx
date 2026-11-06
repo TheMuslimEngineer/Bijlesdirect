@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import { Container, ButtonLink, SectionHeading } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
 import { ProgrammaCTA, SchaarstePill } from "@/components/programma-secties";
 import { ArrowRight, Check } from "@/components/icons";
 import { programma, prijzen, plekken, toonSchaarste, euro, premiumGarantie } from "@/config/programma";
 
-export const metadata: Metadata = {
-  title: "Premium 1-op-1 examentraining wiskunde",
-  description: `Volledig individuele examentraining wiskunde: ${programma.lesurenTotaal} uur 1-op-1 voor leerlingen met een hoger doel, zoals een numerus fixus-studie. Met garantie op een ${premiumGarantie.cijfer} of hoger, na selectie. Slechts ${plekken.premiumTotaal} plekken beschikbaar.`,
-  alternates: { canonical: "/premium" },
-};
+export const metadata: Metadata = paginaMeta({
+  titel: "Premium 1-op-1 examentraining wiskunde",
+  omschrijving:
+    `${programma.lesurenTotaal} uur 1-op-1 examentraining wiskunde voor leerlingen met een hoger doel, zoals een numerus fixus-studie. Garantie op een ${premiumGarantie.cijfer} of hoger, na selectie.`,
+  pad: "/premium",
+});
 
 const voorWie = [
   {

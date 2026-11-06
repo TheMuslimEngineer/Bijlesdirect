@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import { Container, Stars } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
 import { ReviewPlatforms } from "@/components/sections";
@@ -6,12 +7,12 @@ import { ProgrammaCTA } from "@/components/programma-secties";
 import { ReviewsGrid } from "@/components/reviews-grid";
 import { reviews, rating } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Reviews van ouders",
-  description:
-    "Lees ervaringen van ouders en leerlingen. ExamenDocent wordt beoordeeld met een 4,9 uit 5 op basis van 100+ reviews, over hogere cijfers, gehaalde examens en meer zelfvertrouwen.",
-  alternates: { canonical: "/reviews" },
-};
+export const metadata: Metadata = paginaMeta({
+  titel: "Ervaringen en reviews van ouders",
+  omschrijving:
+    "Lees wat ouders over onze begeleiding vertellen: over hogere cijfers, een gehaald examen en meer zelfvertrouwen. Gemiddeld beoordeeld met een 4,9.",
+  pad: "/reviews",
+});
 
 export default function ReviewsPage() {
   return (

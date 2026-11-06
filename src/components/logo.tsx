@@ -7,7 +7,7 @@ export function BrandLogo({ className }: { className?: string }) {
   return (
     <Link
       href="/"
-      aria-label="ExamenDocent — naar de homepage"
+      aria-label="Naar de homepage van ExamenDocent"
       className={cn("flex items-center gap-2.5", className)}
     >
       <Image

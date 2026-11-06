@@ -28,6 +28,8 @@ export const seizoen = {
   /** De examen- en herkansingsperiode van dit schooljaar. */
   examenMaand: "mei",
   herkansingMaand: "juni",
+  /** Het jaar van het centraal examen waar deze groep voor traint. */
+  examenjaar: 2027,
 };
 
 export const programma = {

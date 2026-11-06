@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import { Container, ButtonLink, SectionHeading } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
 import { Waardestapel, GarantieBlok, ProgrammaCTA } from "@/components/programma-secties";
 import { ArrowRight, Target } from "@/components/icons";
 import { programma, prijzen, plekken, toonSchaarste, euro, premiumGarantie } from "@/config/programma";
 
-export const metadata: Metadata = {
-  title: `Prijs en garantie van ${programma.naam}`,
-  description: `Het volledige programma kost ${euro(prijzen.programma)} of ${prijzen.termijnen.aantal} termijnen van ${euro(prijzen.termijnen.bedrag)}. Slaagt uw kind niet, dan trainen we gratis door tot de herkansing. Lukt het dan nog niet, dan krijgt u uw geld terug.`,
-  alternates: { canonical: "/prijs-en-garantie" },
-};
+export const metadata: Metadata = paginaMeta({
+  titel: `Prijs en slagingsgarantie van ${programma.naam}`,
+  omschrijving:
+    `${programma.naam} kost ${euro(prijzen.programma)} in één keer, of ${prijzen.termijnen.aantal} termijnen van ${euro(prijzen.termijnen.bedrag)}. Slaagt uw kind niet, dan trainen we gratis door tot de herkansing.`,
+  pad: "/prijs-en-garantie",
+});
 
 const betaalopties = [
   {

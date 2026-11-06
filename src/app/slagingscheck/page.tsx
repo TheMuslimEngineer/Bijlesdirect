@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import { SlagingscheckForm } from "@/components/slagingscheck/slagingscheck-form";
 
-export const metadata: Metadata = {
-  title: "Gratis Slagingscheck aanvragen",
-  description:
-    "Vraag in twee minuten de gratis Slagingscheck aan. We brengen in kaart waar uw kind staat en geven een eerlijk antwoord op de vraag of slagen in 12 weken haalbaar is.",
-  alternates: { canonical: "/slagingscheck" },
+export const metadata: Metadata = paginaMeta({
+  titel: "Gratis Slagingscheck aanvragen",
+  omschrijving:
+    "Vraag in twee minuten de gratis Slagingscheck aan. We brengen in kaart waar uw kind staat en geven een eerlijk antwoord op de vraag of slagen haalbaar is.",
+  pad: "/slagingscheck",
   // Het formulier is de eindbestemming van de site, geen zoekingang.
-  robots: { index: false, follow: true },
-};
+  indexeren: false,
+});
 
 /**
  * Deze route valt bewust buiten de (site)-groep: geen header, geen footer,

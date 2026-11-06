@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JsonLd, kruimelpadData } from "@/components/gestructureerde-data";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container, ButtonLink } from "@/components/ui";
@@ -25,10 +26,14 @@ export async function generateMetadata({
     alternates: { canonical: `/blog/${slug}` },
     openGraph: {
       type: "article",
+      locale: "nl_NL",
+      siteName: site.name,
+      url: `/blog/${slug}`,
       title: post.meta.title,
       description: post.meta.description,
       publishedTime: post.meta.date,
     },
+    twitter: { card: "summary_large_image", title: post.meta.title, description: post.meta.description },
   };
 }
 
@@ -54,11 +59,17 @@ export default async function BlogPostPage({
     author: { "@type": "Organization", name: post.meta.author },
     publisher: { "@type": "Organization", name: "ExamenDocent" },
     mainEntityOfPage: `${site.domain}/blog/${slug}`,
+    inLanguage: "nl",
   };
+  const kruimels = kruimelpadData([
+    { naam: "Home", pad: "/" },
+    { naam: "Blog", pad: "/blog" },
+    { naam: post.meta.title, pad: `/blog/${slug}` },
+  ]);
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={[jsonLd, kruimels]} />
 
       <article>
         <header className="border-b border-line bg-sand">

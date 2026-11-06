@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import { Container } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Privacyverklaring",
-  description: "Hoe ExamenDocent omgaat met uw persoonsgegevens, conform de AVG.",
-  alternates: { canonical: "/privacy" },
-};
+export const metadata: Metadata = paginaMeta({
+  titel: "Privacyverklaring",
+  omschrijving:
+    "Hoe ExamenDocent omgaat met uw persoonsgegevens: welke gegevens we gebruiken, waarvoor, hoe lang we ze bewaren en welke rechten u heeft onder de AVG.",
+  pad: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

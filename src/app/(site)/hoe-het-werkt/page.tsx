@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import Image from "next/image";
 import { Container, ButtonLink } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
@@ -8,12 +9,12 @@ import { programma } from "@/config/programma";
 import onlineLes from "../../../../public/images/online-les.webp";
 import docentTeam from "../../../../public/images/docent-team.webp";
 
-export const metadata: Metadata = {
-  title: "Onze aanpak bij examentraining wiskunde",
-  description:
+export const metadata: Metadata = paginaMeta({
+  titel: "Zo werkt onze examentraining wiskunde",
+  omschrijving:
     "Diagnose, plan, begeleiding en garantie. Zo werkt Examenklaar, en waarom losse bijlesuren zelden het onderliggende probleem oplossen.",
-  alternates: { canonical: "/hoe-het-werkt" },
-};
+  pad: "/hoe-het-werkt",
+});
 
 const fasen = [
   {

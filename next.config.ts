@@ -13,6 +13,17 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      // Eén adres voor Google: www gaat naar het domein zonder www
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.examendocent.nl" }],
+        destination: "https://examendocent.nl/:path*",
+        permanent: true,
+      },
+
+      // Het overzicht van alle vakken is de programmapagina
+      { source: "/examentraining", destination: "/slagingsprogramma", permanent: false },
+
       // Oude tarievenpagina → nieuwe prijs- en garantiepagina
       { source: "/tarieven", destination: "/prijs-en-garantie", permanent: true },
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import Link from "next/link";
 import { Container } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
@@ -6,12 +7,12 @@ import { FinalCTA } from "@/components/sections";
 import { ArrowRight, Clock } from "@/components/icons";
 import { getAllPosts, formatDate } from "@/lib/blog";
 
-export const metadata: Metadata = {
-  title: "Studietips en advies voor ouders",
-  description:
+export const metadata: Metadata = paginaMeta({
+  titel: "Blog: tips voor het eindexamen wiskunde",
+  omschrijving:
     "Praktische tips over het eindexamen wiskunde: leren, plannen en motivatie. Lees het blog van ExamenDocent en help uw kind op weg naar een voldoende.",
-  alternates: { canonical: "/blog" },
-};
+  pad: "/blog",
+});
 
 export default function BlogPage() {
   const posts = getAllPosts();

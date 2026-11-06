@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import Link from "next/link";
 import Image from "next/image";
 import { Container, ButtonLink, SectionHeading, Stars } from "@/components/ui";
@@ -28,27 +29,43 @@ import stapVoortgang from "../../../public/images/stap-voortgang.webp";
  * overnemen, de waardestapel, de garantie en de grootste bezwaren. De
  * week-voor-week opbouw en de volledige FAQ staan op /slagingsprogramma.
  */
-export const metadata: Metadata = {
-  title: "Slagen voor het eindexamen wiskunde, of uw geld terug",
-  description: `Examenklaar: ${programma.duurWeken} weken examentraining wiskunde voor HAVO en VWO, met een vaste docent en maximaal ${plekken.totaal} plekken. Slaagt uw kind niet, dan trainen we gratis door tot de herkansing. Lukt het dan nog niet, dan krijgt u uw geld terug.`,
-  alternates: { canonical: "/" },
-};
+export const metadata: Metadata = paginaMeta({
+  titel: "Examentraining wiskunde HAVO en VWO | ExamenDocent",
+  omschrijving:
+    `Examentraining wiskunde voor HAVO 5 en VWO 6: ${programma.duurWeken} weken in een klein groepje, met een vaste docent en een plan op maat. Met slagingsgarantie.`,
+  pad: "/",
+  merkInTitel: false,
+});
 
+/* Wie we zijn, voor Google. Geen sterrenbeoordeling: zie gestructureerde-data.tsx. */
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "EducationalOrganization",
-  name: site.name,
-  url: site.domain,
-  description:
-    "Examentraining wiskunde voor examenkandidaten HAVO en VWO, met slagingsgarantie.",
-  telephone: site.phone,
-  email: site.email,
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: rating.count,
-    bestRating: "5",
-  },
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: site.name,
+      url: site.domain,
+      inLanguage: "nl",
+    },
+    {
+      "@type": "EducationalOrganization",
+      name: site.name,
+      url: site.domain,
+      logo: `${site.domain}/brand-icon.png`,
+      description: site.description,
+      telephone: site.phone,
+      email: site.email,
+      areaServed: { "@type": "Country", name: "Nederland" },
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer service",
+        telephone: site.phone,
+        email: site.email,
+        availableLanguage: "nl",
+      },
+      parentOrganization: { "@type": "Organization", name: "Bijlesdirect", url: site.bijlesdirectUrl },
+    },
+  ],
 };
 
 /* De herkenningsregels: de situatie thuis bij een kind in het examenjaar. */

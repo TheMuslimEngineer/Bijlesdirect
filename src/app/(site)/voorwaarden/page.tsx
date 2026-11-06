@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { paginaMeta } from "@/lib/seo";
 import { Container } from "@/components/ui";
 import { PageHeader } from "@/components/page-header";
 import { site } from "@/lib/site";
 import { programma, prijzen, garantie, premiumGarantie, euro } from "@/config/programma";
 
-export const metadata: Metadata = {
-  title: "Algemene voorwaarden",
-  description:
+export const metadata: Metadata = paginaMeta({
+  titel: "Algemene voorwaarden",
+  omschrijving:
     "De algemene voorwaarden van ExamenDocent, inclusief de volledige voorwaarden van de slagingsgarantie.",
-  alternates: { canonical: "/voorwaarden" },
-};
+  pad: "/voorwaarden",
+});
 
 export default function VoorwaardenPage() {
   return (

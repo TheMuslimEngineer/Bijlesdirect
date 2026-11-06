@@ -57,11 +57,9 @@ export const metadata: Metadata = {
     "online examentraining wiskunde",
     "slagingsgarantie examen",
   ],
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "nl_NL",
-    url: site.domain,
     siteName: "ExamenDocent",
     title: "ExamenDocent | Examentraining wiskunde met slagingsgarantie",
     description: site.description,

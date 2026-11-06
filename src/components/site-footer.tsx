@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { BrandLogo } from "@/components/logo";
+import { vakken, vakNaam } from "@/content/vakken";
 
 const cols = [
   {
@@ -78,8 +79,21 @@ export function SiteFooter() {
           </div>
         </div>
 
+        {/* De vakpagina's, zodat ze vanaf elke pagina bereikbaar zijn. */}
+        <nav aria-label="Examentraining per vak" className="mt-12 text-[15px] text-ink-soft">
+          <span className="font-semibold text-ink">Examentraining per vak: </span>
+          {vakken.map((x, i) => (
+            <span key={x.slug}>
+              <Link href={`/examentraining/${x.slug}`} className="hover:text-green hover:underline">
+                {vakNaam(x)}
+              </Link>
+              {i < vakken.length - 1 && <span aria-hidden> · </span>}
+            </span>
+          ))}
+        </nav>
+
         {/* Voor wie niet in het examenjaar zit of 1-op-1 bijles zoekt: het moederbedrijf. */}
-        <p className="mt-12 rounded-2xl bg-white/70 px-5 py-4 text-[15px] text-ink-soft">
+        <p className="mt-6 rounded-2xl bg-white/70 px-5 py-4 text-[15px] text-ink-soft">
           Zit uw kind niet in het examenjaar, of zoekt u 1-op-1 bijles?{" "}
           <a
             href={site.bijlesdirectUrl}
